@@ -1386,7 +1386,7 @@ const createMessageElement = (content, ...classes) => {
   return div;
 };
 
-// Generate bot response using backend API with web access
+// Generate bot response using Gemini API directly
 const generateBotResponse = async (incomingMessageDiv) => {
   const messageElement = incomingMessageDiv.querySelector(".message-text");
 
@@ -1397,14 +1397,17 @@ const generateBotResponse = async (incomingMessageDiv) => {
   });
 
   try {
-    // First, send message to backend
-    const response = await fetch('/api/chat', {
+    // Send message to Gemini API
+    const response = await fetch(API_URL, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        message: userData.message,
-        history: chatHistory.slice(0, -1), // Send history without current message
-        needsWebAccess: true
+        contents: chatHistory,
+        systemInstruction: systemInstruction,
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: 1024,
+        }
       }),
     });
 
@@ -1413,61 +1416,7 @@ const generateBotResponse = async (incomingMessageDiv) => {
     }
 
     const data = await response.json();
-    let apiResponseText = data.response;
-
-//     // Check if AI requested web access
-//     const webAccessMatch = apiResponseText.match(/Can i Access Website:\s*(https?:\/\/[^\s\n]+)/i);
-//     if (webAccessMatch) {
-//       const url = webAccessMatch[1].trim();
-//       messageElement.innerHTML = parseMarkdown(" Fetching webpage content from " + url + "...");
-
-//       try {
-//         // Fetch webpage content
-//         const webResponse = await fetch('/api/fetch-web', {
-//           method: "POST",
-//           headers: { "Content-Type": "application/json" },
-//           body: JSON.stringify({ url }),
-//         });
-
-//         if (webResponse.ok) {
-//           const webData = await webResponse.json();
-//           const webpageContent = webData.content;
-
-
-//           // Send follow-up message with webpage content
-//           const followUpResponse = await fetch('/api/chat', {
-//             method: "POST",
-//             headers: { "Content-Type": "application/json" },
-//             body: JSON.stringify({
-//               // 🛑 FIX APPLIED HERE: Changed the prompt to remove "I fetched from ${url}" 
-//               // and present the data neutrally as "Document Context".
-//               message: `Please analyze the following document context to provide a comprehensive answer to the user's original question: "${userData.message}"
-
-// Document Context:
-// ---
-// ${webpageContent.substring(0, 2000)}
-// ---
-// `,
-//               history: chatHistory,
-//               needsWebAccess: true
-//             }),
-//           });
-
-//           if (followUpResponse.ok) {
-//             const followUpData = await followUpResponse.json();
-//             apiResponseText = followUpData.response;
-//           } else {
-//             apiResponseText = `❌ Error: Could not analyze the fetched content. ${followUpResponse.status} ${followUpResponse.statusText}`;
-//           }
-//         } else {
-//           const errorData = await webResponse.json().catch(() => ({}));
-//           apiResponseText = `❌ Error fetching webpage: ${webResponse.status} ${webResponse.statusText}. ${errorData.error || 'Unable to access the requested website.'}`;
-//         }
-//       } catch (fetchError) {
-//         console.error('Web fetch error:', fetchError);
-//         apiResponseText = `❌ Error: Unable to access web content. ${fetchError.message}`;
-//       }
-//     }
+    let apiResponseText = data.candidates[0].content.parts[0].text;
 
     // Display the final response
     messageElement.innerHTML = parseMarkdown(apiResponseText);
