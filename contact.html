@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - SENTRA - Smart Structural Monitoring</title>
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon" href="https://clovetech.com/wp-content/uploads/2025/04/favicon.png" type="image/png" sizes="16x16">
+    <link rel="stylesheet" href="../css/chatbot.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+
+</head>
+
+<body>
+
+    <!-- Section Header -->
+    <header>
+        <!-- Section Navbar -->
+        <div id="header"></div>
+    </header>
+
+    <!-- Section Content Edit -->
+    <aside>
+        <div id="edit-sidebar"></div>
+    </aside>
+
+    <!-- Section Search -->
+    <aside>
+        <div id="search-form-container"></div>
+    </aside>
+
+    <!-- Section Sidebar -->
+    <aside>
+        <div id="sidebar"></div>
+    </aside>
+
+    <!-- Section Main Content -->
+    <main>
+        <!-- Section Banner -->
+        <div class="section-banner">
+            <div class="banner-layout-wrapper">
+                <div class="banner-layout">
+                    <div class="d-flex flex-column text-center align-items-center gspace-2">
+                        <h2 class="title-heading animate-box animated animate__animated"
+                            data-animate="animate__fadeInRight">Contact Us</h2>
+                        <nav class="breadcrumb">
+                            <a href="./index.html" class="gspace-2">Home</a>
+                            <span class="separator-link">/</span>
+                            <p class="current-page">Contact Us</p>
+                        </nav>
+                    </div>
+                    <div class="spacer"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Contact -->
+        <div class="section">
+            <div class="hero-container">
+                <div class="row row-cols-xl-2 row-cols-1 g-5">
+                    <div class="col col-xl-5">
+                        <div class="contact-title-wrapper">
+                            <div class="card contact-title">
+                                <div class="sub-heading">
+                                    <i class="fa-regular fa-circle-dot"></i>
+                                    <span>Reach out to us</span>
+                                </div>
+                                <h2 class="title-heading">Get in Touch</h2>
+                                <p>Reach out to us for tailored IoT and structural health monitoring solutions that
+                                    ensure safety, reliability, and smarter decision-making.</p>
+                                <!-- PHONE -->
+                                <div
+                                    class="d-flex flex-column flex-md-row align-items-center text-md-start text-center gspace-2">
+                                    <div>
+                                        <div class="icon-wrapper">
+                                            <div class="icon-box">
+                                                <i class="fa-solid fa-phone-volume accent-color"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-grid contact-page-list">
+                                        <span>Phone Number</span>
+                                        <a href="tel:+91 8885730066">
+                                            <h5>+91 8885730066</h5>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <!-- EMAIL -->
+                                <div
+                                    class="d-flex flex-column flex-md-row align-items-center text-md-start text-center gspace-2">
+                                    <div>
+                                        <div class="icon-wrapper">
+                                            <div class="icon-box">
+                                                <i class="fa-solid fa-envelope accent-color"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-grid contact-page-list">
+                                        <span>Email Address</span>
+                                        <a href="mailto:connect@clovetech.com">
+                                            <h5>connect@clovetech.com</h5>
+                                        </a>
+                                    </div>
+                                </div>
+
+                                <!-- ADDRESS -->
+                                <div
+                                    class="d-flex flex-column flex-md-row align-items-center text-md-start text-center gspace-2">
+                                    <div>
+                                        <div class="icon-wrapper">
+                                            <div class="icon-box">
+                                                <i class="fa-solid fa-location-dot accent-color"></i>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="d-grid contact-page-list">
+                                        <span>Office Address</span>
+                                        <h5>IT SEZ, Plot No. 9, Pedda Rushikonda, Rushikonda, Visakhapatnam, Andhra
+                                            Pradesh 530045</h5>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-xl-7">
+                        <div id="success-message" class="alert success hidden">
+                            <span class="check-icon"><i class="fa-solid fa-2xl fa-check"></i></span>
+                            <p>Thank you! Form submitted successfully.</p>
+                        </div>
+
+                        <div id="error-message" class="alert error hidden">
+                            <span class="cross-icon"><i class="fa-solid fa-2xl fa-xmark"></i></span>
+                            <p>Oops! Form submission failed. Please try again.</p>
+                        </div>
+                        <div class="form-layout-wrapper">
+                            <div class="card form-layout">
+                                <h3 class="title-heading">Let's Talk About Your Next Project</h3>
+                                <form action="./php/form_process.php" method="post" id="contactForm" class="form">
+                                    <div class="row row-cols-md-2 row-cols-1 g-3">
+                                        <div class="col">
+                                            <input type="text" name="first-name" id="first-name"
+                                                placeholder="First Name">
+                                        </div>
+                                        <div class="col">
+                                            <input type="text" name="last-name" id="last-name" placeholder="Last Name">
+                                        </div>
+                                    </div>
+                                    <div class="row row-cols-md-2 row-cols-1 g-3">
+                                        <div class="col">
+                                            <input type="email" name="email" id="email" placeholder="Email Address"
+                                                required>
+                                        </div>
+                                        <div class="col">
+                                            <input type="text" name="subject" id="subject" placeholder="Subject">
+                                        </div>
+                                    </div>
+                                    <textarea name="message" id="message" rows="5" placeholder="Message"></textarea>
+                                    <div class="form-button-container">
+                                        <button type="submit" class="btn btn-accent">
+                                            <span class="btn-title">
+                                                <span>Send a Message</span>
+                                            </span>
+                                            <span class="icon-circle">
+                                                <i class="fa-solid fa-arrow-right"></i>
+                                            </span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Maps -->
+        <div class="section pt-0">
+            <div class="hero-container">
+                <iframe loading="lazy" class="maps overflow-hidden"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3798.6621576377056!2d83.38891517594595!3d17.80756809056323!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a395a453a957f91%3A0x8e1523500ec2f64a!2sClove%20Technologies%20Pvt.%20Ltd.!5e0!3m2!1sen!2sin!4v1757509415147!5m2!1sen!2sin&amp;t=m&amp;z=14&amp;output=embed&amp;iwloc=near"
+                    title="London Eye, London, United Kingdom" aria-label="London Eye, London, United Kingdom">
+                </iframe>
+            </div>
+        </div>
+    </main>
+
+    <!-- Section Footer -->
+    <footer>
+        <div id="footer"></div>
+    </footer>
+
+    <script src="js/vendor/jquery.min.js"></script>
+    <script src="js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="js/vendor/swiper-bundle.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/swiper-script.js"></script>
+    <script src="js/submit-form.js"></script>
+    <script src="js/video_embedded.js"></script>
+    <!-- Linking Emoji Mart script for emoji picker -->
+    <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
+
+    <!-- Chatbot Widget -->
+    <script src="../js/chatbot-widget.js"></script>
+
+
+</body>
+
+</html>

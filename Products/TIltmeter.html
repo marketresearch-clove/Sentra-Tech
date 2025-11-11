@@ -1,0 +1,1089 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edge Devices - Tiltmeter Sensor</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="https://clovetech.com/wp-content/uploads/2025/04/favicon.png" type="image/png" sizes="16x16">
+    <link rel="stylesheet" href="../css/chatbot.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+
+    <style>
+        .hotspot-section {
+            display: flex;
+            justify-content: center;
+            margin: 3rem 0;
+        }
+
+
+        .hotspot-section .hotspot-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .hotspot-section .image-container {
+            position: relative;
+            width: 100%;
+            border-radius: 12px;
+
+
+        }
+
+        .hotspot-section .image-container img {
+            width: 100%;
+            display: block;
+            border-radius: 12px;
+
+        }
+
+        .hotspot-section .hotspot {
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: #007bff;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 3;
+        }
+
+        .hotspot-section .hotspot:hover {
+            background: #0056b3;
+            transform: scale(1.1);
+        }
+
+        .hotspot-section .connector-vertical,
+        .hotspot-section .connector-horizontal {
+            position: absolute;
+            background: #007bff;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .hotspot-section .connector-vertical {
+            width: 2px;
+            height: 0;
+            top: 26px;
+            left: 12px;
+            transform-origin: top;
+        }
+
+        .hotspot-section .connector-horizontal {
+            height: 2px;
+            width: 0;
+            top: 66px;
+            left: 12px;
+            transform-origin: left;
+        }
+
+        .hotspot-section .hotspot-content {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.85);
+            color: #fff;
+            padding: 12px 16px;
+            border-radius: 8px;
+            max-width: 220px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            z-index: 2;
+            top: 60px;
+            left: 80px;
+        }
+
+        .hotspot-section .hotspot.active .connector-vertical {
+            height: 40px;
+            opacity: 1;
+            background-color: #f48120;
+        }
+
+        .hotspot-section .hotspot.active .connector-horizontal {
+            width: 60px;
+            opacity: 1;
+            transition-delay: 0.2s;
+            background-color: #f48120;
+
+        }
+
+        .hotspot-section .hotspot.active .hotspot-content {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+            transition-delay: 0.3s;
+        }
+
+        .hotspot-section .hotspot.one {
+            top: 31%;
+            left: 33.5%;
+        }
+
+        .hotspot-section .hotspot.two {
+            top: 42%;
+            left: 75%;
+        }
+
+        .hotspot-section .hotspot.three {
+            top: 66.5%;
+            left: 35%;
+        }
+
+        .hotspot-section .hotspot.four {
+            top: 58%;
+            left: 72%;
+        }
+
+        .hotspot-section .hotspot.two .connector-horizontal,
+        .hotspot-section .hotspot.four .connector-horizontal {
+            left: auto;
+            right: 12px;
+            transform-origin: right;
+        }
+
+        .hotspot-section .hotspot.two .hotspot-content,
+        .hotspot-section .hotspot.four .hotspot-content {
+            left: auto;
+            right: 80px;
+        }
+
+        .hotspot-section .hotspot.two.active .connector-horizontal,
+        .hotspot-section .hotspot.four.active .connector-horizontal {
+            width: 60px;
+        }
+
+        @media (max-width: 600px) {
+            .hotspot-section .hotspot-content {
+                font-size: 0.8rem;
+                max-width: 180px;
+            }
+        }
+
+        .specs-container {
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .specs-container h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 28px;
+        }
+
+        .specs-container table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .specs-container th,
+        .specs-container td {
+            padding: 14px 12px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+
+        .specs-container th {
+            font-weight: 500;
+            width: 40%;
+            color: #fff;
+        }
+
+        .specs-container td {
+            color: #fff;
+        }
+
+        .specs-container .hidden-section {
+            display: none;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.6s ease;
+        }
+
+        .specs-container .hidden-section.show {
+            display: table-row-group;
+            opacity: 1;
+            max-height: 9999px;
+        }
+
+        .specs-container .toggle-btn {
+            background: transparent;
+            border: 1px solid #f48120;
+            border-radius: 20px;
+            color: #f48120;
+            padding: 8px 18px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin-top: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .specs-container .toggle-btn:hover {
+            background: #fff;
+            color: #000000;
+        }
+
+        .specs-container .footer-note a {
+            color: #00bfff;
+            text-decoration: none;
+        }
+
+        .specs-container .footer-note a:hover {
+            text-decoration: underline;
+        }
+
+        body.dark-mode .specs-container th {
+            color: #fff;
+        }
+
+        body.dark-mode .specs-container td {
+            color: #fff;
+        }
+
+        body.dark-mode .specs-container th,
+        body.dark-mode .specs-container td {
+            border-bottom-color: #333;
+        }
+
+        body:not(.dark-mode) .specs-container th {
+            color: #fff;
+        }
+
+        body:not(.dark-mode) .specs-container td {
+            color: #fff;
+        }
+
+        body:not(.dark-mode) .specs-container th,
+        body:not(.dark-mode) .specs-container td {
+            border-bottom-color: #ddd;
+        }
+
+        body.lightmode .specs-container th,
+        body.lightmode .specs-container td {
+            color: #000000;
+            /* black text for light background */
+            border-bottom-color: #ddd;
+            /* light border */
+        }
+
+        @media (max-width: 640px) {
+            .specs-container table {
+                font-size: 0.9rem;
+            }
+
+            .specs-container h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .product-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin: 4rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .product-section {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        .product-info-left {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .product-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #f48120;
+            color: #fff;
+            padding: 6px 10px;
+            border-radius: 99px;
+            font-size: 12px;
+        }
+
+        .product-info-left h2 {
+            font-size: 3rem;
+            line-height: 1.1;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .product-bullets {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            color: #6b7280;
+            font-size: 1rem;
+        }
+
+        .product-bullet {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .product-bullet .dot {
+            min-width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: #f48120;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+            margin-top: 2px;
+            font-weight: 600;
+        }
+
+        .product-image-right {
+            position: relative;
+        }
+    </style>
+</head>
+
+<body class="product-page">
+
+    <!-- Section Header -->
+    <header>
+        <!-- Section Navbar -->
+        <div id="header"></div>
+    </header>
+
+    <!-- Section Content Edit -->
+    <aside>
+        <div id="edit-sidebar"></div>
+    </aside>
+
+    <!-- Section Search -->
+    <aside>
+        <div id="search-form-container"></div>
+    </aside>
+
+    <!-- Section Sidebar -->
+    <aside>
+        <div id="sidebar"></div>
+    </aside>
+
+    <!-- Section Main Content -->
+    <main>
+        <!-- Section Banner -->
+        <div class="section-banner">
+            <div class="banner-layout-wrapper">
+                <div class="banner-layout">
+                    <div class="d-flex flex-column text-center align-items-center gspace-2">
+                        <h2 class="title-heading animate-box animated animate__animated"
+                            data-animate="animate__fadeInRight">Tiltmeter</h2>
+                        <nav class="breadcrumb">
+                            <a href="../index.html" class="gspace-2">Home</a>
+                            <span class="separator-link">/</span>
+                            <a href="../products.html" class="gspace-2">Edge Devices</a>
+                            <span class="separator-link">/</span>
+                            <p class="current-page">Tiltmeter</p>
+                        </nav>
+                    </div>
+                    <div class="spacer"></div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="section pb-0">
+            <div class="hero-container">
+                <div class="d-flex flex-column gspace-5">
+                    <div class="image-container">
+                        <img src="../image/tiltmeter.png" alt="Service Image" class="single-service-img">
+                        <div class="single-service-title-layout">
+                            <div class="">
+                                <div class="single-service-spacer"></div>
+                                <div class="single-service-title-wrapper">
+                                    <div class="single-service-title">
+                                        <div class="sub-heading animate-box animated slow animate__animated"
+                                            data-animate="animate__fadeInRight">
+                                            <i class="fa-regular fa-circle-dot"></i>
+                                            <span>Our Expertise</span>
+                                        </div>
+                                        <h3 class="title-heading animate-box animated animate__animated"
+                                            data-animate="animate__fadeInRight">Protect critical assets with continuous
+                                            tilt monitoring</h3>
+                                        <p>Accurately track tiny changes in tilt and inclination so you can spot
+                                            settlement, rotation or track geometry issues before they become problems.
+                                            Sentra’s Tiltmeter solutions combine precision MEMS sensing, long-life power
+                                            systems and secure LoRa communications to give engineers clear, timely
+                                            inclination data for decision-ready monitoring.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="single-service-spacer"></div>
+                        </div>
+                    </div>
+
+                    <!-- Section Services -->
+                    <div class="section1">
+                        <div class="hero-container">
+                            <div class="product-section" style="margin-top: 5px;    margin-bottom: 5px;">
+                                <div class="product-info-left">
+                                    <div class="product-tags" aria-hidden="true">
+                                        <span class="tag">LS-G6-TIL90-X</span>
+                                        <span class="tag">LS-G6-TIL90-I</span>
+                                    </div>
+                                    <h2>Tiltmeter</h2>
+                                    <div class="product-bullets">
+                                        <div class="product-bullet">
+                                            <div class="dot">✔</div>
+                                            <div class="text-product">Full ±90° measurement range — three-axis
+                                                inclination with gravity-referenced readings for a complete picture of
+                                                tilt.</div>
+                                        </div>
+                                        <div class="product-bullet">
+                                            <div class="dot">✔</div>
+                                            <div class="text-product">Ultra-low power, long life — deployment modes that
+                                                can reach multi-year (up to 25 years) battery life depending on
+                                                reporting intervals.</div>
+                                        </div>
+                                        <div class="product-bullet">
+                                            <div class="dot">✔</div>
+                                            <div class="text-product">Flexible antenna options — choose an external
+                                                antenna for maximum range or an internal antenna when you need a
+                                                compact, vandal-resistant install</div>
+                                        </div>
+                                    </div>
+                                    <a class="product-cta" href="#" id="scrollToSpecs"
+                                        aria-label="Access full specs">Access full specs</a>
+                                </div>
+                                <div class="product-image-right">
+                                    <section class="hotspot-section">
+                                        <div class="hotspot-wrapper">
+                                            <div class="image-container">
+                                                <img src="/image/tiltmeter_1.png" alt="Tiltmeter Product">
+                                                <div class="hotspot one" style="background-color: #f48120;">
+                                                    +
+                                                    <div class="connector-vertical"></div>
+                                                    <div class="connector-horizontal"></div>
+                                                    <div class="hotspot-content">
+                                                        <strong>High-Precision Sensing</strong><br>
+                                                        Measures minute angular changes
+                                                    </div>
+                                                </div>
+                                                <div class="hotspot two" style="background-color: #f48120;">
+                                                    +
+                                                    <div class="connector-vertical"></div>
+                                                    <div class="connector-horizontal"></div>
+                                                    <div class="hotspot-content">
+                                                        <strong>MEMS Technology</strong><br>
+                                                        advanced MEMS sensors for stable, drift-free, long-term
+                                                        performance
+                                                    </div>
+                                                </div>
+                                                <div class="hotspot three" style="background-color: #f48120;">
+                                                    +
+                                                    <div class="connector-vertical"></div>
+                                                    <div class="connector-horizontal"></div>
+                                                    <div class="hotspot-content">
+                                                        <strong>Flexible Mounting</strong><br>
+                                                        Horizontal and vertical configurations for diverse installation
+                                                        needs
+                                                    </div>
+                                                </div>
+                                                <div class="hotspot four" style="background-color: #f48120;">
+                                                    +
+                                                    <div class="connector-vertical"></div>
+                                                    <div class="connector-horizontal"></div>
+                                                    <div class="hotspot-content">
+                                                        <strong>Long-Term Monitoring</strong><br>
+                                                        Designed for continuous field operation
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row row-cols-xl-2 row-cols-1 grid-spacer-5">
+                        <div class="col col-xl-8">
+                            <div class="d-flex flex-column gspace-2">
+                                <h4>Overview</h4>
+                                <p>
+                                    The Sentra Tiltmeter is a compact, 3-axis inclinometer built for long-term,
+                                    unattended monitoring of slopes, structures, rail tracks and tunnelling works. It
+                                    reports high-resolution inclination values plus measurement uncertainty to support
+                                    noise filtering and trustworthy trend analysis. Configure and commission units
+                                    quickly using the mobile setup wizard; stream data back via LoRa to your gateway or
+                                    to Sentra’s cloud for visualization and alerts.
+                                </p>
+                                <div class="row row-cols-md-2 row-cols-1 grid-spacer-2 grid-spacer-md-3">
+                                    <div class="col">
+                                        <div class="image-container">
+                                            <img src="../image/tiltmeter_1.png" alt="Service Image" class="img-fluid">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="image-container">
+                                            <img src="../image/tiltmeter_2.png" alt="Service Image" class="img-fluid">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card service-included">
+                                    <h4 class="product-headings">What's Included</h4>
+                                    <div class="underline-accent-short"></div>
+                                    <p>Robust, field-ready components and services that make tilt monitoring dependable
+                                        from day one</p>
+                                    <div class="row row-cols-md-2 row-cols-1 grid-spacer-2">
+                                        <div class="col">
+                                            <ul class="check-list">
+                                                <li>3-axis MEMS tilt sensor with integrated temperature compensation
+                                                </li>
+                                                <li>Choice of internal or external antenna; IP68 housing</li>
+                                                <li>Mobile app setup wizard and project configuration tools</li>
+                                                <li>Mounting plates and kits for surface, beam, rail and vertical
+                                                    installations</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col">
+                                            <ul class="check-list">
+                                                <li>Configurable reporting intervals and event-detection mode for fast
+                                                    alerts</li>
+                                                <li>Long battery life estimates by reporting period and firmware modes,
+                                                    plus datasheet & support.</li>
+                                                <li>Monthly Performance Reports</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4>Why choose Sentra for tilt monitoring?</h4>
+                                <p>Built for project teams that need reliable inclination data with minimal fuss</p>
+                                <div class="row row-cols-2">
+                                    <div class="col">
+                                        <div class="d-flex flex-column gspace-2">
+                                            <div
+                                                class="d-flex flex-column flex-md-row align-items-center text-center text-md-start gspace-1">
+                                                <i class="fa-regular fa-2x fa-circle-check accent-color"></i>
+                                                <div class="d-flex flex-column gspace-0">
+                                                    <h5>Consistent uptime</h5>
+                                                    <p>Intelligent power modes and efficient reporting that keep sensors
+                                                        running for years. </p>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="d-flex flex-column flex-md-row align-items-center text-center text-md-start gspace-1">
+                                                <i class="fa-regular fa-2x fa-circle-check accent-color"></i>
+                                                <div class="d-flex flex-column gspace-0">
+                                                    <h5>High fidelity measurements</h5>
+                                                    <p>Factory calibration and per-device parameters for precise,
+                                                        repeatable tilt readings.</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="d-flex flex-column gspace-2">
+                                            <div
+                                                class="d-flex flex-column flex-md-row align-items-center text-center text-md-start gspace-1">
+                                                <i class="fa-regular fa-2x fa-circle-check accent-color"></i>
+                                                <div class="d-flex flex-column gspace-0">
+                                                    <h5>Deploy anywhere</h5>
+                                                    <p>Rugged IP68 design and wide operating temperature range for
+                                                        exposed infrastructure.</p>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="d-flex flex-column flex-md-row align-items-center text-center text-md-start gspace-1">
+                                                <i class="fa-regular fa-2x fa-circle-check accent-color"></i>
+                                                <div class="d-flex flex-column gspace-0">
+                                                    <h5>Fast event detection & integration</h5>
+                                                    <p>Trigger modes for rapid movement detection, plus seamless
+                                                        cloud/edge integration for alerts and downstream systems</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-xl-4">
+                            <div class="d-flex flex-column flex-md-row flex-xl-column justify-content-between gspace-5">
+                                <div class="card service-recent">
+                                    <h4 class="product-headings">Recent Services</h4>
+                                    <div class="underline-accent-short"></div>
+                                    <ul class="single-service-list">
+                                        <li><a href="../single_services.html">Rail alignment & cant surveillance</a>
+                                        </li>
+                                        <li><a href="../single_services.html">Slope and embankment movement tracking</a>
+                                        </li>
+                                        <li><a href="../single_services.html">Event verification & camera-trigger
+                                                workflows</a></li>
+                                        <li><a href="../single_services.html">Turnkey supply & field commissioning</a>
+                                        </li>
+                                        <li><a href="../single_services.html">Cloud dashboards, tailored reporting &
+                                                support</a></li>
+                                        <li><a href="../single_services.html">Integration & Ongoing Support</a></li>
+                                    </ul>
+                                </div>
+                                <div class="cta-service-banner">
+                                    <div class="spacer"></div>
+                                    <h3 class="title-heading">Reimagine What’s Possible</h3>
+                                    <p>
+                                        Empowering businesses with IoT-driven insights and innovative solutions.
+                                        Together, let’s shape a smarter future!
+                                    </p>
+                                    <div class="link-wrapper">
+                                        <a href="about.html">Read More</a>
+                                        <i class="fa-solid fa-circle-arrow-right"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Specifications Table -->
+        <div class="section">
+            <div class="hero-container">
+                <div class="specs-container" id="specsSection">
+                    <h2>Main technical specifications</h2>
+
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th class="product-table-section-title">General</th>
+                            </tr>
+                            <tr>
+                                <th>Sensor type</th>
+                                <td>3-axis MEMS accelerometer and integrated thermometer</td>
+                            </tr>
+                            <tr>
+                                <th>Range</th>
+                                <td>±90°</td>
+                            </tr>
+                            <tr>
+                                <th>Device Variants</th>
+                                <td>LS-G6-TIL90-X — with external antenna for high-precision applications
+                                    <br>LS-G6-TIL90-I — with internal antenna for rail track monitoring
+                                </td>
+                            </tr>
+                            <tr>
+                                <th>Secondary Sensor</th>
+                                <td>Integrated temperature sensor</td>
+                            </tr>
+                            <tr>
+                                <th>Power Source</th>
+                                <td>2 × 3.6 V C-size replaceable batteries</td>
+                            </tr>
+                            <tr>
+                                <th>Data Transmission</th>
+                                <td>LoRa radio communications (ISM sub-GHz)</td>
+                            </tr>
+                            <tr>
+                                <th>Operating Temperature</th>
+                                <td>−40°C to +80°C</td>
+                            </tr>
+                        </tbody>
+
+                        <tbody class="hidden-section" id="fullTable">
+                            <tr>
+                                <th>Weather Protection</th>
+                                <td>IP68</td>
+                            </tr>
+                            <tr>
+                                <th>System Configuration</th>
+                                <td>Device setup and configuration via Worldsensing App. Remote configuration using CMT
+                                    Edge on single-net deployments and CMT Cloud on multi-net deployments</td>
+                            </tr>
+                            <tr>
+                                <th class="product-table-section-title">Tiltmeter</th>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="padding-top:10px;">
+                                    <table style="width:100%; border-collapse:collapse; font-size:13px;">
+                                        <colgroup>
+                                            <col style="width:34%;">
+                                            <col style="width:33%;">
+                                            <col style="width:33%;">
+                                        </colgroup>
+                                        <thead>
+                                            <tr style="color:#BFBFBF;">
+                                                <th style="text-align:left; padding:8px 6px; font-weight:600;">
+                                                    Parameters</th>
+                                                <th style="text-align:left; padding:8px 6px; font-weight:600;">
+                                                    LS-G6-TIL90-X</th>
+                                                <th style="text-align:left; padding:8px 6px; font-weight:600;">
+                                                    LS-G6-TIL90-I</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr style="border-top:1px solid rgba(255,255,255,0.03);">
+                                                <td class="product-table-cell"">Accuracy (±4°)</td>
+                <td class=" product-table-cell"">±0.005°</td>
+                                                <td class="product-table-cell"">±0.006°</td>
+              </tr>
+              <tr style=" border-top:1px solid rgba(255,255,255,0.03);">
+                                                <td class="product-table-cell"">Resolution</td>
+                <td class=" product-table-cell"">±0.0001°</td>
+                                                <td class="product-table-cell"">±0.0001°</td>
+              </tr>
+              <tr style=" border-top:1px solid rgba(255,255,255,0.03);">
+                                                <td class="product-table-cell"">Repeatability</td>
+                <td class=" product-table-cell"">&lt;0.0003°</td>
+                                                <td class="product-table-cell"">&lt;0.0015°</td>
+              </tr>
+            </tbody>
+          </table>
+         </td>
+        </tr>
+                           
+                            <tr>
+                                <th class=" product-table-section-title">Battery Life Estimations</th>
+                                            </tr>
+                                            <tr>
+                                                <th>Reporting Period</th>
+                                                <td>Lifespan</td>
+                                            </tr>
+                                            <tr>
+                                                <th>30 s</th>
+                                                <td>6.2 months</td>
+                                            </tr>
+                                            <tr>
+                                                <th>5 min</th>
+                                                <td>5.1 years</td>
+                                            </tr>
+                                            <tr>
+                                                <th>1 h</th>
+                                                <td>&gt;25 years</td>
+                                            </tr>
+                                            <tr>
+                                                <th>6 h</th>
+                                                <td>&gt;25 years</td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+
+                                    <button class="toggle-btn" id="toggleBtn">Show full table +</button>
+
+                                    <p class="footer-note">
+                                        See detailed information about sensor capabilities and battery life estimations
+                                        in the
+                                        <a style="color: #f48120;"
+                                            href="https://info.worldsensing.com/Datasheet_Tilt90_EN">Tiltmeter Product
+                                            Datasheet</a>
+                                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Newsletter -->
+        <div class="section">
+            <div class="hero-container">
+                <div class="newsletter-wrapper">
+                    <div class="newsletter-layout">
+                        <div class="spacer"></div>
+                        <div class="d-flex flex-column gspace-5 position-relative z-2">
+                            <div class="d-flex flex-column gspace-2 animate-box animated animate__animated"
+                                data-animate="animate__fadeInLeft">
+                                <h3 class="title-heading">Stay updated on Tilt monitoring</h3>
+                                <p>Receive concise technical notes, firmware updates, and best practices for deploying
+                                    inclination sensors.</p>
+                            </div>
+                            <div id="newsletter-success" class="alert success hidden">
+                                <span class="check-icon"><i class="fa-solid fa-2xl fa-check"></i></span>
+                                <p class="text-center">Thank you! Form submitted successfully.</p>
+                            </div>
+
+                            <div id="newsletter-error" class="alert error hidden">
+                                <span class="cross-icon"><i class="fa-solid fa-2xl fa-xmark"></i></span>
+                                <p class="text-center">Oops! Form submission failed. Please try again.</p>
+                            </div>
+
+                            <form action="./php/newsletter_process.php" method="POST" id="newsletterForm"
+                                class="needs-validation animate-box animated animate__animated"
+                                data-animate="animate__fadeInRight">
+                                <div class="input-container">
+                                    <input type="email" name="newsletter-email" id="newsletter-email"
+                                        placeholder="Give your best email" required>
+                                    <p class="error-text hidden"></p>
+                                </div>
+                                <button class="btn btn-accent" type="submit">
+                                    <span class="btn-title">
+                                        <span>Subscribe</span>
+                                    </span>
+                                    <span class="icon-circle">
+                                        <i class="fa-solid fa-arrow-right"></i>
+                                    </span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section FAQs -->
+        <div class="section">
+            <div class="hero-container">
+                <div class="row row-cols-xl-2 row-cols-1 grid-spacer-5">
+                    <div class="col col-xl-5">
+                        <div class="faq-title-container">
+                            <div class="sub-heading">
+                                <i class="fa-regular fa-circle-dot"></i>
+                                <span>Frequently Asked Questions</span>
+                            </div>
+                            <h2 class="title-heading">Got Questions? We've Got Answers.</h2>
+                        </div>
+                    </div>
+                    <div class="col col-xl-7">
+                        <div class="d-flex flex-column">
+                            <div class="accordion" id="faqAccordion1">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#faq1" aria-expanded="false" aria-controls="faq1">
+                                            What kinds of movement does a Tiltmeter actually detect?
+                                        </button>
+                                    </h2>
+                                    <div id="faq1" class="accordion-collapse collapse show"
+                                        data-bs-parent="#faqAccordion1">
+                                        <div class="accordion-body">
+                                            <div class="accordion-spacer"></div>
+                                            <p>
+                                                A Tiltmeter measures small changes in an object’s inclination —
+                                                rotation, settlement, track cant or slow tilt of slopes and structures.
+                                                It’s built to reveal gradual trends and sudden shifts that indicate
+                                                instability or misalignment.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="true"
+                                            aria-controls="faq2">
+                                            How does the sensor convert motion into usable data?
+                                        </button>
+                                    </h2>
+                                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
+                                        <div class="accordion-body">
+                                            <div class="accordion-spacer"></div>
+                                            <p>
+                                                Inside the unit, precision MEMS accelerometers sense the gravity vector
+                                                and temperature. Onboard firmware converts those signals into angle
+                                                values (with compensation and filtering), timestamps each sample, and
+                                                forwards the readings to your gateway or cloud for analysis.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false"
+                                            aria-controls="faq3">
+                                            How small of a tilt can the device reliably report?
+                                        </button>
+                                    </h2>
+                                    <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
+                                        <div class="accordion-body">
+                                            <div class="accordion-spacer"></div>
+                                            <p>
+                                                Tiltmeters are designed for high-resolution monitoring suitable for
+                                                engineering decisions — they capture very small, repeatable changes
+                                                (much smaller than what the human eye detects). Exact resolution and
+                                                repeatability depend on the model and configuration; see the product
+                                                datasheet for per-device specs.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false"
+                                            aria-controls="faq4">
+                                            What should I expect for power and maintenance?
+                                        </button>
+                                    </h2>
+                                    <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
+                                        <div class="accordion-body">
+                                            <div class="accordion-spacer"></div>
+                                            <p>
+                                                The device runs in low-power modes and can operate unattended for years
+                                                when reporting at typical intervals. You can further extend life with
+                                                sleep schedules or external power options. Routine checks (battery
+                                                status, antenna, and physical mounts) are recommended during scheduled
+                                                site visits.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#faq5" aria-expanded="false"
+                                            aria-controls="faq5">
+                                            Can the Tiltmeter plug into my existing monitoring stack?
+                                        </button>
+                                    </h2>
+                                    <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
+                                        <div class="accordion-body">
+                                            <div class="accordion-spacer"></div>
+                                            <p>
+                                                Yes — data is transmitted via LoRa/LoRaWAN gateways to cloud endpoints
+                                                and is provided in common data formats/APIs so it can be pulled into
+                                                dashboards, alarm systems, or asset-management software. We can also
+                                                deliver custom integrations or webhooks if your platform requires them.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#faq6" aria-expanded="false"
+                                            aria-controls="faq6">
+                                            Where is the best place to install a Tiltmeter and what mounting practices
+                                            matter?
+                                        </button>
+                                    </h2>
+                                    <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
+                                        <div class="accordion-body">
+                                            <div class="accordion-spacer"></div>
+                                            <p>
+                                                Install on a stable reference surface (concrete pier, instrumented
+                                                structure, track sleeper) with rigid mounting hardware and clear
+                                                line-of-sight for the antenna where possible. Use vibration-damping or
+                                                thermal isolation as required, align the sensor axis during
+                                                commissioning, and protect the unit with the appropriate enclosure or
+                                                tamper-resistant fixings for exposed sites.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Section Footer -->
+    <footer>
+        <div id="footer"></div>
+    </footer>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const scrollBtn = document.getElementById("scrollToSpecs");
+            const specsSection = document.getElementById("specsSection");
+
+            if (!scrollBtn || !specsSection) return;
+
+            scrollBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+
+                // Try common header selectors — add your header selector if different
+                const header = document.querySelector('header') || document.querySelector('.site-header') || document.querySelector('.navbar') || null;
+                const headerHeight = header ? header.getBoundingClientRect().height : 0;
+
+                // Extra gap so content doesn't touch the header (adjust px as needed)
+                const extraGap = 80;
+
+                const targetY = specsSection.getBoundingClientRect().top + window.pageYOffset - headerHeight - extraGap;
+
+                window.scrollTo({
+                    top: Math.max(targetY, 0),
+                    behavior: "smooth"
+                });
+            });
+        });
+    </script>
+
+    <script>
+        (function () {
+            const hotspots = document.querySelectorAll('.hotspot-section .hotspot');
+            if (!hotspots.length) {
+                return;
+            }
+            hotspots.forEach(hotspot => {
+                hotspot.addEventListener('click', event => {
+                    event.stopPropagation();
+                    hotspot.classList.toggle('active');
+                    hotspots.forEach(other => {
+                        if (other !== hotspot) {
+                            other.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.addEventListener('click', () => {
+                hotspots.forEach(h => h.classList.remove('active'));
+            });
+        })();
+    </script>
+    <script>
+        const toggleBtn = document.getElementById("toggleBtn");
+        const fullTable = document.getElementById("fullTable");
+        let expanded = false;
+
+        if (toggleBtn && fullTable) {
+            toggleBtn.addEventListener("click", () => {
+                expanded = !expanded;
+                fullTable.classList.toggle("show", expanded);
+                toggleBtn.textContent = expanded ? "Hide full table –" : "Show full table +";
+            });
+        }
+    </script>
+    <script src="../js/vendor/jquery.min.js"></script>
+    <script src="../js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="../js/vendor/swiper-bundle.min.js"></script>
+    <script src="../js/script.js"></script>
+    <script src="../js/swiper-script.js"></script>
+    <script src="../js/submit-form.js"></script>
+    <script src="../js/video_embedded.js"></script>
+    <!-- Linking Emoji Mart script for emoji picker -->
+    <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
+
+    <!-- Chatbot Widget -->
+    <script src="../js/chatbot-widget.js"></script>
+
+
+</body>
+
+</html>

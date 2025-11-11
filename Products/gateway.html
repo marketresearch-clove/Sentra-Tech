@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentra - Gateway Communication Device</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="https://clovetech.com/wp-content/uploads/2025/04/favicon.png" type="image/png" sizes="16x16">
+    <link rel="stylesheet" href="../css/chatbot.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+
+    <style>
+        .hotspot-section {
+            display: flex;
+            justify-content: center;
+            margin: 3rem 0;
+        }
+
+        .hotspot-section .hotspot-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+        }
+
+
+
+        .hotspot-section .image-container {
+            position: relative;
+            width: 100%;
+            border-radius: 12px;
+
+
+        }
+
+        .hotspot-section .image-container img {
+            width: 100%;
+            display: block;
+            border-radius: 12px;
+
+        }
+
+        .hotspot-section .hotspot {
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: #007bff;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 3;
+        }
+
+        .hotspot-section .hotspot:hover {
+            background: #0056b3;
+            transform: scale(1.1);
+        }
+
+        .hotspot-section .connector-vertical,
+        .hotspot-section .connector-horizontal {
+            position: absolute;
+            background: #007bff;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .hotspot-section .connector-vertical {
+            width: 2px;
+            height: 0;
+            top: 26px;
+            left: 12px;
+            transform-origin: top;
+        }
+
+        .hotspot-section .connector-horizontal {
+            height: 2px;
+            width: 0;
+            top: 66px;
+            left: 12px;
+            transform-origin: left;
+        }
+
+        .hotspot-section .hotspot-content {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.85);
+            color: #fff;
+            padding: 12px 16px;
+            border-radius: 8px;
+            max-width: 220px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            z-index: 2;
+            top: 60px;
+            left: 80px;
+        }
+
+        .hotspot-section .hotspot.active .connector-vertical {
+            height: 40px;
+            opacity: 1;
+            background-color: #f48120;
+        }
+
+        .hotspot-section .hotspot.active .connector-horizontal {
+            width: 60px;
+            opacity: 1;
+            transition-delay: 0.2s;
+            background-color: #f48120;
+
+        }
+
+        .hotspot-section .hotspot.active .hotspot-content {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+            transition-delay: 0.3s;
+        }
+
+        .hotspot-section .hotspot.one {
+            top: 22%;
+            left: 35%;
+        }
+
+        .hotspot-section .hotspot.two {
+            top: 18%;
+            left: 67%;
+        }
+
+        .hotspot-section .hotspot.three {
+            top: 62%;
+            left: 27%;
+        }
+
+        .hotspot-section .hotspot.four {
+            top: 68%;
+            left: 69%;
+        }
+
+        .hotspot-section .hotspot.two .connector-horizontal,
+        .hotspot-section .hotspot.four .connector-horizontal {
+            left: auto;
+            right: 12px;
+            transform-origin: right;
+        }
+
+        .hotspot-section .hotspot.two .hotspot-content,
+        .hotspot-section .hotspot.four .hotspot-content {
+            left: auto;
+            right: 80px;
+        }
+
+        .hotspot-section .hotspot.two.active .connector-horizontal,
+        .hotspot-section .hotspot.four.active .connector-horizontal {
+            width: 60px;
+        }
+
+        @media (max-width: 600px) {
+            .hotspot-section .hotspot-content {
+                font-size: 0.8rem;
+                max-width: 180px;
+            }
+        }
+
+        .specs-container {
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .specs-container h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 28px;
+        }
+
+        .specs-container table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .specs-container th,
+        .specs-container td {
+            padding: 14px 12px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+
+        .specs-container th {
+            font-weight: 500;
+            width: 40%;
+            color: #fff;
+        }
+
+        .specs-container td {
+            color: #fff;
+        }
+
+        .specs-container .hidden-section {
+            display: none;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.6s ease;
+        }
+
+        .specs-container .hidden-section.show {
+            display: table-row-group;
+            opacity: 1;
+            max-height: 9999px;
+        }
+
+        .specs-container .toggle-btn {
+
+            background: transparent;
+
+            border: 1px solid #f48120;
+
+            border-radius: 20px;
+
+            color: #f48120;
+
+            padding: 8px 18px;
+
+            font-size: 0.95rem;
+
+            cursor: pointer;
+
+            margin-top: 16px;
+
+            transition: all 0.3s ease;
+
+        }
+
+        .specs-container .toggle-btn:hover {
+
+            background: #fff;
+
+            color: #000000;
+
+        }
+
+        .specs-container .footer-note a {
+            color: #00bfff;
+            text-decoration: none;
+        }
+
+        .specs-container .footer-note a:hover {
+            text-decoration: underline;
+        }
+
+        body.dark-mode .specs-container th {
+            color: #fff;
+        }
+
+        body.dark-mode .specs-container td {
+            color: #fff;
+        }
+
+        body.dark-mode .specs-container th,
+        body.dark-mode .specs-container td {
+            border-bottom-color: #333;
+        }
+
+        body:not(.dark-mode) .specs-container th {
+            color: #fff;
+        }
+
+        body:not(.dark-mode) .specs-container td {
+            color: #fff;
+        }
+
+        body:not(.dark-mode) .specs-container th,
+        body:not(.dark-mode) .specs-container td {
+            border-bottom-color: #ddd;
+        }
+
+        body.lightmode .specs-container th,
+        body.lightmode .specs-container td {
+            color: #000000;
+            /* black text for light background */
+            border-bottom-color: #ddd;
+            /* light border */
+        }
+
+        @media (max-width: 640px) {
+            .specs-container table {
+                font-size: 0.9rem;
+            }
+
+            .specs-container h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .product-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin: 4rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .product-section {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        .product-info-left {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .product-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #f48120;
+            color: #fff;
+            padding: 6px 10px;
+            border-radius: 99px;
+            font-size: 12px;
+        }
+
+        .product-info-left h2 {
+            font-size: 3rem;
+            line-height: 1.1;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .product-bullets {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            color: #6b7280;
+            font-size: 1rem;
+        }
+
+        .product-bullet {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .product-bullet .dot {
+            min-width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: #f48120;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+            margin-top: 2px;
+            font-weight: 600;
+        }
+
+        .product-image-right {
+            position: relative;
+        }
+    </style>
+</head>
+
+<body class="product-page">
+
+    <!-- Section Header -->
+    <header>
+        <!-- Section Navbar -->
+        <div id="header"></div>
+    </header>
+
+    <!-- Section Content Edit -->
+    <aside>
+        <div id="edit-sidebar"></div>
+    </aside>
+
+    <!-- Section Search -->
+    <aside>
+        <div id="search-form-container"></div>
+    </aside>
+
+    <!-- Section Sidebar -->
+    <aside>
+        <div id="sidebar"></div>
+    </aside>
+
+    <!-- Section Main Content -->
+    <main>
+        <!-- Section Banner -->
+        <div class="section-banner">
+            <div class="banner-layout-wrapper">
+                <div class="banner-layout">
+                    <div class="d-flex flex-column text-center align-items-center gspace-2">
+                        <h2 class="title-heading animate-box animated animate__animated"
+                            data-animate="animate__fadeInRight">Gateway</h2>
+                        <nav class="breadcrumb">
+                            <a href="../index.html" class="gspace-2">Home</a>
+                            <span class="separator-link">/</span>
+                            <a href="../products.html" class="gspace-2">Edge Devices</a>
+                            <span class="separator-link">/</span>
+                            <p class="current-page">Gateway</p>
+                        </nav>
+                    </div>
+                    <div class="spacer"></div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="section pb-0">
+            <div class="hero-container">
+                <div class="d-flex flex-column gspace-5">
+                    <div class="image-container">
+                        <img src="../image/gateway_banner.png" alt="Service Image" class="single-service-img">
+                        <div class="single-service-title-layout">
+                            <div class="">
+                                <div class="single-service-spacer"></div>
+                                <div class="single-service-title-wrapper">
+                                    <div class="single-service-title">
+                                        <div class="sub-heading animate-box animated slow animate__animated"
+                                            data-animate="animate__fadeInRight">
+                                            <i class="fa-regular fa-circle-dot"></i>
+                                            <span>Our Expertise</span>
+                                        </div>
+                                        <h3 class="title-heading animate-box animated animate__animated"
+                                            data-animate="animate__fadeInRight">Reliable Connectivity for Smart
+                                            Monitoring</h3>
+                                        <p>Sentra provides rugged, high-performance 4G gateways designed to ensure
+                                            continuous data flow from field sensors to your monitoring platforms. By
+                                            combining resilient hardware, edge processing, and cellular connectivity,
+                                            our 4G Rugged Gateway guarantees that critical structural health and
+                                            geotechnical data reaches engineers in real time, enabling faster,
+                                            data-driven decisions.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="single-service-spacer"></div>
+                        </div>
+                    </div>
+
+                    <!-- Section Services -->
+                    <div class="section1">
+                        <div class="hero-container">
+                            <div class="product-section" style="margin-top: 5px;    margin-bottom: 5px;">
+                                <div class="product-info-left">
+                                    <div class="product-tags" aria-hidden="true">
+                                        <span class="tag">LS-M6-KIO-GW</span>
+                                        <span class="tag">LS-G6-KIO-GW</span>
+                                        <span class="tag">LS-G6-KIOGW915R</span>
+                                    </div>
+                                    <h2>4G Rugged Gateway</h2>
+                                    <div class="product-bullets">
+                                        <div class="product-bullet">
+                                            <div class="dot">✔</div>
+                                            <div class="text-product">Continuous data transmission from multiple field
+                                                sensors via 4G LTE</div>
+                                        </div>
+                                        <div class="product-bullet">
+                                            <div class="dot">✔</div>
+                                            <div class="text-product">Durable, IP68-rated design for long-term outdoor
+                                                deployments</div>
+                                        </div>
+                                        <div class="product-bullet">
+                                            <div class="dot">✔</div>
+                                            <div class="text-product">Supports edge computing and local data buffering
+                                                for uninterrupted monitoring</div>
+                                        </div>
+                                    </div>
+                                    <a class="product-cta" href="#" id="scrollToSpecs"
+                                        aria-label="Access full specs">Access full specs</a>
+                                </div>
+                                <div class="product-image-right">
+                                    <section class="hotspot-section">
+                                        <div class="hotspot-wrapper">
+                                            <div class="image-container">
+                                                <img src="../image/gateway_01.png" alt="Gateway Product">
+                                                <div class="hotspot one" style="background-color: #f48120;">
+                                                    +
+                                                    <div class="connector-vertical"></div>
+                                                    <div class="connector-horizontal"></div>
+                                                    <div class="hotspot-content">
+                                                        <strong>Central Data Hub</strong><br>
+                                                        Collects and synchronizes data from multiple remote sensing
+                                                        nodes
+                                                    </div>
+                                                </div>
+                                                <div class="hotspot two" style="background-color: #f48120;">
+                                                    +
+                                                    <div class="connector-vertical"></div>
+                                                    <div class="connector-horizontal"></div>
+                                                    <div class="hotspot-content">
+                                                        <strong>Long-Range Connectivity</strong><br>
+                                                        Supports LoRa, cellular, and Ethernet links
+                                                    </div>
+                                                </div>
+                                                <div class="hotspot three" style="background-color: #f48120;">
+                                                    +
+                                                    <div class="connector-vertical"></div>
+                                                    <div class="connector-horizontal"></div>
+                                                    <div class="hotspot-content">
+                                                        <strong>Edge Intelligence</strong><br>
+                                                        Performs local validation and preprocessing
+                                                    </div>
+                                                </div>
+                                                <div class="hotspot four" style="background-color: #f48120;">
+                                                    +
+                                                    <div class="connector-vertical"></div>
+                                                    <div class="connector-horizontal"></div>
+                                                    <div class="hotspot-content">
+                                                        <strong>Remote Management</strong><br>
+                                                        Enables over-the-air configuration, diagnostics, and firmware
+                                                        updates
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row row-cols-xl-2 row-cols-1 grid-spacer-5">
+                        <div class="col col-xl-8">
+                            <div class="d-flex flex-column gspace-2">
+                                <h4>Overview</h4>
+                                <p>
+                                    The Sentra 4G Rugged Gateway collects and forwards data from remote sensors,
+                                    including tiltmeters, GNSS meters, and vibration meters, to cloud platforms or local
+                                    servers. Designed for harsh environments, it ensures reliable communication even in
+                                    areas without stable wired networks. Built-in edge intelligence processes events and
+                                    manages data locally when connectivity is limited, guaranteeing seamless monitoring
+                                    of infrastructure, tunnels, slopes, and industrial assets.
+                                </p>
+                                <div class="row row-cols-md-2 row-cols-1 grid-spacer-2 grid-spacer-md-3">
+                                    <div class="col">
+                                        <div class="image-container">
+                                            <img src="../image/gateway_01.png" alt="Service Image" class="img-fluid">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="image-container">
+                                            <img src="../image/gateway_02.png" alt="Service Image" class="img-fluid">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card service-included">
+                                    <h4 class="product-headings">What's Included</h4>
+                                    <div class="underline-accent-short"></div>
+                                    <p>Field-ready hardware and software for fast, reliable connectivity</p>
+                                    <div class="row row-cols-md-2 row-cols-1 grid-spacer-2">
+                                        <div class="col">
+                                            <ul class="check-list">
+                                                <li>Rugged IP68 gateway with 4G LTE and optional Ethernet/Wi-Fi
+                                                    interfaces</li>
+                                                <li>Edge computing capability for local data processing and buffering
+                                                </li>
+                                                <li>Mobile and web tools for easy configuration and monitoring</li>
+                                                <li>Flexible power options for battery or mains operation</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col">
+                                            <ul class="check-list">
+                                                <li>Automatic firmware updates and remote management</li>
+                                                <li>Alert mode</li>
+                                                <li>Cloud integration with MQTT, REST API, or FTP supports</li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4>Why Choose Sentra 4G Rugged Gateway?</h4>
+                                <p>Uninterrupted Data Flow for Critical Monitoring Projects</p>
+                                <div class="row row-cols-2">
+                                    <div class="col">
+                                        <div class="d-flex flex-column gspace-2">
+                                            <div
+                                                class="d-flex flex-column flex-md-row align-items-center text-center text-md-start gspace-1">
+                                                <i class="fa-regular fa-2x fa-circle-check accent-color"></i>
+                                                <div class="d-flex flex-column gspace-0">
+                                                    <h5>Reliable Connectivity</h5>
+                                                    <p>Ensures uninterrupted data transfer from remote sensors</p>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="d-flex flex-column flex-md-row align-items-center text-center text-md-start gspace-1">
+                                                <i class="fa-regular fa-2x fa-circle-check accent-color"></i>
+                                                <div class="d-flex flex-column gspace-0">
+                                                    <h5>Edge Intelligence</h5>
+                                                    <p>Processes events locally for faster alerts and reduced latency
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="d-flex flex-column gspace-2">
+                                            <div
+                                                class="d-flex flex-column flex-md-row align-items-center text-center text-md-start gspace-1">
+                                                <i class="fa-regular fa-2x fa-circle-check accent-color"></i>
+                                                <div class="d-flex flex-column gspace-0">
+                                                    <h5>Durable Design</h5>
+                                                    <p>Weatherproof and robust for harsh field conditions</p>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="d-flex flex-column flex-md-row align-items-center text-center text-md-start gspace-1">
+                                                <i class="fa-regular fa-2x fa-circle-check accent-color"></i>
+                                                <div class="d-flex flex-column gspace-0">
+                                                    <h5>Seamless Integration</h5>
+                                                    <p>Compatible with Sentra monitoring systems and third-party
+                                                        platforms</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-xl-4">
+                            <div class="d-flex flex-column flex-md-row flex-xl-column justify-content-between gspace-5">
+                                <div class="card service-recent">
+                                    <h4 class="product-headings">Recent Services</h4>
+                                    <div class="underline-accent-short"></div>
+                                    <ul class="single-service-list">
+                                        <li><a href="../single_services.html">Continuous Multi-Sensor Data
+                                                Collection</a></li>
+                                        <li><a href="../single_services.html">Local Event Processing & Alert
+                                                Forwarding</a></li>
+                                        <li><a href="../single_services.html">Gateway Deployment for Remote Sensor
+                                                Networks</a></li>
+                                        <li><a href="../single_services.html">Integration with dashboards, SCADA, and
+                                                cloud platforms</a></li>
+                                        <li><a href="../single_services.html">Dashboard, SCADA & Cloud Integration</a>
+                                        </li>
+                                        <li><a href="../single_services.html">Long-Term Maintenance & Technical
+                                                Support</a></li>
+                                    </ul>
+                                </div>
+                                <div class="cta-service-banner">
+                                    <div class="spacer"></div>
+                                    <h3 class="title-heading">Reimagine What’s Possible</h3>
+                                    <p>
+                                        Empowering businesses with IoT-driven insights and innovative solutions.
+                                        Together, let’s shape a smarter future!
+                                    </p>
+                                    <div class="link-wrapper">
+                                        <a href="about.html">Read More</a>
+                                        <i class="fa-solid fa-circle-arrow-right"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Specifications Table -->
+        <div class="section">
+            <div class="hero-container">
+                <div class="specs-container" id="specsSection">
+                    <h2>Main technical specifications</h2>
+
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>Radio communication protocol</th>
+                                <td>LoRa/LoRaWAN</td>
+                            </tr>
+                            <tr>
+                                <th>Backhaul connectivity</th>
+                                <td>4G Worldwide module with 3G/2G fallback; Ethernet (RJ45)</td>
+                            </tr>
+                            <tr>
+                                <th>Antenna</th>
+                                <td>Integrated internal antennas GPS, 4G, LoRa (peak gain=2,6dBi) <br>Optional external
+                                    antenna</td>
+                            </tr>
+                            <tr>
+                                <th>Supported unlicensed bands</th>
+                                <td>863-874.4MHz (EMEA, India), 902-928MHz (North America), 915-928MHz (APAC, Latin
+                                    America)</td>
+                            </tr>
+                            <tr>
+                                <th>Rx sensitivity</th>
+                                <td>-141 dBm (SF12)</td>
+                            </tr>
+                            <tr>
+                                <th>Weather protection</th>
+                                <td>IP68</td>
+                            </tr>
+                            <tr>
+                                <th>Operating temperature</th>
+                                <td>-40°C +60°C</td>
+                            </tr>
+                        </tbody>
+
+                        <tbody class="hidden-section" id="fullTable">
+                            <tr>
+                                <th>Local access</th>
+                                <td>Via USB-C port</td>
+                            </tr>
+
+                            <tr>
+                                <th class="product-table-section-title">Device
+                                    interfaces</th>
+                            </tr>
+                            <tr>
+                                <th>Ethernet</th>
+                                <td>Waterproof RJ45</td>
+                            </tr>
+                            <tr>
+                                <th>Cellular</th>
+                                <td>Waterproof Mini SIM Card slot</td>
+                            </tr>
+
+                            <tr>
+                                <th class="product-table-section-title">Power
+                                    requirements</th>
+                            </tr>
+                            <tr>
+                                <th>Power options</th>
+                                <td>PoE both mode A and mode B (802.3 af specifications) <br> 5V through USB-C <br> PoE
+                                    injector for indoor use included in the kit</td>
+                            </tr>
+                            <tr>
+                                <th>Mean power consumption</th>
+                                <td>4.5 W</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+
+                    <button class="toggle-btn" id="toggleBtn">Show full table +</button>
+
+                    <p class="footer-note">
+                        See detailed information about sensor capabilities and battery life estimations in the
+                        <br>
+                        <a style="color: #f48120;"
+                            href="https://info.worldsensing.com/datasheet_4GGatewayCloud_EN?_gl=1*11d58oe*_gcl_au*NjgzMjAxOTU5LjE3NjEzMDU4MTU.">4G
+                            Rugged Gateway - Cloud Product Datasheet</a>
+                        <br>
+                        <a style="color: #f48120;"
+                            href="https://info.worldsensing.com/datasheet_4GGatewayEdge_EN?_gl=1*337tu4*_gcl_au*NjgzMjAxOTU5LjE3NjEzMDU4MTU.">Edge
+                            Gateway Datasheet EN Product Datasheet</a>
+                        <br>
+                        <a style="color: #f48120;"
+                            href="https://info.worldsensing.com/Datasheet_4GRuggedGatewayEdge915R_EN?_gl=1*337tu4*_gcl_au*NjgzMjAxOTU5LjE3NjEzMDU4MTU.">Edge
+                            Gateway 915R Datasheet EN Product Datasheet</a>
+                        <br>
+                        <a style="color: #f48120;"
+                            href="https://info.worldsensing.com/4G-Rugged-Gateway-Edge-datasheet-PT?_gl=1*jn3usr*_gcl_au*NjgzMjAxOTU5LjE3NjEzMDU4MTU.">Edge
+                            Gateway Datasheet PT Product Datasheet</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Newsletter -->
+        <div class="section">
+            <div class="hero-container">
+                <div class="newsletter-wrapper">
+                    <div class="newsletter-layout">
+                        <div class="spacer"></div>
+                        <div class="d-flex flex-column gspace-5 position-relative z-2">
+                            <div class="d-flex flex-column gspace-2 animate-box animated animate__animated"
+                                data-animate="animate__fadeInLeft">
+                                <h3 class="title-heading">Stay Connected with Sentra Gateways</h3>
+                                <p>Get the latest updates, innovations, and best practices in remote sensor
+                                    connectivity, edge computing, and infrastructure monitoring — delivered straight to
+                                    your inbox.</p>
+                            </div>
+                            <div id="newsletter-success" class="alert success hidden">
+                                <span class="check-icon"><i class="fa-solid fa-2xl fa-check"></i></span>
+                                <p class="text-center">Thank you! Form submitted successfully.</p>
+                            </div>
+
+                            <div id="newsletter-error" class="alert error hidden">
+                                <span class="cross-icon"><i class="fa-solid fa-2xl fa-xmark"></i></span>
+                                <p class="text-center">Oops! Form submission failed. Please try again.</p>
+                            </div>
+
+                            <form action="./php/newsletter_process.php" method="POST" id="newsletterForm"
+                                class="needs-validation animate-box animated animate__animated"
+                                data-animate="animate__fadeInRight">
+                                <div class="input-container">
+                                    <input type="email" name="newsletter-email" id="newsletter-email"
+                                        placeholder="Give your best email" required>
+                                    <p class="error-text hidden"></p>
+                                </div>
+                                <button class="btn btn-accent" type="submit">
+                                    <span class="btn-title">
+                                        <span>Subscribe</span>
+                                    </span>
+                                    <span class="icon-circle">
+                                        <i class="fa-solid fa-arrow-right"></i>
+                                    </span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section FAQs -->
+        <div class="section">
+            <div class="hero-container">
+                <div class="row row-cols-xl-2 row-cols-1 grid-spacer-5">
+                    <div class="col col-xl-5">
+                        <div class="faq-title-container">
+                            <div class="sub-heading">
+                                <i class="fa-regular fa-circle-dot"></i>
+                                <span>Frequently Asked Questions</span>
+                            </div>
+                            <h2 class="title-heading">Got Questions? We've Got Answers.</h2>
+                        </div>
+                    </div>
+                    <div class="col col-xl-7">
+                        <div class="d-flex flex-column">
+                            <div class="accordion" id="faqAccordion1">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#faq1" aria-expanded="false" aria-controls="faq1">
+                                            What is the 4G Rugged Gateway used for?
+                                        </button>
+                                    </h2>
+                                    <div id="faq1" class="accordion-collapse collapse show"
+                                        data-bs-parent="#faqAccordion1">
+                                        <div class="accordion-body">
+                                            <div class="accordion-spacer"></div>
+                                            <p>
+                                                It collects and transmits data from field sensors like tiltmeters, GNSS
+                                                meters, and vibration meters to cloud or local servers in real time.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="true"
+                                            aria-controls="faq2">
+                                            How does it ensure reliable data transmission?
+                                        </button>
+                                    </h2>
+                                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
+                                        <div class="accordion-body">
+                                            <div class="accordion-spacer"></div>
+                                            <p>
+                                                It uses 4G LTE networks with optional Ethernet/Wi-Fi backup and local
+                                                buffering to prevent data loss during connectivity interruptions.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false"
+                                            aria-controls="faq3">
+                                            What environments can it operate in?
+                                        </button>
+                                    </h2>
+                                    <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
+                                        <div class="accordion-body">
+                                            <div class="accordion-spacer"></div>
+                                            <p>
+                                                Designed for harsh outdoor or industrial conditions, the gateway is
+                                                IP68-rated and can withstand dust, moisture, and temperature extremes.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false"
+                                            aria-controls="faq4">
+                                            How is it powered?
+                                        </button>
+                                    </h2>
+                                    <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
+                                        <div class="accordion-body">
+                                            <div class="accordion-spacer"></div>
+                                            <p>
+                                                Supports multiple power options, including mains, battery, or solar
+                                                setups, depending on deployment requirements.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#faq5" aria-expanded="false"
+                                            aria-controls="faq5">
+                                            Can it integrate with existing monitoring systems?
+                                        </button>
+                                    </h2>
+                                    <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
+                                        <div class="accordion-body">
+                                            <div class="accordion-spacer"></div>
+                                            <p>
+                                                Yes — supports MQTT, REST API, FTP, and direct integration with SCADA,
+                                                dashboards, or asset management platforms.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#faq6" aria-expanded="false"
+                                            aria-controls="faq6">
+                                            How many sensors can it handle simultaneously?
+                                        </button>
+                                    </h2>
+                                    <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
+                                        <div class="accordion-body">
+                                            <div class="accordion-spacer"></div>
+                                            <p>
+                                                The gateway can manage multiple field devices and sensor types,
+                                                aggregating data and forwarding it efficiently to the cloud or local
+                                                servers.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Section Footer -->
+    <footer>
+        <div id="footer"></div>
+    </footer>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const scrollBtn = document.getElementById("scrollToSpecs");
+            const specsSection = document.getElementById("specsSection");
+
+            if (!scrollBtn || !specsSection) return;
+
+            scrollBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+
+                // Try common header selectors — add your header selector if different
+                const header = document.querySelector('header') || document.querySelector('.site-header') || document.querySelector('.navbar') || null;
+                const headerHeight = header ? header.getBoundingClientRect().height : 0;
+
+                // Extra gap so content doesn't touch the header (adjust px as needed)
+                const extraGap = 80;
+
+                const targetY = specsSection.getBoundingClientRect().top + window.pageYOffset - headerHeight - extraGap;
+
+                window.scrollTo({
+                    top: Math.max(targetY, 0),
+                    behavior: "smooth"
+                });
+            });
+        });
+    </script>
+
+
+    <script>
+        (function () {
+            const hotspots = document.querySelectorAll('.hotspot-section .hotspot');
+            if (!hotspots.length) {
+                return;
+            }
+            hotspots.forEach(hotspot => {
+                hotspot.addEventListener('click', event => {
+                    event.stopPropagation();
+                    hotspot.classList.toggle('active');
+                    hotspots.forEach(other => {
+                        if (other !== hotspot) {
+                            other.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.addEventListener('click', () => {
+                hotspots.forEach(h => h.classList.remove('active'));
+            });
+        })();
+    </script>
+    <script>
+        const toggleBtn = document.getElementById("toggleBtn");
+        const fullTable = document.getElementById("fullTable");
+        let expanded = false;
+
+        if (toggleBtn && fullTable) {
+            toggleBtn.addEventListener("click", () => {
+                expanded = !expanded;
+                fullTable.classList.toggle("show", expanded);
+                toggleBtn.textContent = expanded ? "Hide full table –" : "Show full table +";
+            });
+        }
+    </script>
+    <script src="../js/vendor/jquery.min.js"></script>
+    <script src="../js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="../js/vendor/swiper-bundle.min.js"></script>
+    <script src="../js/script.js"></script>
+    <script src="../js/swiper-script.js"></script>
+    <script src="../js/submit-form.js"></script>
+    <script src="../js/video_embedded.js"></script>
+    <!-- Linking Emoji Mart script for emoji picker -->
+    <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
+
+    <!-- Chatbot Widget -->
+    <script src="../js/chatbot-widget.js"></script>
+
+
+</body>
+
+</html>

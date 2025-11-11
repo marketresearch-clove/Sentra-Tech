@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentra - Digital Data Logger Data Acquistion Device</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="https://clovetech.com/wp-content/uploads/2025/04/favicon.png" type="image/png" sizes="16x16">
+    <link rel="stylesheet" href="../css/chatbot.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+
+    <style>
+        .hotspot-section {
+            display: flex;
+            justify-content: center;
+            margin: 3rem 0;
+        }
+
+
+
+        .hotspot-section .hotspot-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .hotspot-section .image-container {
+            position: relative;
+            width: 100%;
+            border-radius: 12px;
+
+        }
+
+        .hotspot-section .image-container img {
+            width: 100%;
+            display: block;
+            border-radius: 12px;
+
+        }
+
+        .hotspot-section .hotspot {
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: #007bff;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 3;
+        }
+
+        .hotspot-section .hotspot:hover {
+            background: #0056b3;
+            transform: scale(1.1);
+        }
+
+        .hotspot-section .connector-vertical,
+        .hotspot-section .connector-horizontal {
+            position: absolute;
+            background: #007bff;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .hotspot-section .connector-vertical {
+            width: 2px;
+            height: 0;
+            top: 26px;
+            left: 12px;
+            transform-origin: top;
+        }
+
+        .hotspot-section .connector-horizontal {
+            height: 2px;
+            width: 0;
+            top: 66px;
+            left: 12px;
+            transform-origin: left;
+        }
+
+        .hotspot-section .hotspot-content {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.85);
+            color: #fff;
+            padding: 12px 16px;
+            border-radius: 8px;
+            max-width: 220px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            z-index: 2;
+            top: 60px;
+            left: 80px;
+        }
+
+        .hotspot-section .hotspot.active .connector-vertical {
+            height: 40px;
+            opacity: 1;
+            background-color: #f48120;
+        }
+
+        .hotspot-section .hotspot.active .connector-horizontal {
+            width: 60px;
+            opacity: 1;
+            transition-delay: 0.2s;
+            background-color: #f48120;
+
+        }
+
+        .hotspot-section .hotspot.active .hotspot-content {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+            transition-delay: 0.3s;
+        }
+
+        .hotspot-section .hotspot.one {
+            top: 41%;
+            left: 25%;
+        }
+
+        .hotspot-section .hotspot.two {
+            top: 28%;
+            left: 68%;
+        }
+
+        .hotspot-section .hotspot.three {
+            top: 60%;
+            left: 25%;
+        }
+
+        .hotspot-section .hotspot.four {
+            top: 58%;
+            left: 72%;
+        }
+
+        .hotspot-section .hotspot.two .connector-horizontal,
+        .hotspot-section .hotspot.four .connector-horizontal {
+            left: auto;
+            right: 12px;
+            transform-origin: right;
+        }
+
+        .hotspot-section .hotspot.two .hotspot-content,
+        .hotspot-section .hotspot.four .hotspot-content {
+            left: auto;
+            right: 80px;
+        }
+
+        .hotspot-section .hotspot.two.active .connector-horizontal,
+        .hotspot-section .hotspot.four.active .connector-horizontal {
+            width: 60px;
+        }
+
+        @media (max-width: 600px) {
+            .hotspot-section .hotspot-content {
+                font-size: 0.8rem;
+                max-width: 180px;
+            }
+        }
+
+        .specs-container {
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .specs-container h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 28px;
+        }
+
+        .specs-container table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .specs-container th,
+        .specs-container td {
+            padding: 14px 12px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+
+        .specs-container th {
+            font-weight: 500;
+            width: 40%;
+            color: #fff;
+        }
+
+        .specs-container td {
+            color: #fff;
+        }
+
+        .specs-container .hidden-section {
+            display: none;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.6s ease;
+        }
+
+        .specs-container .hidden-section.show {
+            display: table-row-group;
+            opacity: 1;
+            max-height: 9999px;
+        }
+
+        .specs-container .toggle-btn {
+
+            background: transparent;
+
+            border: 1px solid #f48120;
+
+            border-radius: 20px;
+
+            color: #f48120;
+
+            padding: 8px 18px;
+
+            font-size: 0.95rem;
+
+            cursor: pointer;
+
+            margin-top: 16px;
+
+            transition: all 0.3s ease;
+
+        }
+
+        .specs-container .toggle-btn:hover {
+
+            background: #fff;
+
+            color: #000000;
+
+        }
+
+        .specs-container .footer-note a {
+            color: #00bfff;
+            text-decoration: none;
+        }
+
+        .specs-container .footer-note a:hover {
+            text-decoration: underline;
+        }
+
+        body.dark-mode .specs-container th {
+            color: #fff;
+        }
+
+        body.dark-mode .specs-container td {
+            color: #fff;
+        }
+
+        body.dark-mode .specs-container th,
+        body.dark-mode .specs-container td {
+            border-bottom-color: #333;
+        }
+
+        body:not(.dark-mode) .specs-container th {
+            color: #fff;
+        }
+
+        body:not(.dark-mode) .specs-container td {
+            color: #fff;
+        }
+
+        body:not(.dark-mode) .specs-container th,
+        body:not(.dark-mode) .specs-container td {
+            border-bottom-color: #ddd;
+        }
+
+        body.lightmode .specs-container th,
+        body.lightmode .specs-container td {
+            color: #000000;
+            /* black text for light background */
+            border-bottom-color: #ddd;
+            /* light border */
+        }
+
+        @media (max-width: 640px) {
+            .specs-container table {
+                font-size: 0.9rem;
+            }
+
+            .specs-container h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .product-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin: 4rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .product-section {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        .product-info-left {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .product-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #f48120;
+            color: #fff;
+            padding: 6px 10px;
+            border-radius: 99px;
+            font-size: 12px;
+        }
+
+        .product-info-left h2 {
+            font-size: 3rem;
+            line-height: 1.1;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .product-bullets {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            color: #6b7280;
+            font-size: 1rem;
+        }
+
+        .product-bullet {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .product-bullet .dot {
+            min-width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: #f48120;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+            margin-top: 2px;
+            font-weight: 600;
+        }
+
+        .product-image-right {
+            position: relative;
+        }
+    </style>
+</head>
+
+<body class="product-page">
+
+    <!-- Section Header -->
+    <header>
+        <!-- Section Navbar -->
+        <div id="header"></div>
+    </header>
+
+    <!-- Section Content Edit -->
+    <aside>
+        <div id="edit-sidebar"></div>
+    </aside>
+
+    <!-- Section Search -->
+    <aside>
+        <div id="search-form-container"></div>
+    </aside>
+
+    <!-- Section Sidebar -->
+    <aside>
+        <div id="sidebar"></div>
+    </aside>
+
+    <!-- Section Main Content -->
+    <main>
+        <!-- Section Banner -->
+        <div class="section-banner">
+            <div class="banner-layout-wrapper">
+                <div class="banner-layout">
+                    <div class="d-flex flex-column text-center align-items-center gspace-2">
+                        <h2 class="title-heading animate-box animated animate__animated"
+                            data-animate="animate__fadeInRight">Digital Data Logger</h2>
+                        <nav class="breadcrumb">
+                            <a href="../index.html" class="gspace-2">Home</a>
+                            <span class="separator-link">/</span>
+                            <a href="../products.html" class="gspace-2">Edge Devices</a>
+                            <span class="separator-link">/</span>
+                            <p class="current-page">Digital Data Logger</p>
+                        </nav>
+                    </div>
+                    <div class="spacer"></div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div class="section pb-0">
+            <div class="hero-container">
+                <div class="d-flex flex-column gspace-5">
+                    <div class="image-container">
+                        <img src="../image/digital_data_logger.png" alt="Service Image" class="single-service-img">
+                        <div class="single-service-title-layout">
+                            <div class="">
+                                <div class="single-service-spacer"></div>
+                                <div class="single-service-title-wrapper">
+                                    <div class="single-service-title">
+                                        <div class="sub-heading animate-box animated slow animate__animated"
+                                            data-animate="animate__fadeInRight">
+                                            <i class="fa-regular fa-circle-dot"></i>
+                                            <span>Our Expertise</span>
+                                        </div>
+                                        <h3 class="title-heading animate-box animated animate__animated"
+                                            data-animate="animate__fadeInRight">Advanced Infrastructure Monitoring with
+                                            Digital Data Streaming</h3>
+                                        <p>At Sentra, we deliver advanced vibration and structural monitoring solutions
+                                            powered by Worldsensing’s Digital Logger technology. Our low-power,
+                                            long-range devices stream data wirelessly from geotechnical, structural, and
+                                            environmental sensors, supporting ModBus RTU and other protocols for
+                                            seamless integration. Designed for remote or isolated locations, they
+                                            connect to IPIs, MPBXs, and other sensors for proactive infrastructure
+                                            maintenance.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="single-service-spacer"></div>
+                        </div>
+                    </div>
+
+                    <!-- Section Services -->
+                    <div class="section1">
+                        <div class="hero-container">
+                            <div class="product-section" style="margin-top: 5px;    margin-bottom: 5px;">
+                                <div class="product-info-left">
+                                    <div class="product-tags" aria-hidden="true">
+                                        <span class="tag">LS-G6-DIG-2</span>
+                                    </div>
+                                    <h2>Digital Data Logger</h2>
+                                    <div class="product-bullets">
+                                        <div class="product-bullet">
+                                            <div class="dot">✔</div>
+                                            <div class="text-product">The best option to stream data wirelessly from
+                                                digital sensors using ModBus RTU communications</div>
+                                        </div>
+                                        <div class="product-bullet">
+                                            <div class="dot">✔</div>
+                                            <div class="text-product">Compatible with other proprietary protocols from
+                                                main geotechnical, structural and environmental sensor manufacturers
+                                            </div>
+                                        </div>
+                                        <div class="product-bullet">
+                                            <div class="dot">✔</div>
+                                            <div class="text-product">Unrivalled autonomy and long-range communications
+                                                to connect digital in-place inclinometers (IPIs) and multipoint borehole
+                                                extensometers (MPBX) in isolated areas</div>
+                                        </div>
+                                    </div>
+                                    <a class="product-cta" href="#" id="scrollToSpecs"
+                                        aria-label="Access full specs">Access full specs</a>
+                                </div>
+                                <div class="product-image-right">
+                                    <section class="hotspot-section">
+                                        <div class="hotspot-wrapper">
+                                            <div class="image-container">
+                                                <img src="../image/Datalogger_1.png" alt="Digital Data Logger Product">
+                                                <div class="hotspot one" style="background-color: #f48120;">
+                                                    +
+                                                    <div class="connector-vertical"></div>
+                                                    <div class="connector-horizontal"></div>
+                                                    <div class="hotspot-content">
+                                                        <strong>Multi-Channel Interface</strong><br>
+                                                        Supports multiple sensor inputs
+                                                    </div>
+                                                </div>
+                                                <div class="hotspot two" style="background-color: #f48120;">
+                                                    +
+                                                    <div class="connector-vertical"></div>
+                                                    <div class="connector-horizontal"></div>
+                                                    <div class="hotspot-content">
+                                                        <strong>Edge Intelligence</strong><br>
+                                                        Processes and validates data locally before transmission to
+                                                        reduce false alerts.
+                                                    </div>
+                                                </div>
+                                                <div class="hotspot three" style="background-color: #f48120;">
+                                                    +
+                                                    <div class="connector-vertical"></div>
+                                                    <div class="connector-horizontal"></div>
+                                                    <div class="hotspot-content">
+                                                        <strong>Cloud Connectivity</strong><br>
+                                                        Seamless LoRa / 4G / Wi-Fi data transfer
+                                                    </div>
+                                                </div>
+                                                <div class="hotspot four" style="background-color: #f48120;">
+                                                    +
+                                                    <div class="connector-vertical"></div>
+                                                    <div class="connector-horizontal"></div>
+                                                    <div class="hotspot-content">
+                                                        <strong>Long-Term Reliability</strong><br>
+                                                        Extended battery life for 24/7 field deployment
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </section>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row row-cols-xl-2 row-cols-1 grid-spacer-5">
+                        <div class="col col-xl-8">
+                            <div class="d-flex flex-column gspace-2">
+                                <h4>Overview</h4>
+                                <p>
+                                    The Digital Data Logger is a robust, low-power device designed for long-term,
+                                    continuous monitoring of geotechnical, structural, and environmental sensors. It
+                                    leverages intelligent edge processing to automatically collect, process, and
+                                    transmit sensor data wirelessly, supporting threshold alerts and seamless
+                                    integration via ModBus RTU and other protocols — eliminating the need for manual
+                                    data retrieval, even in remote or isolated locations.
+                                </p>
+                                <div class="row row-cols-md-2 row-cols-1 grid-spacer-2 grid-spacer-md-3">
+                                    <div class="col">
+                                        <div class="image-container">
+                                            <img src="../image/Datalogger_1.png" alt="Service Image" class="img-fluid">
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="image-container">
+                                            <img src="../image/Datalogger_2.png" alt="Service Image" class="img-fluid">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="card service-included">
+                                    <h4 class="product-headings">What's Included</h4>
+                                    <div class="underline-accent-short"></div>
+                                    <p>Complete, ready-to-deploy digital logging solutions to start monitoring
+                                        infrastructure immediately</p>
+                                    <div class="row row-cols-md-2 row-cols-1 grid-spacer-2">
+                                        <div class="col">
+                                            <ul class="check-list">
+                                                <li>Compatibility with a wide range of geotechnical, structural, and
+                                                    environmental sensors</li>
+                                                <li>Flexible, configurable data acquisition modes</li>
+                                                <li>Long-lasting, low-power operation for extended deployments</li>
+                                                <li>Reliable, long-range wireless communication</li>
+                                            </ul>
+                                        </div>
+                                        <div class="col">
+                                            <ul class="check-list">
+                                                <li>Automated data logging with raw data storage</li>
+                                                <li>Intelligent threshold alerts and edge processing</li>
+                                                <li>Periodic performance reports for actionable insights </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4>Why Choose Sentra for Digital Data Logging?</h4>
+                                <p>Practical advantages designed for engineers and infrastructure managers who need
+                                    reliable, actionable monitoring.</p>
+                                <div class="row row-cols-2">
+                                    <div class="col">
+                                        <div class="d-flex flex-column gspace-2">
+                                            <div
+                                                class="d-flex flex-column flex-md-row align-items-center text-center text-md-start gspace-1">
+                                                <i class="fa-regular fa-2x fa-circle-check accent-color"></i>
+                                                <div class="d-flex flex-column gspace-0">
+                                                    <h5>Seamless Data Acquisition</h5>
+                                                    <p>Wirelessly collect and stream data from a wide range of
+                                                        geotechnical, structural, and environmental sensors</p>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="d-flex flex-column flex-md-row align-items-center text-center text-md-start gspace-1">
+                                                <i class="fa-regular fa-2x fa-circle-check accent-color"></i>
+                                                <div class="d-flex flex-column gspace-0">
+                                                    <h5>Flexible Integration</h5>
+                                                    <p>Supports ModBus RTU and other proprietary protocols for smooth
+                                                        connection with existing monitoring systems</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="d-flex flex-column gspace-2">
+                                            <div
+                                                class="d-flex flex-column flex-md-row align-items-center text-center text-md-start gspace-1">
+                                                <i class="fa-regular fa-2x fa-circle-check accent-color"></i>
+                                                <div class="d-flex flex-column gspace-0">
+                                                    <h5>Long-Range, Low-Power Operation </h5>
+                                                    <p>Robust devices designed for remote or isolated locations with
+                                                        extended battery life</p>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="d-flex flex-column flex-md-row align-items-center text-center text-md-start gspace-1">
+                                                <i class="fa-regular fa-2x fa-circle-check accent-color"></i>
+                                                <div class="d-flex flex-column gspace-0">
+                                                    <h5>Automated Insights</h5>
+                                                    <p>Edge processing enables threshold alerts and real-time reporting,
+                                                        turning raw data into actionable decisions</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col col-xl-4">
+                            <div class="d-flex flex-column flex-md-row flex-xl-column justify-content-between gspace-5">
+                                <div class="card service-recent">
+                                    <h4 class="product-headings">Recent Services</h4>
+                                    <div class="underline-accent-short"></div>
+                                    <ul class="single-service-list">
+                                        <li><a href="../single_services.html">Wireless Data Acquisition & Streaming</a>
+                                        </li>
+                                        <li><a href="../single_services.html">Geotechnical, Structural & Environmental
+                                                Sensor Integration</a></li>
+                                        <li><a href="../single_services.html">ModBus RTU & Proprietary Protocol
+                                                Support</a></li>
+                                        <li><a href="../single_services.html">Remote Monitoring for Isolated
+                                                Locations</a></li>
+                                        <li><a href="../single_services.html">Threshold Alerts & Automated Data
+                                                Logging</a></li>
+                                        <li><a href="../single_services.html">Device Setup, Calibration & Ongoing
+                                                Support</a></li>
+                                    </ul>
+                                </div>
+                                <div class="cta-service-banner">
+                                    <div class="spacer"></div>
+                                    <h3 class="title-heading">Reimagine What’s Possible</h3>
+                                    <p>
+                                        Empowering businesses with IoT-driven insights and innovative solutions.
+                                        Together, let’s shape a smarter future!
+                                    </p>
+                                    <div class="link-wrapper">
+                                        <a href="about.html">Read More</a>
+                                        <i class="fa-solid fa-circle-arrow-right"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Specifications Table -->
+        <div class="section">
+            <div class="hero-container">
+                <div class="specs-container" id="specsSection">
+                    <h2>Main technical specifications</h2>
+
+                    <table>
+                        <tbody>
+                            <tr>
+                                <th>Input types</th>
+                                <td>RS485 full or half duplex supported</td>
+                            </tr>
+                            <tr>
+                                <th>Output power</th>
+                                <td>Regulated 12 V DC up to 200 mA in continuous operation. Maximum startup current peak
+                                    of 1.5 A, up to 50 ms</td>
+                            </tr>
+                            <tr>
+                                <th>Supported protocols</th>
+                                <td>MODBUS RTU and proprietary protocols</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <button class="toggle-btn" id="toggleBtn">Show full table +</button>
+
+                    <p class="footer-note">
+                        See detailed information about sensor capabilities and battery life estimations in the
+                        <a style="color: #f48120;" href="https://info.worldsensing.com/Datasheet_Digital_EN">Digital
+                            Data Logger Product Datasheet</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Newsletter -->
+        <div class="section">
+            <div class="hero-container">
+                <div class="newsletter-wrapper">
+                    <div class="newsletter-layout">
+                        <div class="spacer"></div>
+                        <div class="d-flex flex-column gspace-5 position-relative z-2">
+                            <div class="d-flex flex-column gspace-2 animate-box animated animate__animated"
+                                data-animate="animate__fadeInLeft">
+                                <h3 class="title-heading">Stay Connected with Intelligent Data Logging</h3>
+                                <p>Get exclusive insights, innovations, and industry trends in IoT and structural health
+                                    monitoring delivered straight to your inbox. Subscribe now!</p>
+                            </div>
+                            <div id="newsletter-success" class="alert success hidden">
+                                <span class="check-icon"><i class="fa-solid fa-2xl fa-check"></i></span>
+                                <p class="text-center">Thank you! Form submitted successfully.</p>
+                            </div>
+
+                            <div id="newsletter-error" class="alert error hidden">
+                                <span class="cross-icon"><i class="fa-solid fa-2xl fa-xmark"></i></span>
+                                <p class="text-center">Oops! Form submission failed. Please try again.</p>
+                            </div>
+
+                            <form action="./php/newsletter_process.php" method="POST" id="newsletterForm"
+                                class="needs-validation animate-box animated animate__animated"
+                                data-animate="animate__fadeInRight">
+                                <div class="input-container">
+                                    <input type="email" name="newsletter-email" id="newsletter-email"
+                                        placeholder="Give your best email" required>
+                                    <p class="error-text hidden"></p>
+                                </div>
+                                <button class="btn btn-accent" type="submit">
+                                    <span class="btn-title">
+                                        <span>Subscribe</span>
+                                    </span>
+                                    <span class="icon-circle">
+                                        <i class="fa-solid fa-arrow-right"></i>
+                                    </span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section FAQs -->
+        <div class="section">
+            <div class="hero-container">
+                <div class="row row-cols-xl-2 row-cols-1 grid-spacer-5">
+                    <div class="col col-xl-5">
+                        <div class="faq-title-container">
+                            <div class="sub-heading">
+                                <i class="fa-regular fa-circle-dot"></i>
+                                <span>Frequently Asked Questions</span>
+                            </div>
+                            <h2 class="title-heading">Got Questions? We've Got Answers.</h2>
+                        </div>
+                    </div>
+                    <div class="col col-xl-7">
+                        <div class="d-flex flex-column">
+                            <div class="accordion" id="faqAccordion1">
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                            data-bs-target="#faq1" aria-expanded="false" aria-controls="faq1">
+                                            What is the Digital Data Logger used for?
+                                        </button>
+                                    </h2>
+                                    <div id="faq1" class="accordion-collapse collapse show"
+                                        data-bs-parent="#faqAccordion1">
+                                        <div class="accordion-body">
+                                            <div class="accordion-spacer"></div>
+                                            <p>
+                                                It is used for long-term, continuous monitoring of geotechnical,
+                                                structural, and environmental sensors, collecting data from bridges,
+                                                tunnels, buildings, industrial assets, and remote sites.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="true"
+                                            aria-controls="faq2">
+                                            How does it collect and transmit data?
+                                        </button>
+                                    </h2>
+                                    <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
+                                        <div class="accordion-body">
+                                            <div class="accordion-spacer"></div>
+                                            <p>
+                                                The device streams sensor data wirelessly using ModBus RTU and other
+                                                proprietary protocols, with intelligent edge processing to automate data
+                                                logging and threshold alerts.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false"
+                                            aria-controls="faq3">
+                                            What connectivity options are available?
+                                        </button>
+                                    </h2>
+                                    <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
+                                        <div class="accordion-body">
+                                            <div class="accordion-spacer"></div>
+                                            <p>
+                                                It supports long-range wireless communication for remote deployment,
+                                                with seamless integration into existing monitoring or asset management
+                                                systems.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false"
+                                            aria-controls="faq4">
+                                            How long does the battery last?
+                                        </button>
+                                    </h2>
+                                    <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
+                                        <div class="accordion-body">
+                                            <div class="accordion-spacer"></div>
+                                            <p>
+                                                Designed for low-power operation, the device offers extended battery
+                                                life, capable of continuous monitoring for months or even up to 1.5
+                                                years depending on configuration.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#faq5" aria-expanded="false"
+                                            aria-controls="faq5">
+                                            Can it integrate with other monitoring systems?
+                                        </button>
+                                    </h2>
+                                    <div id="faq5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
+                                        <div class="accordion-body">
+                                            <div class="accordion-spacer"></div>
+                                            <p>
+                                                Yes, it supports standard protocols like ModBus RTU and other
+                                                proprietary sensor protocols, allowing smooth integration with a variety
+                                                of monitoring platforms.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#faq6" aria-expanded="false"
+                                            aria-controls="faq6">
+                                            Where can the Digital Data Logger be deployed?
+                                        </button>
+                                    </h2>
+                                    <div id="faq6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion1">
+                                        <div class="accordion-body">
+                                            <div class="accordion-spacer"></div>
+                                            <p>
+                                                It can be deployed in remote or isolated locations, including bridges,
+                                                tunnels, buildings, industrial sites, and other infrastructure projects,
+                                                providing continuous data acquisition and actionable insights.
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Section Footer -->
+    <footer>
+        <div id="footer"></div>
+    </footer>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const scrollBtn = document.getElementById("scrollToSpecs");
+            const specsSection = document.getElementById("specsSection");
+
+            if (!scrollBtn || !specsSection) return;
+
+            scrollBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+
+                // Try common header selectors — add your header selector if different
+                const header = document.querySelector('header') || document.querySelector('.site-header') || document.querySelector('.navbar') || null;
+                const headerHeight = header ? header.getBoundingClientRect().height : 0;
+
+                // Extra gap so content doesn't touch the header (adjust px as needed)
+                const extraGap = 80;
+
+                const targetY = specsSection.getBoundingClientRect().top + window.pageYOffset - headerHeight - extraGap;
+
+                window.scrollTo({
+                    top: Math.max(targetY, 0),
+                    behavior: "smooth"
+                });
+            });
+        });
+    </script>
+
+
+    <script>
+        (function () {
+            const hotspots = document.querySelectorAll('.hotspot-section .hotspot');
+            if (!hotspots.length) {
+                return;
+            }
+            hotspots.forEach(hotspot => {
+                hotspot.addEventListener('click', event => {
+                    event.stopPropagation();
+                    hotspot.classList.toggle('active');
+                    hotspots.forEach(other => {
+                        if (other !== hotspot) {
+                            other.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.addEventListener('click', () => {
+                hotspots.forEach(h => h.classList.remove('active'));
+            });
+        })();
+    </script>
+    <script>
+        const toggleBtn = document.getElementById("toggleBtn");
+        const fullTable = document.getElementById("fullTable");
+        let expanded = false;
+
+        if (toggleBtn && fullTable) {
+            toggleBtn.addEventListener("click", () => {
+                expanded = !expanded;
+                fullTable.classList.toggle("show", expanded);
+                toggleBtn.textContent = expanded ? "Hide full table –" : "Show full table +";
+            });
+        }
+    </script>
+    <script src="../js/vendor/jquery.min.js"></script>
+    <script src="../js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="../js/vendor/swiper-bundle.min.js"></script>
+    <script src="../js/script.js"></script>
+    <script src="../js/swiper-script.js"></script>
+    <script src="../js/submit-form.js"></script>
+    <script src="../js/video_embedded.js"></script>
+    <!-- Linking Emoji Mart script for emoji picker -->
+    <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
+
+    <!-- Chatbot Widget -->
+    <script src="../js/chatbot-widget.js"></script>
+
+
+</body>
+
+</html>
