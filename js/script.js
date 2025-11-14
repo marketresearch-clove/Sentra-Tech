@@ -241,7 +241,10 @@ function initThemeSwitch() {
 
     $('#themeSwitch').on('click', function () {
         lightMode = !lightMode;
-        updateLogos();
+        setTimeout(() => {
+            updateLogos();
+        }, 100);
+        
 
         const iconClass = lightMode ? 'fa-sun' : 'fa-moon';
         $('#themeIcon')

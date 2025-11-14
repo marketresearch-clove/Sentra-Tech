@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
+      <!-- Homepage -->
+      <url>
+            <loc>https://sentratech.in/</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>daily</changefreq>
+            <priority>1.0</priority>
+      </url>
+
+      <!-- About Pages -->
+      <url>
+            <loc>https://sentratech.in/about.html</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>monthly</changefreq>
+            <priority>0.8</priority>
+      </url>
+      <url>
+            <loc>https://sentratech.in/about_sentra.html</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>monthly</changefreq>
+            <priority>0.8</priority>
+      </url>
+
+      <!-- Products Page -->
+      <url>
+            <loc>https://sentratech.in/products.html</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>weekly</changefreq>
+            <priority>0.9</priority>
+      </url>
+
+      <!-- Contact Page -->
+      <url>
+            <loc>https://sentratech.in/contact.html</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>yearly</changefreq>
+            <priority>0.5</priority>
+      </url>
+
+      <!-- Blog Page -->
+      <url>
+            <loc>https://sentratech.in/blog.html</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>daily</changefreq>
+            <priority>0.7</priority>
+      </url>
+
+      <!-- Article Pages -->
+      <url>
+            <loc>https://sentratech.in/Article/building_resilient_smart_cities_with_data-Driven_insights.html</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>monthly</changefreq>
+            <priority>0.6</priority>
+      </url>
+      <url>
+            <loc>https://sentratech.in/Article/revolutionizing_infrastructure_monitoring_with _IoT.html</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>monthly</changefreq>
+            <priority>0.6</priority>
+      </url>
+
+      <!-- Case Studies Page -->
+      <url>
+            <loc>https://sentratech.in/case_studies.html</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>monthly</changefreq>
+            <priority>0.6</priority>
+      </url>
+      <url>
+            <loc>https://sentratech.in/Case_studies/BridgePluse - AI and Drone technology for bridge health monitoring.html</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>monthly</changefreq>
+            <priority>0.6</priority>
+      </url>
+
+      <!-- Service Page -->
+      <url>
+            <loc>https://sentratech.in/service.html</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>weekly</changefreq>
+            <priority>0.9</priority>
+      </url>
+
+      <!-- Partnership Page -->
+      <url>
+            <loc>https://sentratech.in/partnership.html</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>monthly</changefreq>
+            <priority>0.8</priority>
+      </url>
+
+      <!-- FAQ Page -->
+      <url>
+            <loc>https://sentratech.in/faq.html</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>monthly</changefreq>
+            <priority>0.8</priority>
+      </url>
+
+      <!-- Search Page -->
+      <url>
+            <loc>https://sentratech.in/search.html</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>yearly</changefreq>
+            <priority>0.5</priority>
+      </url>
+
+      <!-- Team Page -->
+      <url>
+            <loc>https://sentratech.in/team.html</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>monthly</changefreq>
+            <priority>0.8</priority>
+      </url>
+
+      <!-- Testimonial Page -->
+      <url>
+            <loc>https://sentratech.in/testimonial.html</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>monthly</changefreq>
+            <priority>0.8</priority>
+      </url>
+
+      <!-- 404 Page -->
+      <url>
+            <loc>https://sentratech.in/404_page.html</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>yearly</changefreq>
+            <priority>0.3</priority>
+      </url>
+
+      <!-- Dropdown Test Page -->
+      <url>
+            <loc>https://sentratech.in/dropdown-test.html</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>yearly</changefreq>
+            <priority>0.3</priority>
+      </url>
+
+      <!-- Search Form Page -->
+      <url>
+            <loc>https://sentratech.in/search-form.html</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>yearly</changefreq>
+            <priority>0.3</priority>
+      </url>
+
+      <!-- Sidebar Page -->
+      <url>
+            <loc>https://sentratech.in/sidebar.html</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>yearly</changefreq>
+            <priority>0.3</priority>
+      </url>
+
+      <!-- Single Post Page -->
+      <url>
+            <loc>https://sentratech.in/single_post.html</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>monthly</changefreq>
+            <priority>0.6</priority>
+      </url>
+
+      <!-- Single Services Page -->
+      <url>
+            <loc>https://sentratech.in/single_services.html</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>weekly</changefreq>
+            <priority>0.7</priority>
+      </url>
+
+      <!-- Template Blog Page -->
+      <url>
+            <loc>https://sentratech.in/template_blog.html</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>daily</changefreq>
+            <priority>0.5</priority>
+      </url>
+
+      <!-- Blogs Pages -->
+      <url>
+            <loc>https://sentratech.in/Blogs/fatigue_life_assessment.html</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>monthly</changefreq>
+            <priority>0.6</priority>
+      </url>
+      <url>
+            <loc>https://sentratech.in/Blogs/structural_Health_monitoring.html</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>monthly</changefreq>
+            <priority>0.6</priority>
+      </url>
+
+</urlset>
