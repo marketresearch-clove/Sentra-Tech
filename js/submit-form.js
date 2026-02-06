@@ -38,7 +38,16 @@ function initSubmitContact() {
         $submitButton.prop('disabled', true).text('Sending...');
 
         try {
-            var response = await fetch('/api/contact', {
+            // Use configurable API URL (supports separate backend domain)
+            const apiUrl = window.__API_URL__ || (
+                window.location.hostname.includes('netlify.app')
+                    ? 'https://api.yourdomain.com'  // Replace with actual backend domain
+                    : ''
+            );
+
+            const contactEndpoint = apiUrl + '/api/contact';
+
+            var response = await fetch(contactEndpoint, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -77,7 +86,7 @@ function initSubmitContact() {
 }
 
 function initSubmitNewsletter() {
-    $('#newsletterForm').on('submit', function(event) {
+    $('#newsletterForm').on('submit', function (event) {
         event.preventDefault();
 
         var $email = $('#newsletter-email');
@@ -108,13 +117,13 @@ function initSubmitNewsletter() {
         if (isValid) {
             $successMessage.removeClass('hidden');
             $('#newsletterForm')[0].reset();
-            setTimeout(function() {
+            setTimeout(function () {
                 $successMessage.addClass('hidden');
             }, 3000);
         } else {
             $errorMessage.removeClass('hidden');
             $('#newsletterForm')[0].reset();
-            setTimeout(function() {
+            setTimeout(function () {
                 $errorMessage.addClass('hidden');
             }, 3000);
         }

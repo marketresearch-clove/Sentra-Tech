@@ -1606,6 +1606,12 @@
     <script src="js/dropdown-handler.js" defer></script>
     <script src="js/script.js" defer></script>
     <script src="js/swiper-script.js" defer></script>
+    <!-- API Configuration - Set before form submission script -->
+    <script>
+        window.__API_URL__ = window.location.hostname.includes('netlify.app')
+            ? 'https://api.yourdomain.com'  // Replace with your actual backend domain
+            : '';
+    </script>
     <script src="js/submit-form.js" defer></script>
     <script src="js/vendor/isotope.pkgd.min.js" defer></script>
     <script src="js/video_embedded.js" defer></script>

@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
+import fetch from 'node-fetch';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 // Load environment variables
@@ -51,8 +52,8 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "");
 
 // Health Check Endpoint
 app.get('/api/health', (req, res) => {
-  res.json({ 
-    status: 'ok', 
+  res.json({
+    status: 'ok',
     message: 'Server is running',
     model: 'gemini-2.0-flash',
     chatbot: 'Veronica - Sentra Technologies'
@@ -75,7 +76,7 @@ app.post('/api/chat', async (req, res) => {
 
     // 2. Construct the Prompt with System Instruction
     const promptParts = [];
-    
+
     // Add system instruction and user message
     const fullPrompt = `${SYSTEM_INSTRUCTION}\n\nUser query: ${message}`;
     promptParts.push(fullPrompt);
@@ -109,7 +110,7 @@ app.post('/api/chat', async (req, res) => {
     // Check for specific error types to give better feedback
     let errorMessage = "An error occurred while processing your request.";
     let statusCode = 500;
-    
+
     if (error.message.includes("API key") || error.message.includes("invalid API key")) {
       errorMessage = "Invalid or missing API key. Please check your configuration.";
     } else if (error.message.includes("429")) {
@@ -171,21 +172,82 @@ app.post('/api/contact', async (req, res) => {
       return res.status(400).json({ error: 'Invalid email format.' });
     }
 
-    // Log the contact form submission (in production, send email)
+    const fullName = `${firstName} ${lastName}`.trim() || 'Guest';
+
+    // Log submission
     console.log('Contact form submitted:', {
-      firstName: String(firstName),
-      lastName: String(lastName),
+      name: fullName,
       email: trimmedEmail,
       subject: String(subject),
-      message: trimmedMessage
+      message: trimmedMessage,
+      timestamp: new Date().toISOString()
     });
 
-    res.json({ success: true, message: 'Thank you for contacting us. We will get back to you soon.' });
+    // Send email via Mailgun if configured
+    if (process.env.MAILGUN_API_KEY && process.env.MAILGUN_DOMAIN) {
+      try {
+        await sendMailgunEmail(fullName, trimmedEmail, subject, trimmedMessage);
+        console.log('Mailgun email sent successfully');
+      } catch (emailError) {
+        console.error('Mailgun email error:', emailError.message);
+        // Don't fail the response, just log the error
+      }
+    } else {
+      console.warn('Mailgun not configured. Configure MAILGUN_API_KEY and MAILGUN_DOMAIN to enable email sending.');
+    }
+
+    res.json({
+      success: true,
+      message: 'Thank you for contacting us. We will get back to you soon.'
+    });
   } catch (error) {
     console.error('Contact form submission error:', error);
     res.status(500).json({ error: error.message || 'Failed to submit contact form.' });
   }
 });
+
+// Helper function to send email via Mailgun
+async function sendMailgunEmail(name, email, subject, message) {
+  const mailgunApiKey = process.env.MAILGUN_API_KEY;
+  const mailgunDomain = process.env.MAILGUN_DOMAIN;
+
+  if (!mailgunApiKey || !mailgunDomain) {
+    throw new Error('Mailgun credentials not configured');
+  }
+
+  const auth = Buffer.from(`api:${mailgunApiKey}`).toString('base64');
+  const mailgunUrl = `https://api.mailgun.net/v3/${mailgunDomain}/messages`;
+
+  const formData = new URLSearchParams();
+  formData.append('from', `Contact Form <noreply@${mailgunDomain}>`);
+  formData.append('to', 'contact@sentratech.in');  // Replace with your email
+  formData.append('subject', `New Contact Form Submission: ${subject || 'Contact Request'}`);
+  formData.append('text', `
+Name: ${name}
+Email: ${email}
+Subject: ${subject}
+
+Message:
+${message}
+  `);
+  formData.append('h:Reply-To', email);
+
+  const response = await fetch(mailgunUrl, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Basic ${auth}`,
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: formData
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Mailgun API error: ${response.status} - ${errorText}`);
+  }
+
+  return response.json();
+}
 
 // Serve static files
 app.use(express.static('.'));
