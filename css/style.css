@@ -4284,7 +4284,7 @@ body.lightmode .card-case-studies {
     content: '';
     position: absolute;
     background-color: var(--accent-transparent);
-    background-image: linear-gradient(180deg, #0000002c 0%, var(--accent-color-3) 100%);
+    background-image: linear-gradient(180deg, #00000067 0%, var(--accent-color-3) 100%);
     width: 100%;
     height: 100%;
     top: 0;
@@ -4292,6 +4292,9 @@ body.lightmode .card-case-studies {
     opacity: 1;
     z-index: -1;
 }
+
+
+
 
 .case-studies-text {
     margin-bottom: 14.4px;
@@ -4305,7 +4308,7 @@ body.lightmode .case-studies-text {
 
 body.lightmode .case-studies-content::before {
     background-color: var(--accent-transparent);
-    background-image: linear-gradient(180deg, #00000042 0%, var(--accent-color-7) 100%);
+    background-image: linear-gradient(180deg, #00000098 0%, var(--accent-color-7) 100%);
 }
 
 

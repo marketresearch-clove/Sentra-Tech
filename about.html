@@ -96,7 +96,8 @@
         .lidar-banner {
             position: relative;
             overflow: hidden;
-            min-height: 33vh;
+            height: 33vh;
+            max-height: 400px;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -121,6 +122,19 @@
             width: 100%;
             pointer-events: none;
 
+        }
+
+        /* Ensure the thin spacer line sits at the bottom of the banner (like solutions page) */
+        .lidar-banner .banner-layout .spacer {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            bottom: 0.5px;
+            height: 2px;
+            background-color: transparent;
+            background-image: radial-gradient(at center center, var(--accent-color) 0%, var(--accent-transparent) 75%);
+            pointer-events: none;
         }
 
         body.lightmode .lidar-banner {

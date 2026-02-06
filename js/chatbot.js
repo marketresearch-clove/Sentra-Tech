@@ -19,18 +19,22 @@ const chatFooter = document.querySelector("#chat-footer");
 const welcomeMessage = document.querySelector("#welcome-message");
 
 // -----------------------------------------------------------------
-// 🚨 CRITICAL SECURITY WARNING
+// API Configuration
 // -----------------------------------------------------------------
-// DO NOT put your API key in client-side JavaScript.
-// Anyone visiting your site can steal it and use your quota.
-// This key should be in a backend server.
-//
-// For testing, you can use it here, but replace it before deploying.
-// -----------------------------------------------------------------
-const API_KEY = "AIzaSyBRDrLF5BZuAOazd5vhZnYtEDAGTlDMlB0"; // ⚠️ Replace this
+// All API calls are now routed through the backend server for security
+// No direct calls to external APIs from the frontend
+// Determine the API endpoint based on current environment
+const getAPIEndpoint = () => {
+  // Check if running on localhost with Live Server (port 5539)
+  if (window.location.port === '5539') {
+    // Live Server - redirect to Node.js backend on port 3000
+    return 'http://127.0.0.1:3000/api/chat';
+  }
+  // For production or Node.js server, use relative path
+  return '/api/chat';
+};
 
-// API setup - Changed to v1beta, which works with gemini-1.5-flash-latest
-const API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent?key=${API_KEY}`;
+const API_ENDPOINT = getAPIEndpoint();
 
 // Initialize user message and file data
 const userData = {
@@ -1402,7 +1406,7 @@ const createMessageElement = (content, ...classes) => {
   return div;
 };
 
-// Generate bot response using Gemini API directly
+// Generate bot response using backend API endpoint
 const generateBotResponse = async (incomingMessageDiv) => {
   const messageElement = incomingMessageDiv.querySelector(".message-text");
 
@@ -1413,19 +1417,18 @@ const generateBotResponse = async (incomingMessageDiv) => {
   });
 
   try {
-    // Send message to Gemini API
-    const response = await fetch(API_URL, {
+    // Send message to backend API endpoint (which calls Gemini)
+    const response = await fetch(API_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        contents: chatHistory,
-        systemInstruction: systemInstruction,
-        generationConfig: {
-          temperature: 0.7,
-          maxOutputTokens: 4096,
-          topP: 0.8,
-          topK: 10,
-        }
+        message: userData.message,
+        history: chatHistory,
+        needsWebAccess: false,
+        file: userData.file.data ? {
+          data: userData.file.data,
+          mimeType: userData.file.mimeType
+        } : null
       }),
     });
 
@@ -1434,7 +1437,7 @@ const generateBotResponse = async (incomingMessageDiv) => {
     }
 
     const data = await response.json();
-    let apiResponseText = data.candidates[0].content.parts[0].text;
+    let apiResponseText = data.response;
 
     // Display the final response
     messageElement.innerHTML = parseMarkdown(apiResponseText);
