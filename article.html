@@ -4,11 +4,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Read informative articles on smart structural health monitoring and IoT technologies, brought to you by Sentra." />
     <title>Articles - SENTRA - Smart Structural Monitoring</title>
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="icon" href="https://clovetech.com/wp-content/uploads/2025/04/favicon.png" type="image/png" sizes="16x16">
+    <link rel="icon" href="/image/favicon.png" type="image/png" sizes="16x16">
     <!-- Apple Touch Icon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="https://clovetech.com/wp-content/uploads/2025/04/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/image/favicon.png">
     <link rel="stylesheet" href="../css/chatbot.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
@@ -16,11 +18,91 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
         rel="stylesheet" />
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Articles - SENTRA - Smart Structural Monitoring" />
+    <meta property="og:description"
+        content="Read informative articles on smart structural health monitoring and IoT technologies, brought to you by Sentra." />
+    <meta property="og:url" content="https://sentratech.in/article.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://sentratech.in/image/sentra.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Articles - SENTRA - Smart Structural Monitoring" />
+    <meta name="twitter:description"
+        content="Read informative articles on smart structural health monitoring and IoT technologies, brought to you by Sentra." />
+    <meta name="twitter:image" content="https://sentratech.in/image/sentra.png" />
+    <meta name="twitter:site" content="@sentratech" />
+    <meta name="twitter:image:width" content="1200" />
+    <meta name="twitter:image:height" content="630" />
+    <style>
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        .seismic-canvas-fixed {
+            position: relative;
+            overflow: hidden;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 28px;
+            background-color: #ffffff;
+        }
+
+
+
+        .seismic-canvas-fixed canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+            z-index: 0;
+            cursor: ns-resize;
+        }
+
+        .seismic-canvas-fixed .banner-layout {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            pointer-events: none;
+        }
+
+        .seismic-canvas-fixed {
+            border-radius: 28px;
+        }
+
+        body.lightmode .seismic-canvas-fixed {
+            background-color: #ffffff;
+        }
+
+        body.lightmode .banner-layout .title-heading {
+            background-image: none;
+            -webkit-text-fill-color: #2d2e2f;
+            color: #2d2e2f;
+        }
+
+        body.dark-mode .banner-layout .title-heading {
+            background-image: none;
+            -webkit-text-fill-color: var(--primary);
+        }
+    </style>
+    <link rel="canonical" href="https://sentratech.in/article.html">
 
 </head>
 
 <body>
-
+    <h1 class="visually-hidden">Articles</h1>
     <!-- Section Header -->
     <header>
         <!-- Section Navbar -->
@@ -32,10 +114,7 @@
         <div id="edit-sidebar"></div>
     </aside>
 
-    <!-- Section Search -->
-    <aside>
-        <div id="search-form-container"></div>
-    </aside>
+
 
     <!-- Section Sidebar -->
     <aside>
@@ -44,21 +123,32 @@
 
     <!-- Section Main Content -->
     <main>
-        <!-- Section Banner -->
+        <!-- Section Banner 
         <div class="section-banner">
             <div class="banner-layout-wrapper">
                 <div class="banner-layout">
                     <div class="d-flex flex-column text-center align-items-center gspace-2">
                         <h2 class="title-heading animate-box animated animate__animated"
                             data-animate="animate__fadeInRight">Articles</h2>
-                        <nav class="breadcrumb">
-                            <a href="./index.html" class="gspace-2">Home</a>
-                            <span class="separator-link">/</span>
-                            <p class="current-page">Articles</p>
-                        </nav>
+
                     </div>
                     <div class="spacer"></div>
                 </div>
+            </div>
+        </div>-->
+
+
+        <!-- Section Banner 2 -->
+
+        <div class="seismic-canvas-fixed" id="seismic-banner-fixed">
+            <canvas id="cyber-stream"></canvas>
+            <div class="banner-layout">
+                <div class="d-flex flex-column text-center align-items-center gspace-2">
+                    <h2 class="title-heading animate-box animated animate__animated"
+                        data-animate="animate__fadeInRight">
+                        Articles</h2>
+                </div>
+                <div class="spacer"></div>
             </div>
         </div>
 
@@ -82,10 +172,7 @@
                                 data-animate="animate__fadeInRight">
                                 <p>Explore our latest articles covering IoT adoption, infrastructure monitoring,
                                     AI-driven automation, and actionable strategies for future-ready businesses.</p>
-                                <div class="link-wrapper">
-                                    <a href="./article.html">View All Articles</a>
-                                    <i class="fa-solid fa-circle-arrow-right"></i>
-                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -107,13 +194,16 @@
                                             <span class="meta-data">IoT in Infrastructure</span>
                                         </div>
                                     </div>
-                                    <a href="./Article/revolutionizing_infrastructure_monitoring_with _IoT.html"
+                                    <a href="./article/revolutionizing-infrastructure-monitoring-with-IoT.html"
                                         class="blog-link">Revolutionizing Infrastructure
                                         Monitoring with IoT</a>
                                     <p>Discover how IoT sensors are enabling real-time structural health monitoring for
                                         safer, smarter cities.</p>
-                                    <a href="./Article/revolutionizing_infrastructure_monitoring_with _IoT.html"
-                                        class="read-more">Read More <i class="fa-solid fa-circle-arrow-right"></i></a>
+                                    <div class="link-wrapper">
+                                        <a href="./article/revolutionizing-infrastructure-monitoring-with-IoT.html"
+                                            class="read-more">Read More <i
+                                                class="fa-solid fa-arrow-circle-right accent-color"></i></a>
+                                    </div>
 
                                 </div>
                             </div>
@@ -122,7 +212,7 @@
                             <div class="card card-blog animate-box animated animate__animated"
                                 data-animate="animate__fadeInUp" onclick="window.location.href='#'">
                                 <div class="blog-image">
-                                    <img src="./image/article_2.png" alt="Blog Image">
+                                    <img src="./image/article_2.webp" alt="Blog Image">
                                 </div>
                                 <div class="card-body">
                                     <div class="d-flex flex-row gspace-2">
@@ -135,13 +225,16 @@
                                             <span class="meta-data">Smart Cities</span>
                                         </div>
                                     </div>
-                                    <a href="./Article/building_resilient_smart_cities_with_data-Driven_insights.html"
+                                    <a href="./article/building-resilient-smart-cities-with-data-driven-insights.html"
                                         class="blog-link">Building Resilient Smart Cities with
                                         Data-Driven Insights</a>
                                     <p>Learn how connected IoT systems are shaping the future of urban planning and
                                         sustainable infrastructure.</p>
-                                    <a href="#" class="read-more">Read More <i
-                                            class="fa-solid fa-circle-arrow-right"></i></a>
+                                    <div class="link-wrapper">
+                                        <a href="./article/building-resilient-smart-cities-with-data-driven-insights.html"
+                                            class="read-more">Read More <i
+                                                class="fa-solid fa-arrow-circle-right accent-color"></i></a>
+                                    </div>
 
                                 </div>
                             </div>
@@ -166,13 +259,16 @@
                                             <span class="meta-data">IoT in Infrastructure</span>
                                         </div>
                                     </div>
-                                    <a href="./Article/revolutionizing_infrastructure_monitoring_with _IoT.html"
+                                    <a href="./article/revolutionizing-infrastructure-monitoring-with-IoT.html"
                                         class="blog-link">Revolutionizing Infrastructure
                                         Monitoring with IoT</a>
                                     <p>Discover how IoT sensors are enabling real-time structural health monitoring for
                                         safer, smarter cities.</p>
-                                    <a href="./Article/revolutionizing_infrastructure_monitoring_with _IoT.html"
-                                        class="read-more">Read More <i class="fa-solid fa-circle-arrow-right"></i></a>
+                                    <div class="link-wrapper">
+                                        <a href="./article/revolutionizing-infrastructure-monitoring-with-IoT.html"
+                                            class="read-more">Read More <i
+                                                class="fa-solid fa-arrow-circle-right accent-color"></i></a>
+                                    </div>
 
                                 </div>
                             </div>
@@ -181,7 +277,7 @@
                             <div class="card card-blog animate-box animated animate__animated"
                                 data-animate="animate__fadeInUp" onclick="window.location.href='#'">
                                 <div class="blog-image">
-                                    <img src="./image/article_2.png" alt="Blog Image">
+                                    <img src="./image/article_2.webp" alt="Blog Image">
                                 </div>
                                 <div class="card-body">
                                     <div class="d-flex flex-row gspace-2">
@@ -194,13 +290,16 @@
                                             <span class="meta-data">Smart Cities</span>
                                         </div>
                                     </div>
-                                    <a href="./Article/building_resilient_smart_cities_with_data-Driven_insights.html"
+                                    <a href="./article/building-resilient-smart-cities-with-data-driven-insights.html"
                                         class="blog-link">Building Resilient Smart Cities with
                                         Data-Driven Insights</a>
                                     <p>Learn how connected IoT systems are shaping the future of urban planning and
                                         sustainable infrastructure.</p>
-                                    <a href="#" class="read-more">Read More <i
-                                            class="fa-solid fa-circle-arrow-right"></i></a>
+                                    <div class="link-wrapper">
+                                        <a href="./article/building-resilient-smart-cities-with-data-driven-insights.html"
+                                            class="read-more">Read More <i
+                                                class="fa-solid fa-arrow-circle-right accent-color"></i></a>
+                                    </div>
 
                                 </div>
                             </div>
@@ -211,8 +310,8 @@
             </div>
             <!-- More Stories Button -->
             <div class="d-flex justify-content-center gspace-3" style="margin-top:20px;">
-                <button id="load-more-stories" class="btn btn-accent">
-                    <span class="btn-title">More Articles +</span>
+                <button id="load-more-stories" class="btn btn-accent btn-title">
+                    <span class="link-wrapper">Load More <i class="fa-solid fa-circle-arrow-right"></i></span>
                 </button>
             </div>
         </div>
@@ -236,6 +335,38 @@
 
     <!-- Chatbot Widget -->
     <script src="../js/chatbot-widget.js"></script>
+
+    <!-- Banner Animation-->
+    <script>
+        const canvas = document.getElementById('cyber-stream');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = 600;
+        const characters = "010101SENTRA";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+        function draw() {
+            // Use different background colors based on body class
+            if (document.body.classList.contains('lightmode')) {
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.05)'; // White background for light mode
+            } else {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'; // Black background for dark mode
+            }
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#ff8800'; // Sentra Orange
+            ctx.font = fontSize + 'px monospace';
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 33);
+    </script>
 
 
 </body>

@@ -5,13 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solutions — Infrastructure Monitoring | Sentra</title>
-    <meta name="description" 
-        content="Explore Sentra’s infrastructure solutions: structural health monitoring, asset monitoring, NDT, bridge inspection, geotechnical monitoring and digital engineering." />
-    <link rel="canonical" href="https://sentratech.in/solutions" />
+    <meta name="description"
+        content="Explore Sentra’s infrastructure solutions: structural health & asset monitoring, NDT, bridge inspection, geotechnical monitoring and digital engineering." />
+
+    <link rel="canonical" href="https://sentratech.in/solutions.html" />
     <meta name="robots" content="index, follow" />
     <meta property="og:title" content="Solutions — Infrastructure Monitoring | Sentra" />
-    <meta property="og:description" content="Sensor networks and analytics for bridge, tunnel, dam and city-scale monitoring to improve safety and reduce lifecycle costs." />
-    <meta property="og:url" content="https://sentratech.in/solutions" />
+    <meta property="og:description"
+        content="Sensor networks and analytics for bridge, tunnel, dam and city-scale monitoring to improve safety and reduce lifecycle costs." />
+    <meta property="og:url" content="https://sentratech.in/solutions.html" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://sentratech.in/image/sentra.png" />
     <meta property="og:image:width" content="1200" />
@@ -19,7 +21,8 @@
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Solutions — Infrastructure Monitoring | Sentra" />
-    <meta name="twitter:description" content="Sensor networks and analytics for bridge, tunnel, dam and city-scale monitoring to improve safety and reduce lifecycle costs." />
+    <meta name="twitter:description"
+        content="Sensor networks and analytics for bridge, tunnel, dam and city-scale monitoring to improve safety and reduce lifecycle costs." />
     <meta name="twitter:image" content="https://sentratech.in/image/sentra.png" />
     <meta name="twitter:site" content="@sentratech" />
     <meta name="twitter:image:width" content="1200" />
@@ -36,6 +39,18 @@
     </script>
 
     <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+    </style>
     <link rel="stylesheet" href="./css/chatbot.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
@@ -43,12 +58,59 @@
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
         rel="stylesheet" />
-    <link rel="icon" href="https://clovetech.com/wp-content/uploads/2025/04/favicon.png" type="image/png" sizes="16x16">
+    <link rel="icon" href="/image/favicon.png" type="image/png" sizes="16x16">
     <!-- Apple Touch Icon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="https://clovetech.com/wp-content/uploads/2025/04/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/image/favicon.png">
+
+    <style>
+        .seismic-canvas-fixed {
+            position: relative;
+            overflow: hidden;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 30px;
+            background-color: #000;
+        }
+
+
+
+        .seismic-canvas-fixed canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+            z-index: 0;
+            cursor: ns-resize;
+        }
+
+        .seismic-canvas-fixed .banner-layout {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            pointer-events: none;
+        }
+
+        .seismic-canvas-fixed {
+            border-radius: 28px;
+        }
+
+        body.lightmode .seismic-canvas-fixed {
+            background-color: #ffffff;
+        }
+
+
+        body.lightmode .banner-layout .title-heading_1 {
+            background-image: none;
+            -webkit-text-fill-color: #2d2e2f;
+        }
+    </style>
 </head>
 
 <body>
+    <h1 class="visually-hidden">Solutions — Infrastructure Monitoring | Sentra</h1>
     <!-- Section Header -->
     <header>
         <!-- Section Navbar -->
@@ -60,31 +122,36 @@
         <div id="edit-sidebar"></div>
     </aside>
 
-    <!-- Section Search -->
-    <aside>
-        <div id="search-form-container"></div>
-    </aside>
+
 
     <!-- Section Sidebar -->
     <aside>
         <div id="sidebar"></div>
     </aside>
-    
-    <!-- Section Banner -->
+
+    <!-- Section Banner 
     <div class="section-banner">
         <div class="banner-layout-wrapper">
             <div class="banner-layout">
                 <div class="d-flex flex-column text-center align-items-center gspace-2">
                     <h2 class="title-heading animate-box animated animate__animated"
                         data-animate="animate__fadeInRight">Solutions</h2>
-                    <nav class="breadcrumb">
-                        <a href="../index.html" class="gspace-2">Home</a>
-                        <span class="separator-link">/</span>
-                        <p class="current-page">Solutions</p>
-                    </nav>
+
                 </div>
                 <div class="spacer"></div>
             </div>
+        </div>
+    </div>-->
+
+    <!-- Section Banner 1 -->
+    <div class="seismic-canvas-fixed" id="forensic-rgb-container">
+        <canvas id="rgb-flow-canvas" style="filter: brightness(1.3) contrast(1.1); width: 100%; height: 100%;"></canvas>
+        <div class="banner-layout">
+            <div class="d-flex flex-column text-center align-items-center gspace-2">
+                <h2 class="title-heading_1 animate-box animated animate__animated" data-animate="animate__fadeInRight">
+                    Solutions</h2>
+            </div>
+            <div class="spacer"></div>
         </div>
     </div>
 
@@ -127,7 +194,7 @@
                                     to
                                     detect structural stress before it becomes a problem.
                                 </p>
-                                <a href="./Solutions/Structural Health Monitoring.html" class="btn btn-accent">
+                                <a href="./solutions/structural-health-monitoring.html" class="btn btn-accent">
                                     <div class="btn-title">
                                         <span>View Details</span>
                                     </div>
@@ -145,8 +212,7 @@
                                     <div>
                                         <div class="service-icon-wrapper">
                                             <div class="service-icon">
-                                                <img src="./image/bridge_icon.png" alt="Service Icon"
-                                                    class="img-fluid">
+                                                <img src="./image/bridge_icon.png" alt="Service Icon" class="img-fluid">
                                             </div>
                                         </div>
                                     </div>
@@ -155,12 +221,11 @@
                                     </div>
                                 </div>
                                 <p>
-                                    From drone-based aerial surveys to underwater ROV inspections, we deliver
-                                    comprehensive bridge assessments that reveal the unseen. <br>Get faster,
-                                    safer,
-                                    and more accurate reports.
+                                    Ensure complete visibility into your bridge assets. Our drone-based aerial surveys
+                                    and underwater ROV inspections deliver fast, safe, and accurate assessments,
+                                    uncovering hidden defects and enabling confident maintenance decisions.
                                 </p>
-                                <a href="./Solutions/Bridge Inspection & Condition Assessment.html"
+                                <a href="./solutions/bridge-inspection-and-condition-assessment.html"
                                     class="btn btn-accent">
                                     <div class="btn-title">
                                         <span>View Details</span>
@@ -194,8 +259,7 @@
                                     service
                                     life and prevent unplanned failures.
                                 </p>
-                                <a href="./Solutions/Fatigue and Residual Life Assessment.html"
-                                    class="btn btn-accent">
+                                <a href="./solutions/fatigue-and-residual-life-assessment.html" class="btn btn-accent">
                                     <div class="btn-title">
                                         <span>View Details</span>
                                     </div>
@@ -206,7 +270,7 @@
                             </div>
                         </div>
                         <div class="col">
-                            <div class="card card-service animate-box animated slow animate__animated"
+                            <div class="card card-service animate-box animated animate__animated"
                                 data-animate="animate__fadeInLeft">
                                 <div
                                     class="d-flex flex-row justify-content-between gspace-2 gspace-md-3 align-items-center">
@@ -227,7 +291,7 @@
                                     transformers, or industrial machinery. Our smart monitoring systems enable
                                     proactive maintenance and higher uptime.
                                 </p>
-                                <a href="./Solutions/Asset Monitoring & Management Solutions.html"
+                                <a href="./solutions/asset-monitoring-and-management-solutions.html"
                                     class="btn btn-accent">
                                     <div class="btn-title">
                                         <span>View Details</span>
@@ -246,7 +310,7 @@
                                     <div>
                                         <div class="service-icon-wrapper">
                                             <div class="service-icon">
-                                                <img src="./image/Geotechnical_icon.png" alt="Service Icon"
+                                                <img src="./image/Geotechnical_icon.webp" alt="Service Icon"
                                                     class="img-fluid">
                                             </div>
                                         </div>
@@ -260,7 +324,7 @@
                                     behavior, pore pressure, settlement, and seismic response to provide early
                                     warnings for engineers.
                                 </p>
-                                <a href="./Solutions/Geotechnical & Foundation Monitoring.html"
+                                <a href="./solutions/geotechnical-and-foundation-monitoring.html"
                                     class="btn btn-accent">
                                     <div class="btn-title">
                                         <span>View Details</span>
@@ -279,8 +343,7 @@
                                     <div>
                                         <div class="service-icon-wrapper">
                                             <div class="service-icon">
-                                                <img src="./image/ndt_logo.png" alt="Service Icon"
-                                                    class="img-fluid">
+                                                <img src="./image/ndt_logo.png" alt="Service Icon" class="img-fluid">
                                             </div>
                                         </div>
                                     </div>
@@ -295,8 +358,7 @@
                                     integrity
                                     — without damaging the asset.
                                 </p>
-                                <a href="./Solutions/Advanced Non-Destructive Testing (NDT).html"
-                                    class="btn btn-accent">
+                                <a href="./solutions/advanced-non-destructive-testing-ndt.html" class="btn btn-accent">
                                     <div class="btn-title">
                                         <span>View Details</span>
                                     </div>
@@ -384,8 +446,8 @@
                                         <div class="digital-process-step">
                                             <div class="d-flex justify-content-between">
                                                 <div>
-                                                    <img src="./image/home_flow_icon2.png"
-                                                        alt="Digital Process Icon" class="process-icon">
+                                                    <img src="./image/home_flow_icon2.png" alt="Digital Process Icon"
+                                                        class="process-icon">
                                                 </div>
                                                 <span>02</span>
                                             </div>
@@ -408,8 +470,8 @@
                                         <div class="digital-process-step">
                                             <div class="d-flex justify-content-between">
                                                 <div>
-                                                    <img src="./image/home_flow_icon3.png"
-                                                        alt="Digital Process Icon" class="process-icon">
+                                                    <img src="./image/home_flow_icon3.png" alt="Digital Process Icon"
+                                                        class="process-icon">
                                                 </div>
                                                 <span>03</span>
                                             </div>
@@ -433,8 +495,8 @@
                                         <div class="digital-process-step">
                                             <div class="d-flex justify-content-between">
                                                 <div>
-                                                    <img src="./image/home_flow_icon4.png"
-                                                        alt="Digital Process Icon" class="process-icon">
+                                                    <img src="./image/home_flow_icon4.png" alt="Digital Process Icon"
+                                                        class="process-icon">
                                                 </div>
                                                 <span>04</span>
                                             </div>
@@ -478,7 +540,43 @@
     <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
 
     <!-- Chatbot Widget -->
-    <!-- <script src="js/chatbot-widget.js"></script> -->
+    <script src="js/chatbot-widget.js"></script>
+
+    <script>
+        (function () {
+            window.addEventListener('load', function () {
+                const container = document.getElementById('forensic-rgb-container');
+                const canvas = document.getElementById('rgb-flow-canvas');
+                const ctx = canvas.getContext('2d');
+                let width, height;
+                let tick = 0;
+                function init() {
+                    width = canvas.width = container.clientWidth;
+                    height = canvas.height = container.clientHeight;
+                }
+                function draw() {
+                    const isLightMode = document.body.classList.contains('lightmode');
+                    ctx.fillStyle = isLightMode ? 'white' : 'black';
+                    ctx.fillRect(0, 0, width, height);
+                    tick += 0.02;
+                    for (let i = 0; i < 28; i++) {
+                        ctx.beginPath();
+                        ctx.lineWidth = 1.5;
+                        for (let x = 0; x < width; x += 10) {
+                            const y = height / 2 + Math.sin(x * 0.003 + tick + (i * 0.07)) * 70 + (i * 3) - 42;
+                            // Dormant Sentra Orange
+                            ctx.strokeStyle = isLightMode ? `rgba(255, 102, 0, 0.9)` : `rgba(255, 102, 0, 0.15)`;
+                            if (x === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+                        }
+                        ctx.stroke();
+                    }
+                    requestAnimationFrame(draw);
+                }
+                window.addEventListener('resize', init);
+                init(); draw();
+            });
+        })();
+    </script>
 </body>
 
 </html>

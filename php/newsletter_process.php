@@ -14,11 +14,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
 
-    $to = "Hello@markoagency.com";
+    $to = "sentra@clovetech.com";
     $subject = "New Newsletter Subscription";
     $message = "New subscriber: $email";
-    $headers = "From: noreply@example.com\r\n";
-    $headers .= "Reply-To: noreply@example.com\r\n";
+    $headers = "From: noreply@clovetech.com\r\n";
+    $headers .= "Reply-To: noreply@clovetech.com\r\n";
 
     if (mail($to, $subject, $message, $headers)) {
         echo "Thank you for subscribing!";

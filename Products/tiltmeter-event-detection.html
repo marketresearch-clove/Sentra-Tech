@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <base href="/">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tiltmeter Event Detection — Alarms & Alerts | Sentra</title>
+    <meta name="description"
+        content="Event-detection tiltmeters that trigger immediate alerts on sudden movement — perfect for landslide and structural safety monitoring." />
+
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Tiltmeter Event Detection — Alarms & Alerts | Sentra" />
+    <meta property="og:description"
+        content="Event-detection tiltmeters that report sudden movement instantly to reduce risk and enable rapid response." />
+    <meta property="og:url" content="https://sentratech.in/products/tiltmeter-event-detection.html" />
+    <meta property="og:type" content="product" />
+    <meta property="og:image" content="https://sentratech.in/image/sentra.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Tiltmeter Event Detection — Alarms & Alerts | Sentra" />
+    <meta name="twitter:description"
+        content="Event-detection tiltmeters that report sudden movement instantly to reduce risk and enable rapid response." />
+    <meta name="twitter:image" content="https://sentratech.in/image/sentra.png" />
+    <meta name="twitter:site" content="@sentratech" />
+    <meta name="twitter:image:width" content="1200" />
+    <meta name="twitter:image:height" content="630" />
+
+    <script type="application/ld+json">
+    {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "Tiltmeter with Event Detection — Smart Tilt | Sentra",
+  "description": "The Tiltmeter with Event Detection is an intelligent sensor that combines high-precision tilt monitoring with onboard event detection capabilities.",
+  "image": "https://sentratech.in/image/tiltmeter_event_1.png",
+  "brand": {
+    "@type": "Brand",
+    "name": "Sentra"
+  },
+  "review": {
+    "@type": "Review",
+    "reviewRating": {
+      "@type": "Rating",
+      "ratingValue": "5",
+      "bestRating": "5"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Vishal"
+    }
+  },
+  "aggregateRating": {
+    "@type": "AggregateRating",
+    "ratingValue": "4.8",
+    "reviewCount": "25"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "INR",
+    "availability": "https://schema.org/InStock",
+    "url": "https://sentratech.in/products/tiltmeter-event-detection.html",
+    "priceValidUntil": "2025-12-31",
+    "shippingDetails": {
+      "@type": "OfferShippingDetails",
+      "shippingRate": {
+        "@type": "MonetaryAmount",
+        "value": "0",
+        "currency": "INR"
+      },
+      "shippingDestination": {
+        "@type": "DefinedRegion",
+        "addressCountry": "IN"
+      }
+    },
+    "hasMerchantReturnPolicy": {
+      "@type": "MerchantReturnPolicy",
+      "applicableCountry": "IN",
+      "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
+      "merchantReturnDays": 14,
+      "returnMethod": "https://schema.org/ReturnByMail",
+      "returnFees": "https://schema.org/FreeReturn"
+    }
+  }
+}
+    </script>
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="/image/favicon.png" type="image/png" sizes="16x16">
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/image/favicon.png">
+    <link rel="stylesheet" href="../css/chatbot.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+
+    <style>
+        .hotspot-section {
+            display: flex;
+            justify-content: center;
+            margin: 3rem 0;
+        }
+
+        .hotspot-section .hotspot-wrapper {
+            position: relative;
+            width: 100%;
+            max-width: 800px;
+        }
+
+
+
+        .hotspot-section .image-container {
+            position: relative;
+            width: 100%;
+            border-radius: 12px;
+
+
+        }
+
+        .hotspot-section .image-container img {
+            width: 100%;
+            display: block;
+            border-radius: 12px;
+
+        }
+
+        .hotspot-section .hotspot {
+            position: absolute;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: #007bff;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 18px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            z-index: 3;
+        }
+
+        .hotspot-section .hotspot:hover {
+            background: #0056b3;
+            transform: scale(1.1);
+        }
+
+        .hotspot-section .connector-vertical,
+        .hotspot-section .connector-horizontal {
+            position: absolute;
+            background: #007bff;
+            opacity: 0;
+            transition: all 0.4s ease;
+        }
+
+        .hotspot-section .connector-vertical {
+            width: 2px;
+            height: 0;
+            top: 26px;
+            left: 12px;
+            transform-origin: top;
+        }
+
+        .hotspot-section .connector-horizontal {
+            height: 2px;
+            width: 0;
+            top: 66px;
+            left: 12px;
+            transform-origin: left;
+        }
+
+        .hotspot-section .hotspot-content {
+            position: absolute;
+            background: rgba(0, 0, 0, 0.85);
+            color: #fff;
+            padding: 12px 16px;
+            border-radius: 8px;
+            max-width: 220px;
+            font-size: 0.9rem;
+            line-height: 1.4;
+            opacity: 0;
+            transform: translateY(-10px);
+            pointer-events: none;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+            z-index: 2;
+            top: 60px;
+            left: 80px;
+        }
+
+        .hotspot-section .hotspot.active .connector-vertical {
+            height: 40px;
+            opacity: 1;
+            background-color: #f48120;
+        }
+
+        .hotspot-section .hotspot.active .connector-horizontal {
+            width: 60px;
+            opacity: 1;
+            transition-delay: 0.2s;
+            background-color: #f48120;
+
+        }
+
+        .hotspot-section .hotspot.active .hotspot-content {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+            transition-delay: 0.3s;
+        }
+
+        .hotspot-section .hotspot.one {
+            top: 38%;
+            left: 33%;
+        }
+
+        .hotspot-section .hotspot.two {
+            top: 42%;
+            left: 63%;
+        }
+
+        .hotspot-section .hotspot.three {
+            top: 61%;
+            left: 33%;
+        }
+
+        .hotspot-section .hotspot.four {
+            top: 59%;
+            left: 73%;
+        }
+
+        .hotspot-section .hotspot.two .connector-horizontal,
+        .hotspot-section .hotspot.four .connector-horizontal {
+            left: auto;
+            right: 12px;
+            transform-origin: right;
+        }
+
+        .hotspot-section .hotspot.two .hotspot-content,
+        .hotspot-section .hotspot.four .hotspot-content {
+            left: auto;
+            right: 80px;
+        }
+
+        .hotspot-section .hotspot.two.active .connector-horizontal,
+        .hotspot-section .hotspot.four.active .connector-horizontal {
+            width: 60px;
+        }
+
+        @media (max-width: 600px) {
+            .hotspot-section .hotspot-content {
+                font-size: 0.8rem;
+                max-width: 180px;
+            }
+        }
+
+        .specs-container {
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .specs-container h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 28px;
+        }
+
+        .specs-container table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .specs-container th,
+        .specs-container td {
+            padding: 14px 12px;
+            text-align: left;
+            border-bottom: 1px solid #333;
+        }
+
+        .specs-container th {
+            font-weight: 500;
+            width: 40%;
+            color: #fff;
+        }
+
+        .specs-container td {
+            color: #fff;
+        }
+
+        .specs-container .hidden-section {
+            display: none;
+            opacity: 0;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.6s ease;
+        }
+
+        .specs-container .hidden-section.show {
+            display: table-row-group;
+            opacity: 1;
+            max-height: 9999px;
+        }
+
+        .specs-container .toggle-btn {
+            background: transparent;
+            border: 1px solid #f48120;
+            border-radius: 20px;
+            color: #f48120;
+            padding: 8px 18px;
+            font-size: 0.95rem;
+            cursor: pointer;
+            margin-top: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .specs-container .toggle-btn:hover {
+            background: #fff;
+            color: #000000;
+        }
+
+        .specs-container .footer-note a {
+            color: #00bfff;
+            text-decoration: none;
+        }
+
+        .specs-container .footer-note a:hover {
+            text-decoration: underline;
+        }
+
+        body.dark-mode .specs-container th {
+            color: #fff;
+        }
+
+        body.dark-mode .specs-container td {
+            color: #fff;
+        }
+
+        body.dark-mode .specs-container th,
+        body.dark-mode .specs-container td {
+            border-bottom-color: #333;
+        }
+
+        body:not(.dark-mode) .specs-container th {
+            color: #fff;
+        }
+
+        body:not(.dark-mode) .specs-container td {
+            color: #fff;
+        }
+
+        body:not(.dark-mode) .specs-container th,
+        body:not(.dark-mode) .specs-container td {
+            border-bottom-color: #ddd;
+        }
+
+        body.lightmode .specs-container th,
+        body.lightmode .specs-container td {
+            color: #000000;
+            /* black text for light background */
+            border-bottom-color: #ddd;
+            /* light border */
+        }
+
+        @media (max-width: 640px) {
+            .specs-container table {
+                font-size: 0.9rem;
+            }
+
+            .specs-container h2 {
+                font-size: 1.5rem;
+            }
+        }
+
+        .product-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            margin: 4rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .product-section {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        .product-info-left {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .product-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: #f48120;
+            color: #fff;
+            padding: 6px 10px;
+            border-radius: 99px;
+            font-size: 12px;
+        }
+
+        .product-info-left h2 {
+            font-size: 3rem;
+            line-height: 1.1;
+            margin: 0;
+            font-weight: 600;
+        }
+
+        .product-bullets {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            color: #6b7280;
+            font-size: 1rem;
+        }
+
+        .product-bullet {
+            display: flex;
+            gap: 1rem;
+            align-items: flex-start;
+        }
+
+        .product-bullet .dot {
+            min-width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: #f48120;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            flex-shrink: 0;
+            margin-top: 2px;
+            font-weight: 600;
+        }
+
+        .product-image-right {
+            position: relative;
+        }
+
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        @media (max-width: 768px) {
+            .single-service-img {
+                display: none;
+            }
+        }
+
+
+
+
+
+        .seismic-canvas-fixed {
+            position: relative;
+            overflow: hidden;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 28px;
+        }
+
+
+
+        .seismic-canvas-fixed canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+            z-index: 0;
+            cursor: ns-resize;
+        }
+
+        .seismic-canvas-fixed .banner-layout {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            pointer-events: none;
+        }
+
+        .seismic-canvas-fixed {
+            border-radius: 28px;
+        }
+
+        body.lightmode .seismic-canvas-fixed {
+            background-color: #ffffff;
+        }
+
+        body.lightmode .banner-layout .title-heading {
+            background-image: none;
+            -webkit-text-fill-color: #2d2e2f;
+        }
+
+        body.dark-mode .banner-layout .title-heading {
+            background-image: none;
+            -webkit-text-fill-color: var(--primary);
+        }
+
+        [data-bs-theme="dark"] .dark-accent {
+            color: #f48120 !important;
+        }
+
+        .dark-accent {
+            color: #f48120 !important;
+        }
+
+        body.lightmode .dark-accent {
+            color: #2d2e2f !important;
+        }
+
+        .newsletter-layout .btn {
+            height: 48px;
+            width: fit-content;
+            align-self: center;
+        }
+
+        .newsletter-layout .btn-title {
+            padding: 10px 30px;
+            font-size: var(--font-size-sm);
+        }
+
+        .newsletter-layout .icon-circle {
+            width: 42px;
+            height: 42px;
+        }
+    </style>
+    <link rel="canonical" href="https://sentratech.in/products/tiltmeter-event-detection.html">
+</head>
+
+<body class="product-page">
+    <h1 class="visually-hidden">Tiltmeter Event Detection — Precision Tilt Monitoring | Sentra</h1>
+    <!-- Section Header -->
+    <header>
+        <!-- Section Navbar -->
+        <div id="header"></div>
+    </header>
+
+    <!-- Section Content Edit -->
+    <aside>
+        <div id="edit-sidebar"></div>
+    </aside>
+
+
+
+    <!-- Section Sidebar -->
+    <aside>
+        <div id="sidebar"></div>
+    </aside>
+
+    <!-- Section Main Content -->
+    <main>
+        <!-- Section Banner 
+        <div class="section-banner">
+            <div class="banner-layout-wrapper">
+                <div class="banner-layout">
+                    <div class="d-flex flex-column text-center align-items-center gspace-2">
+                        <h2 class="title-heading animate-box animated animate__animated"
+                            data-animate="animate__fadeInRight">Tiltmeter Event Detection</h2>
+
+                    </div>
+                    <div class="spacer"></div>
+                </div>
+            </div>
+        </div>-->
+
+        <!-- Section Banner 2 -->
+
+        <div class="seismic-canvas-fixed" id="seismic-banner-fixed">
+            <div id="tsparticles" style="position: absolute; width: 100%; height: 100%; top: 0; left: 0; z-index: 0;">
+            </div>
+            <div class="banner-layout">
+                <div class="d-flex flex-column text-center align-items-center gspace-2">
+                    <h2 class="title-heading animate-box animated animate__animated"
+                        data-animate="animate__fadeInRight">
+                        Tiltmeter Event Detection</h2>
+                </div>
+                <div class="spacer"></div>
+            </div>
+        </div>
+
+
+
+
+        <div class="section pb-0">
+            <div class="hero-container">
+                <div class="d-flex flex-column gspace-5">
+                    <div class="image-container">
+                        <img src="../image/tiltmeter event detection.png" alt="Service Image"
+                            class="single-service-img">
+                        <div class="single-service-title-layout">
+                            <div class="">
+                                <div class="single-service-spacer"></div>
+                                <div class="single-service-title-wrapper">
+                                    <div class="single-service-title">
+                                        <div class="sub-heading animate-box animated slow animate__animated"
+                                            data-animate="animate__fadeInRight">
+                                            <i class="fa-regular fa-circle-dot"></i>
+                                            <span>Our Expertise</span>
+                                        </div>
+                                        <h3 class="title-heading animate-box animated animate__animated"
+                                            data-animate="animate__fadeInRight">Persistent tilt monitoring for faster,
+                                            Data-driven Responses</h3>
+                                        <p>Detect critical ground and structural movements quickly with a purpose-built
+                                            Tiltmeter. Sentra combines precision inclination sensing, on-device event
+                                            processing, and long-range low-power communications so teams receive
+                                            meaningful alerts — not noise — when movement matters most.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="single-service-spacer"></div>
+                        </div>
+                    </div>
+
+                    <!-- Section Services -->
+                    <div class="section1">
+                        <div class="hero-container">
+                            <div class="product-section" style="margin-top: 5px;    margin-bottom: 5px;">
+                                <div class="product-info-left">
+                                    <div class="product-tags" aria-hidden="true">
+                                        <span class="tag">LS-G6-TIL90-XE</span>
+                                        <span class="tag">LS-G6-TIL90-IE</span>
+                                    </div>
+                                    <h2>Tiltmeter Event Detection</h2>
+                                    <div class="product-bullets">
+                                        <div class="product-bullet">
+                                            <div class="dot">✔</div>
+                                            <div class="text-product">Rapid on-device event detection with configurable
+                                                thresholds and high-rate capture when movement occurs (first-alert
+                                                latency typically < 2 s)</div>
+                                            </div>
+                                            <div class="product-bullet">
+                                                <div class="dot">✔</div>
+                                                <div class="text-product">Precision 3-axis inclination (±90°) with
+                                                    temperature compensation for trustworthy trend and event analysis
+                                                </div>
+                                            </div>
+                                            <div class="product-bullet">
+                                                <div class="dot">✔</div>
+                                                <div class="text-product">Low-maintenance, multi-year battery operation
+                                                    and long-range LoRa communications (site-dependent range up to ~15
+                                                    km)</div>
+                                            </div>
+                                        </div>
+                                        <a class="product-cta" href="#" id="scrollToSpecs"
+                                            aria-label="Access full specs">Access full specs</a>
+                                    </div>
+                                    <div class="product-image-right">
+                                        <section class="hotspot-section">
+                                            <div class="hotspot-wrapper">
+                                                <div class="image-container">
+                                                    <img src="/image/tiltmeter_event_1.png"
+                                                        alt="Tiltmeter Event Detection Product">
+                                                    <div class="hotspot one" style="background-color: #f48120;">
+                                                        +
+                                                        <div class="connector-vertical"></div>
+                                                        <div class="connector-horizontal"></div>
+                                                        <div class="hotspot-content">
+                                                            <strong>Real-Time Event Triggers</strong><br>
+                                                            Instantly detects angular shifts
+                                                        </div>
+                                                    </div>
+                                                    <div class="hotspot two" style="background-color: #f48120;">
+                                                        +
+                                                        <div class="connector-vertical"></div>
+                                                        <div class="connector-horizontal"></div>
+                                                        <div class="hotspot-content">
+                                                            <strong>Edge Processing</strong><br>
+                                                            On-board algorithms classify tilt events
+                                                        </div>
+                                                    </div>
+                                                    <div class="hotspot three" style="background-color: #f48120;">
+                                                        +
+                                                        <div class="connector-vertical"></div>
+                                                        <div class="connector-horizontal"></div>
+                                                        <div class="hotspot-content">
+                                                            <strong>Timestamped Records</strong><br>
+                                                            Logged with time and magnitude for accurate trend analysis
+                                                        </div>
+                                                    </div>
+                                                    <div class="hotspot four" style="background-color: #f48120;">
+                                                        +
+                                                        <div class="connector-vertical"></div>
+                                                        <div class="connector-horizontal"></div>
+                                                        <div class="hotspot-content">
+                                                            <strong>Smart Alerts</strong><br>
+                                                            Automatic notifications through gateway
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row row-cols-xl-2 row-cols-1 grid-spacer-5">
+                            <div class="col col-xl-8">
+                                <div class="d-flex flex-column gspace-2">
+                                    <h4>Overview</h4>
+                                    <p>
+                                        The Sentra Tiltmeter — Event Detection edition is a compact, 3-axis inclinometer
+                                        engineered to detect and report ground movements with low noise and fast
+                                        latency. It runs continuous sampling in normal operation and switches to
+                                        high-frequency capture when preset thresholds are exceeded, streaming event data
+                                        to gateways and cloud platforms for rapid assessment and response. Configuration
+                                        may be done locally via mobile tools or remotely through Sentra’s edge/cloud
+                                        management layers.
+                                    </p>
+                                    <div class="row row-cols-md-2 row-cols-1 grid-spacer-2 grid-spacer-md-3">
+                                        <div class="col">
+                                            <div class="image-container">
+                                                <img src="../image/tiltmeter_event_1.png" alt="Service Image"
+                                                    class="img-fluid">
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="image-container">
+                                                <img src="../image/tiltmeter_event_2.png" alt="Service Image"
+                                                    class="img-fluid">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="card service-included">
+                                        <h4 class="product-headings">What's Included</h4>
+                                        <div class="underline-accent-short"></div>
+                                        <p>Field-ready hardware and services so event detection works from day one</p>
+                                        <div class="row row-cols-md-2 row-cols-1 grid-spacer-2">
+                                            <div class="col">
+                                                <ul class="check-list">
+                                                    <li>3-axis MEMS tilt sensor with temperature compensation</li>
+                                                    <li>Rugged IP68 housing with internal/external antenna options</li>
+                                                    <li>Quick setup via mobile app and configuration tools</li>
+                                                    <li>Flexible mounting kits for surface or structural installs</li>
+                                                </ul>
+                                            </div>
+                                            <div class="col">
+                                                <ul class="check-list">
+                                                    <li>Event-based reporting with fast alert response</li>
+                                                    <li>Extended battery life with optimized firmware modes</li>
+                                                    <li>Monthly Performance Reports</li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h4>Why choose Us for Tilt Event Detection?</h4>
+                                    <p>Engineered for teams that need timely, trustworthy movement alerts</p>
+                                    <div class="row row-cols-2">
+                                        <div class="col">
+                                            <div class="d-flex flex-column gspace-2">
+                                                <div
+                                                    class="d-flex flex-column flex-md-row align-items-center text-center text-md-start gspace-1">
+                                                    <i class="fa-regular fa-2x fa-circle-check accent-color"></i>
+                                                    <div class="d-flex flex-column gspace-0">
+                                                        <h5>Faster awareness</h5>
+                                                        <p>Edge processing reduces false alarms and increases data
+                                                            granularity only where it’s needed.</p>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="d-flex flex-column flex-md-row align-items-center text-center text-md-start gspace-1">
+                                                    <i class="fa-regular fa-2x fa-circle-check accent-color"></i>
+                                                    <div class="d-flex flex-column gspace-0">
+                                                        <h5>Operational resilience</h5>
+                                                        <p>Rugged design and efficient power use keep networks online
+                                                            through seasons and harsh conditions.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col">
+                                            <div class="d-flex flex-column gspace-2">
+                                                <div
+                                                    class="d-flex flex-column flex-md-row align-items-center text-center text-md-start gspace-1">
+                                                    <i class="fa-regular fa-2x fa-circle-check accent-color"></i>
+                                                    <div class="d-flex flex-column gspace-0">
+                                                        <h5>Actionable outputs</h5>
+                                                        <p>Standard data endpoints (MQTT/API/FTP) let you tie alerts
+                                                            into asset-management systems, SOS pipelines, or automatic
+                                                            camera capture.</p>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    class="d-flex flex-column flex-md-row align-items-center text-center text-md-start gspace-1">
+                                                    <i class="fa-regular fa-2x fa-circle-check accent-color"></i>
+                                                    <div class="d-flex flex-column gspace-0">
+                                                        <h5>Clear deployment options</h5>
+                                                        <p>Multiple mounting accessories, antenna choices and
+                                                            commissioning services reduce field complexity and speed
+                                                            time-to-value.</p>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col col-xl-4">
+                                <div
+                                    class="d-flex flex-column flex-md-row flex-xl-column justify-content-between gspace-5">
+                                    <div class="card service-recent">
+                                        <h4 class="product-headings">Recent Solutions</h4>
+                                        <div class="underline-accent-short"></div>
+                                        <ul class="single-service-list">
+                                            <li><a href="../solutions/structural-health-monitoring.html">Structural
+                                                    Health
+                                                    Monitoring</a></li>
+                                            <li><a href="../solutions/advanced-non-destructive-testing-ndt.html">Advanced
+                                                    Non-Destructive Testing (NDT)</a>
+                                            </li>
+                                            <li><a href="../solutions/bridge-inspection-and-condition-assessment.html">Bridge
+                                                    Inspection & Condition Assessment</a>
+                                            </li>
+                                            <li><a href="../solutions/geotechnical-and-foundation-monitoring.html">Geotechnical
+                                                    & Foundation Monitoring</a></li>
+                                            <li><a href="../solutions/digital-engineering-and-documentation.html">Digital
+                                                    Engineering & Documentation</a></li>
+                                            <li><a href="../solutions/consulting-and-advisory-services.html">Consulting
+                                                    &
+                                                    Advisory Services</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="cta-service-banner">
+                                        <div class="spacer"></div>
+                                        <h3 class="title-heading">Reimagine What’s Possible</h3>
+                                        <p>
+                                            Empowering businesses with IoT-driven insights and innovative solutions.
+                                            Together, let’s shape a smarter future!
+                                        </p>
+                                        <div class="link-wrapper">
+                                            <a href="about.html">Read More</a>
+                                            <i class="fa-solid fa-circle-arrow-right"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section Specifications Table -->
+            <div class="section">
+                <div class="hero-container">
+                    <div class="specs-container" id="specsSection">
+                        <h2>Main technical specifications</h2>
+
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <th class="product-table-section-title">General
+                                    </th>
+                                </tr>
+                                <tr>
+                                    <th>Sensor type</th>
+                                    <td>3-axis MEMS accelerometer</td>
+                                </tr>
+                                <tr>
+                                    <th>Range</th>
+                                    <td>±15°</td>
+                                </tr>
+                                <tr>
+                                    <th>Product Variants</th>
+                                    <td>LS-G6-TIL90-XE with external antenna <br>LS-G6-TIL90-E with internal antenna
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Power Source</th>
+                                    <td>2 × 3.6 V C-size replaceable batteries</td>
+                                </tr>
+                                <tr>
+                                    <th>Data Transmission</th>
+                                    <td>LoRa radio communications (ISM sub-GHz)</td>
+                                </tr>
+                                <tr>
+                                    <th>Operating Temperature</th>
+                                    <td>−40°C to +80°C</td>
+                                </tr>
+                                <tr>
+                                    <th>Weather Protection</th>
+                                    <td>IP68</td>
+                                </tr>
+                            </tbody>
+
+                            <tbody class="hidden-section" id="fullTable">
+                                <tr>
+                                    <th>System Configuration</th>
+                                    <td>Locally via Worldsensing App or remotely using CMT Edge on single-net
+                                        deployments and CMT Cloud on multi-net deployments</td>
+                                </tr>
+                                <tr>
+                                    <th class="product-table-section-title">Normal
+                                        State Operational Mode</th>
+                                </tr>
+                                <tr>
+                                    <th>Description</th>
+                                    <td>Continuous sampling at 4.9 Hz. Wireless communication to the gateway via LoRa
+                                        network at a configurable reporting period ranging from 30 min to 24 h.</td>
+                                </tr>
+                                <tr>
+                                    <th>Accuracy (±4°)</th>
+                                    <td>±0.005°</td>
+                                </tr>
+                                <tr>
+                                    <th>Repeatability</th>
+                                    <td>&lt;0.0005°</td>
+                                </tr>
+                                <tr>
+                                    <th>Offset Temperature Dependency</th>
+                                    <td>≤ 0.002°/°C</td>
+                                </tr>
+                                <tr>
+                                    <th class="product-table-section-title">Threshold
+                                        Breach</th>
+                                </tr>
+                                <tr>
+                                    <th>Description</th>
+                                    <td>When a reading in continuous sampling logs outside the threshold, an alert
+                                        message is sent in real time. It also triggers an alert status that changes the
+                                        data transmission according to the set reporting period for the alert status.
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>Communication Latency</th>
+                                    <td>2 s for 10 simultaneous alerts & 5 s for 25 simultaneous alerts</td>
+                                </tr>
+                                <tr>
+                                    <th>Repeatability (Continuous Sampling)</th>
+                                    <td>&lt;0.0005°</td>
+                                </tr>
+                                <tr>
+                                    <th>Peak-to-Peak Noise</th>
+                                    <td>&lt;0.0006°</td>
+                                </tr>
+                                <tr>
+                                    <th class="product-table-section-title">Battery
+                                        Life Estimations</th>
+                                </tr>
+                                <tr>
+                                    <th>Reporting Period</th>
+                                    <td>Lifespan</td>
+                                </tr>
+                                <tr>
+                                    <th>5 min</th>
+                                    <td>2.1 years</td>
+                                </tr>
+                                <tr>
+                                    <th>30 min</th>
+                                    <td>3.2 years</td>
+                                </tr>
+                                <tr>
+                                    <th>1 h</th>
+                                    <td>3.5 years</td>
+                                </tr>
+                                <tr>
+                                    <th>6 h</th>
+                                    <td>5.3 years</td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        <button class="toggle-btn" id="toggleBtn">Show full table +</button>
+
+                        <p class="footer-note">
+                            See detailed information about sensor capabilities and battery life estimations in the
+                            <a style="color: #f48120;"
+                                href="https://info.worldsensing.com/Datasheet_Tilt90EDS_EN">Tiltmeter Event Detection
+                                Product Datasheet</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Section Talk to Our Experts -->
+            <div class="section">
+                <div class="hero-container">
+                    <div class="newsletter-wrapper">
+                        <div class="newsletter-layout">
+                            <div class="spacer"></div>
+                            <div class="d-flex flex-column gspace-5 position-relative z-2">
+                                <div class="d-flex flex-column gspace-2 animate-box animated animate__animated"
+                                    data-animate="animate__fadeInLeft">
+                                    <h3 class="title-heading">Trusted by Infrastructure Leaders</h3>
+                                    <p> “Sentra’s smart monitoring platform gave us real-time visibility into structural
+                                        performance,
+                                        helping us prevent failures and optimize maintenance decisions.”</p>
+                                    <span class="text-muted fst-italic dark-accent">
+                                        — Project Director, Infrastructure & Smart Cities
+                                    </span>
+
+
+                                </div>
+
+                                <a href="./contact-us.html" class="btn btn-accent">
+                                    <span class="btn-title">
+                                        <span>Talk to Our Experts</span>
+                                    </span>
+                                    <span class="icon-circle">
+                                        <i class="fa-solid fa-arrow-right"></i>
+                                    </span>
+                                </a>
+
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Section FAQs -->
+            <div class="section">
+                <div class="hero-container">
+                    <div class="row row-cols-xl-2 row-cols-1 grid-spacer-5">
+                        <div class="col col-xl-5">
+                            <div class="faq-title-container">
+                                <div class="sub-heading">
+                                    <i class="fa-regular fa-circle-dot"></i>
+                                    <span>Frequently Asked Questions</span>
+                                </div>
+                                <h2 class="title-heading">Got Questions? We've Got Answers.</h2>
+                            </div>
+                        </div>
+                        <div class="col col-xl-7">
+                            <div class="d-flex flex-column">
+                                <div class="accordion" id="faqAccordion1">
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                                data-bs-target="#faq1" aria-expanded="false" aria-controls="faq1">
+                                                What does the Tiltmeter Event Detection system monitor?
+                                            </button>
+                                        </h2>
+                                        <div id="faq1" class="accordion-collapse collapse show"
+                                            data-bs-parent="#faqAccordion1">
+                                            <div class="accordion-body">
+                                                <div class="accordion-spacer"></div>
+                                                <p>
+                                                    It tracks rapid or sudden inclination changes in structures, slopes,
+                                                    or rail systems — detecting motion that may signal instability,
+                                                    movement, or failure events in real time.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#faq2" aria-expanded="true"
+                                                aria-controls="faq2">
+                                                How does the event detection feature work?
+                                            </button>
+                                        </h2>
+                                        <div id="faq2" class="accordion-collapse collapse"
+                                            data-bs-parent="#faqAccordion1">
+                                            <div class="accordion-body">
+                                                <div class="accordion-spacer"></div>
+                                                <p>
+                                                    The sensor continuously measures tilt angles and uses built-in
+                                                    algorithms to trigger alerts instantly when thresholds are exceeded,
+                                                    capturing pre- and post-event data for detailed analysis.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#faq3" aria-expanded="false"
+                                                aria-controls="faq3">
+                                                What types of events can it identify?
+                                            </button>
+                                        </h2>
+                                        <div id="faq3" class="accordion-collapse collapse"
+                                            data-bs-parent="#faqAccordion1">
+                                            <div class="accordion-body">
+                                                <div class="accordion-spacer"></div>
+                                                <p>
+                                                    It detects short-term tilt spikes from activities like excavation,
+                                                    blasting, or heavy traffic, as well as progressive shifts from soil
+                                                    movement, settlement, or structural deformation.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#faq4" aria-expanded="false"
+                                                aria-controls="faq4">
+                                                How is data transmitted and managed?
+                                            </button>
+                                        </h2>
+                                        <div id="faq4" class="accordion-collapse collapse"
+                                            data-bs-parent="#faqAccordion1">
+                                            <div class="accordion-body">
+                                                <div class="accordion-spacer"></div>
+                                                <p>
+                                                    Events and tilt data are sent over LoRa/LoRaWAN to cloud or edge
+                                                    platforms, where alerts, logs, and visual dashboards help engineers
+                                                    review, analyze, and verify incidents remotely.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#faq5" aria-expanded="false"
+                                                aria-controls="faq5">
+                                                What kind of maintenance does it require?
+                                            </button>
+                                        </h2>
+                                        <div id="faq5" class="accordion-collapse collapse"
+                                            data-bs-parent="#faqAccordion1">
+                                            <div class="accordion-body">
+                                                <div class="accordion-spacer"></div>
+                                                <p>
+                                                    With long-life batteries and sealed IP68 construction, maintenance
+                                                    is minimal—routine checks typically involve verifying mounts, signal
+                                                    strength, and battery status.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="accordion-item">
+                                        <h2 class="accordion-header">
+                                            <button class="accordion-button collapsed" type="button"
+                                                data-bs-toggle="collapse" data-bs-target="#faq6" aria-expanded="false"
+                                                aria-controls="faq6">
+                                                Where can the Tiltmeter Event Detection system be deployed?
+                                            </button>
+                                        </h2>
+                                        <div id="faq6" class="accordion-collapse collapse"
+                                            data-bs-parent="#faqAccordion1">
+                                            <div class="accordion-body">
+                                                <div class="accordion-spacer"></div>
+                                                <p>
+                                                    Ideal for slopes, retaining walls, tunnels, bridges, and rail
+                                                    lines—anywhere fast, autonomous tilt event detection enhances safety
+                                                    and operational awareness.
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </main>
+
+    <!-- Section Footer -->
+    <footer>
+        <div id="footer"></div>
+    </footer>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const scrollBtn = document.getElementById("scrollToSpecs");
+            const specsSection = document.getElementById("specsSection");
+
+            if (!scrollBtn || !specsSection) return;
+
+            scrollBtn.addEventListener("click", (e) => {
+                e.preventDefault();
+
+                // Try common header selectors — add your header selector if different
+                const header = document.querySelector('header') || document.querySelector('.site-header') || document.querySelector('.navbar') || null;
+                const headerHeight = header ? header.getBoundingClientRect().height : 0;
+
+                // Extra gap so content doesn't touch the header (adjust px as needed)
+                const extraGap = 80;
+
+                const targetY = specsSection.getBoundingClientRect().top + window.pageYOffset - headerHeight - extraGap;
+
+                window.scrollTo({
+                    top: Math.max(targetY, 0),
+                    behavior: "smooth"
+                });
+            });
+        });
+    </script>
+
+    <script>
+        (function () {
+            const hotspots = document.querySelectorAll('.hotspot-section .hotspot');
+            if (!hotspots.length) {
+                return;
+            }
+            hotspots.forEach(hotspot => {
+                hotspot.addEventListener('click', event => {
+                    event.stopPropagation();
+                    hotspot.classList.toggle('active');
+                    hotspots.forEach(other => {
+                        if (other !== hotspot) {
+                            other.classList.remove('active');
+                        }
+                    });
+                });
+            });
+            document.addEventListener('click', () => {
+                hotspots.forEach(h => h.classList.remove('active'));
+            });
+        })();
+    </script>
+    <script>
+        const toggleBtn = document.getElementById("toggleBtn");
+        const fullTable = document.getElementById("fullTable");
+        let expanded = false;
+
+        if (toggleBtn && fullTable) {
+            toggleBtn.addEventListener("click", () => {
+                expanded = !expanded;
+                fullTable.classList.toggle("show", expanded);
+                toggleBtn.textContent = expanded ? "Hide full table –" : "Show full table +";
+            });
+        }
+    </script>
+    <script src="../js/vendor/jquery.min.js"></script>
+    <script src="../js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="../js/vendor/swiper-bundle.min.js"></script>
+    <script src="../js/script.js"></script>
+    <script src="../js/swiper-script.js"></script>
+    <script src="../js/submit-form.js"></script>
+    <script src="../js/video_embedded.js"></script>
+
+    <!-- Linking Emoji Mart script for emoji picker -->
+    <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
+
+    <!-- Chatbot Widget -->
+    <script src="../js/chatbot-widget.js"></script>
+
+    <!-- Banner Animation-->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    <script>
+        tsParticles.load("tsparticles", {
+            fullScreen: { enable: false },
+            particles: {
+                number: { value: 50 },
+                color: { value: "#f48120" },
+                links: {
+                    enable: true,
+                    distance: 150,
+                    color: "#f48120",
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                }
+            },
+            interactivity: {
+                events: {
+                    onHover: { enable: true, mode: "grab" },
+                    onClick: { enable: true, mode: "push" }
+                },
+                modes: {
+                    grab: { distance: 200, links: { opacity: 1 } }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>

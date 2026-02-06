@@ -13,6 +13,56 @@ const PORT = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));
 
+async function sendContactLeadEmail({ firstName, lastName, email, subject, message }) {
+  const mailgunApiKey = process.env.MAILGUN_API_KEY;
+  const mailgunDomain = process.env.MAILGUN_DOMAIN;
+  const recipients = ['sentra@clovetech.com', 'vishal.das@clovetech.com'];
+
+  if (!mailgunApiKey || !mailgunDomain) {
+    throw new Error('Mailgun is not configured. Please set MAILGUN_API_KEY and MAILGUN_DOMAIN in environment variables.');
+  }
+
+  const emailSubject = subject?.trim() || 'New Contact Lead - Sentra Website';
+  const safeFirstName = firstName?.trim() || 'N/A';
+  const safeLastName = lastName?.trim() || 'N/A';
+  const safeMessage = message?.trim() || 'N/A';
+
+  const textBody = [
+    'New lead received from Sentra contact form.',
+    '',
+    `First Name: ${safeFirstName}`,
+    `Last Name: ${safeLastName}`,
+    `Email: ${email}`,
+    `Subject: ${emailSubject}`,
+    '',
+    'Message:',
+    safeMessage
+  ].join('\n');
+
+  const formData = new URLSearchParams();
+  formData.append('from', `Sentra Contact Form <mailgun@${mailgunDomain}>`);
+  recipients.forEach((recipient) => formData.append('to', recipient));
+  formData.append('h:Reply-To', email);
+  formData.append('subject', emailSubject);
+  formData.append('text', textBody);
+
+  const response = await fetch(`https://api.mailgun.net/v3/${mailgunDomain}/messages`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Basic ${Buffer.from(`api:${mailgunApiKey}`).toString('base64')}`,
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: formData.toString()
+  });
+
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`Mailgun API error: ${response.status} ${response.statusText} - ${errorText}`);
+  }
+
+  return response.json();
+}
+
 // Initialize Gemini AI
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "AIzaSyBRDrLF5BZuAOazd5vhZnYtEDAGTlDMlB0");
 
@@ -193,11 +243,11 @@ You are currently on the About Us page of Sentra's website. Key information from
 - We provide Structural Health Monitoring, Bridge Inspection & Condition Assessment, Advanced Non-Destructive Testing (NDT), Asset Monitoring & Management Solutions, Geotechnical & Foundation Monitoring, and Fatigue and Residual Life Assessment.
 - Sentra has over 21 years of experience in digital engineering.
 
-Phone Number: +91 8885730066
-Email Address: connect@clovetech.com
+Phone Number: +91 7893023322
+Email Address: sentra@clovetech.com
 Office Address: IT SEZ, Plot No. 9, Pedda Rushikonda, Rushikonda, Visakhapatnam, Andhra Pradesh 530045
 
-AI AGENT OF SENTRA'S WEBSITE IS VERONICA
+AI AGENT OF SENTRA'S WEBSITE IS Veronica
 
 Use this company and page-specific context to answer all upcoming user queries accurately and in alignment with Sentra's expertise.
 
@@ -247,11 +297,11 @@ You are currently on the About Us page of Sentra's website. Key information from
 - We provide Structural Health Monitoring, Bridge Inspection & Condition Assessment, Advanced Non-Destructive Testing (NDT), Asset Monitoring & Management Solutions, Geotechnical & Foundation Monitoring, and Fatigue and Residual Life Assessment.
 - Sentra has over 21 years of experience in digital engineering.
 
-Phone Number: +91 8885730066
-Email Address: connect@clovetech.com
+Phone Number: +91 7893023322
+Email Address: sentra@clovetech.com
 Office Address: IT SEZ, Plot No. 9, Pedda Rushikonda, Rushikonda, Visakhapatnam, Andhra Pradesh 530045
 
-AI AGENT OF SENTRA'S WEBSITE IS VERONICA
+AI AGENT OF SENTRA'S WEBSITE IS Veronica
 
 Use this company and page-specific context to answer all upcoming user queries accurately and in alignment with Sentra's expertise.
 
@@ -285,7 +335,7 @@ Key Features and Specifications
 - Cloud-based analytics platform
 - BIM/GIS integration ready
 
-Why Choose Sentra Edge Devices
+Why our Edge Devices
 - High-Precision Detection: Capture minute vibrations with exceptional accuracy for comprehensive structural assessment.
 - Predictive Maintenance: AI-powered analytics identify patterns and trends, enabling proactive maintenance before failures occur.
 - Rugged and Reliable: Weather-resistant IP67 construction ensures continuous operation in harsh conditions.
@@ -320,7 +370,7 @@ Key Features and Specifications
 - BIM/GIS integration ready
 - Seamless interoperability with Sentra Edge Devices and sensors
 
-Why Choose Sentra Core Communications
+Why our Core Communications
 - Reliable Connectivity
 Ensures continuous communication between field sensors and the cloud for uninterrupted monitoring.
 - Scalable Architecture: Supports large networks of devices with efficient data routing and low latency.
@@ -357,7 +407,7 @@ Key Features and Specifications:
 - BIM/GIS integration ready
 - Designed for plug-and-play field installation
 
-Why Choose Sentra Wired Sensors
+Why our Wired Sensors
 - High-Precision Measurement: Deliver consistent, accurate readings for structural load, vibration, and stress analysis.
 - Proven Durability: Engineered for extreme field conditions, ensuring long-term data reliability.
 - Flexible Integration: Compatible with a range of Sentra data acquisition systems and industry-standard monitoring platforms.
@@ -1493,6 +1543,44 @@ app.post('/api/user-profile', (req, res) => {
   } catch (error) {
     console.error('User profile error:', error);
     res.status(500).json({ error: 'Failed to save user profile' });
+  }
+});
+
+// Contact form endpoint
+app.post('/api/contact', async (req, res) => {
+  try {
+    const {
+      firstName = '',
+      lastName = '',
+      email = '',
+      subject = '',
+      message = ''
+    } = req.body;
+
+    const trimmedEmail = String(email).trim();
+    const trimmedMessage = String(message).trim();
+
+    if (!trimmedEmail || !trimmedMessage) {
+      return res.status(400).json({ error: 'Email and message are required.' });
+    }
+
+    const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!emailPattern.test(trimmedEmail)) {
+      return res.status(400).json({ error: 'Invalid email format.' });
+    }
+
+    await sendContactLeadEmail({
+      firstName: String(firstName),
+      lastName: String(lastName),
+      email: trimmedEmail,
+      subject: String(subject),
+      message: trimmedMessage
+    });
+
+    res.json({ success: true, message: 'Lead submitted successfully.' });
+  } catch (error) {
+    console.error('Contact form submission error:', error);
+    res.status(500).json({ error: error.message || 'Failed to submit contact form.' });
   }
 });
 

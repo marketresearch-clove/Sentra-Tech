@@ -48,6 +48,21 @@ let userProfile = {
   isFormSubmitted: false
 };
 
+// Function to save user profile to localStorage
+function saveUserProfile() {
+  localStorage.setItem('sentraChatbotUserProfile', JSON.stringify(userProfile));
+}
+
+// Function to load user profile from localStorage
+function loadUserProfile() {
+  const savedProfile = localStorage.getItem('sentraChatbotUserProfile');
+  if (savedProfile) {
+    userProfile = JSON.parse(savedProfile);
+    return true;
+  }
+  return false;
+}
+
 // Store chat history - Now starts empty.
 const chatHistory = [];
 
@@ -133,11 +148,11 @@ You are currently on the About Us page of Sentra's website. Key information from
 - We provide Structural Health Monitoring, Bridge Inspection & Condition Assessment, Advanced Non-Destructive Testing (NDT), Asset Monitoring & Management Solutions, Geotechnical & Foundation Monitoring, and Fatigue and Residual Life Assessment.
 - Sentra has over 21 years of experience in digital engineering.
 
-Phone Number: +91 8885730066
-Email Address: connect@clovetech.com
+Phone Number: +91 7893023322
+Email Address: sentra@clovetech.com
 Office Address: IT SEZ, Plot No. 9, Pedda Rushikonda, Rushikonda, Visakhapatnam, Andhra Pradesh 530045
 
-AI AGENT OF SENTRA'S WEBSITE IS VERONICA
+AI AGENT OF SENTRA'S WEBSITE IS Veronica
 
 Use this company and page-specific context to answer all upcoming user queries accurately and in alignment with Sentra's expertise.
 
@@ -171,7 +186,7 @@ Key Features and Specifications
 - Cloud-based analytics platform
 - BIM/GIS integration ready
 
-Why Choose Sentra Edge Devices
+Why our Edge Devices
 - High-Precision Detection: Capture minute vibrations with exceptional accuracy for comprehensive structural assessment.
 - Predictive Maintenance: AI-powered analytics identify patterns and trends, enabling proactive maintenance before failures occur.
 - Rugged and Reliable: Weather-resistant IP67 construction ensures continuous operation in harsh conditions.
@@ -206,7 +221,7 @@ Key Features and Specifications
 - BIM/GIS integration ready
 - Seamless interoperability with Sentra Edge Devices and sensors
 
-Why Choose Sentra Core Communications
+Why our Core Communications
 - Reliable Connectivity
 Ensures continuous communication between field sensors and the cloud for uninterrupted monitoring.
 - Scalable Architecture: Supports large networks of devices with efficient data routing and low latency.
@@ -243,7 +258,7 @@ Key Features and Specifications:
 - BIM/GIS integration ready
 - Designed for plug-and-play field installation
 
-Why Choose Sentra Wired Sensors
+Why our Wired Sensors
 - High-Precision Measurement: Deliver consistent, accurate readings for structural load, vibration, and stress analysis.
 - Proven Durability: Engineered for extreme field conditions, ensuring long-term data reliability.
 - Flexible Integration: Compatible with a range of Sentra data acquisition systems and industry-standard monitoring platforms.
@@ -1288,6 +1303,7 @@ Maximum Peak Power (Pmax): 160 W Maximum open circuit voltage (Voc): 22.9 V Opti
 Battery
 Internal 12.8 V 9.9 AH (126.72 Wh) LiFePO4
 
+Creator of Sentra's website and Developers of Veronica: Vasamsetti Yuva Subharam and Vishal Das
 
 You have the ability to access and fetch content from websites. When a user asks for information that requires current data, external research, or information not in your training data, you can request web access by including "Can i Access Website:" followed by the URL in your response. The system will fetch the content and provide it to you for analysis. Use this capability when:
 - Users ask for current news, updates, or recent developments
@@ -1406,7 +1422,9 @@ const generateBotResponse = async (incomingMessageDiv) => {
         systemInstruction: systemInstruction,
         generationConfig: {
           temperature: 0.7,
-          maxOutputTokens: 1024,
+          maxOutputTokens: 4096,
+          topP: 0.8,
+          topK: 10,
         }
       }),
     });
@@ -1454,6 +1472,12 @@ const handleOutgoingMessage = (e) => {
   messageInput.dispatchEvent(new Event("input"));
   fileUploadWrapper.classList.remove("file-uploaded");
 
+  // Hide quick replies after first message
+  const quickReplies = document.querySelector(".quick-replies");
+  if (quickReplies) {
+    quickReplies.style.display = "none";
+  }
+
   // Create and display user message
   const messageContent = `<div class="message-text"></div>
                           ${userData.file.data
@@ -1499,9 +1523,11 @@ messageInput.addEventListener("keydown", (e) => {
   const userMessage = e.target.value.trim();
   const fileUploaded = userData.file.data;
 
-  if (e.key === "Enter" && !e.shiftKey && (userMessage || fileUploaded) && window.innerWidth > 768) {
+  if (e.key === "Enter" && !e.shiftKey && (userMessage || fileUploaded)) {
+    e.preventDefault(); // Prevent default newline
     handleOutgoingMessage(e);
   }
+  // Shift+Enter allows new lines (default behavior)
 });
 
 // Handle file input change and preview the selected file
@@ -1626,6 +1652,9 @@ function handleInfoFormSubmission(e) {
     userProfile.email = email;
     userProfile.isFormSubmitted = true;
 
+    // Save to localStorage
+    saveUserProfile();
+
     // Hide form and show chat interface
     userInfoForm.style.display = 'none';
     chatBody.style.display = 'block';
@@ -1635,6 +1664,22 @@ function handleInfoFormSubmission(e) {
     const greeting = getTimeBasedGreeting();
     welcomeMessage.textContent = `${greeting}, ${name}! How can I help you today?`;
   }
+}
+
+// Function to initialize chatbot on page load
+function initializeChatbot() {
+  // Try to load saved user profile
+  if (loadUserProfile() && userProfile.isFormSubmitted) {
+    // User data exists, skip form and show chat interface
+    userInfoForm.style.display = 'none';
+    chatBody.style.display = 'block';
+    chatFooter.style.display = 'block';
+
+    // Update welcome message with personalized greeting
+    const greeting = getTimeBasedGreeting();
+    welcomeMessage.textContent = `${greeting}, ${userProfile.name}! How can I help you today?`;
+  }
+  // If no saved data, form remains visible (default behavior)
 }
 
 // --- Event Listeners ---
@@ -1652,3 +1697,71 @@ sendMessage.addEventListener("click", (e) => {
 document.querySelector("#file-upload").addEventListener("click", () => fileInput.click());
 closeChatbot.addEventListener("click", () => document.body.classList.remove("show-chatbot"));
 chatbotToggler.addEventListener("click", () => document.body.classList.toggle("show-chatbot"));
+
+// Quick reply button event listener using event delegation
+chatBody.addEventListener("click", (e) => {
+  if (e.target.classList.contains("quick-reply")) {
+    console.log('Quick reply clicked:', e.target.textContent.trim());
+    if (!userProfile.isFormSubmitted) {
+      console.log('User profile not submitted');
+      return;
+    }
+
+    const message = e.target.textContent.trim();
+
+    // Special handling for Schedule a call button
+    if (message === "Schedule a call") {
+      console.log('Schedule a call detected');
+      // Hide quick replies
+      const quickReplies = document.querySelector(".quick-replies");
+      if (quickReplies) {
+        quickReplies.style.display = "none";
+      }
+
+      // Create user message
+      const userMessageContent = `<div class="message-text">${message}</div>`;
+      const userMessageDiv = createMessageElement(userMessageContent, "user-message");
+      chatBody.appendChild(userMessageDiv);
+      chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: "smooth" });
+
+      // Show bot response with scheduling options
+      setTimeout(() => {
+        const botMessageContent = `<svg class="bot-avatar" xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 1024 1024">
+            <path d="M738.3 287.6H285.7c-59 0-106.8 47.8-106.8 106.8v303.1c0 59 47.8 106.8 106.8 106.8h81.5v111.1c0 .7.8 1.1 1.4.7l166.9-110.6 41.8-.8h117.4l43.6-.4c59 0 106.8-47.8 106.8-106.8V394.5c0-59-47.8-106.9-106.8-106.9zM351.7 448.2c0-29.5 23.9-53.5 53.5-53.5s53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5-53.9-23.9-53.5-53.5zm157.9 267.1c-67.8 0-123.8-47.5-132.3-109h264.6c-8.6 61.5-64.5 109-132.3 109zm110-213.7c-29.5 0-53.5-23.9-53.5-53.5s23.9-53.5 53.5-53.5 53.5 23.9 53.5 53.5-23.9 53.5-53.5 53.5zM867.2 644.5V453.1h26.5c19.4 0 35.1 15.7 35.1 35.1v121.1c0 19.4-15.7 35.1-35.1 35.1h-26.5zM95.2 609.4V488.2c0-19.4 15.7-35.1 35.1-35.1h26.5v191.3h-26.5c-19.4 0-35.1-15.7-35.1-35.1zM561.5 149.6c0 23.4-15.6 43.3-36.9 49.7v44.9h-30v-44.9c-21.4-6.5-36.9-26.3-36.9-49.7 0-28.6 23.3-51.9 51.9-51.9s51.9 23.3 51.9 51.9z" />
+          </svg>
+          <div class="message-text" id="scheduling-options">
+            To schedule a call and discuss your project requirements for real-time infrastructure intelligence, please use one of the following options:<br><br>
+            1. Call Our Experts Directly:<br>
+            • Phone: +91 7893023322<br><br>
+            2. Send a Detailed Inquiry:<br>
+            • Email: <a href="mailto:sentra@clovetech.com">sentra@clovetech.com</a><br><br>
+            <button class="calendly-link" style="background: #f48120; color: white; border: none; padding: 8px 16px; border-radius: 50px; cursor: pointer; font-weight: bold;">Schedule a Call</button>
+          </div>`;
+        const botMessageDiv = createMessageElement(botMessageContent, "bot-message");
+        chatBody.appendChild(botMessageDiv);
+        chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: "smooth" });
+
+        // Add click handler for Calendly link
+        const calendlyLink = botMessageDiv.querySelector('.calendly-link');
+        if (calendlyLink) {
+          calendlyLink.addEventListener('click', () => {
+            if (typeof Calendly !== 'undefined') {
+              Calendly.initPopupWidget({ url: 'https://calendly.com/sentra-clovetech/30min?primary_color=f47b0a' });
+            } else {
+              window.open('https://calendly.com/sentra-clovetech/30min?primary_color=f47b0a', '_blank');
+            }
+          });
+        }
+      }, 600);
+      return;
+    }
+
+    messageInput.value = message;
+
+    // Trigger the send message functionality
+    handleOutgoingMessage(e);
+  }
+});
+
+// Initialize chatbot on page load
+initializeChatbot();

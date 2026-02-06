@@ -1,0 +1,70 @@
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/plain text/html text/xml text/css
+  AddOutputFilterByType DEFLATE application/javascript application/x-javascript application/xml application/json
+</IfModule>
+
+<IfModule mod_headers.c>
+  Header append Vary Accept-Encoding
+  
+  # Cache control for images
+  <FilesMatch "\.(jpg|jpeg|png|gif|webp|svg|ico)$">
+    Header set Cache-Control "public, max-age=360000, immutable"
+  </FilesMatch>
+  
+  # Cache control for fonts
+  <FilesMatch "\.(ttf|ttc|otf|eot|woff|woff2)$">
+    Header set Cache-Control "public, max-age=3600, immutable"
+  </FilesMatch>
+  
+  # Cache control for CSS and JavaScript
+  <FilesMatch "\.(css|js)$">
+    Header set Cache-Control "public, max-age=3600"
+  </FilesMatch>
+  
+  # Cache control for videos
+  <FilesMatch "\.(mp4|webm|ogg)$">
+    Header set Cache-Control "public, max-age=360000, immutable"
+  </FilesMatch>
+  
+  # No cache for HTML
+  <FilesMatch "\.(html|htm)$">
+    Header set Cache-Control "public, max-age=3600, must-revalidate"
+  </FilesMatch>
+</IfModule>
+
+# Enable rewrite engine
+RewriteEngine On
+
+############################################################
+# 1. Redirect uppercase /solutions → lowercase /solutions
+############################################################
+RewriteRule ^Solutions/(.*)$ /solutions/$1 [L,R=301]
+
+############################################################
+# 2. Redirect .html pages to clean URL (remove .html)
+############################################################
+RewriteRule ^solutions/(.*)\.html$ /solutions/$1 [L,R=301]
+
+############################################################
+# 3. Fix underscores → hyphens
+############################################################
+RewriteRule ^solutions/(.*)_(.*)$ /solutions/$1-$2 [L,R=301]
+
+############################################################
+# 4. Fix "&" → "-and-" (ampersand breaks URLs)
+############################################################
+RewriteRule ^solutions/(.*)&(.*)$ /solutions/$1-and-$2 [L,R=301]
+
+############################################################
+# 5. Ensure clean URL loads actual .html file
+############################################################
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html [L]
+
+############################################################
+# 6. Redirect multiple slashes / trailing slash cleanup
+############################################################
+RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s(.+)//+(.+)\s
+RewriteRule .* %1/%2 [R=301,L]

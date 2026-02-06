@@ -1,5 +1,5 @@
 // Dynamically determine correct path prefix based on current location
-const pathPrefix = (window.location.pathname.includes('/Solutions/') || window.location.pathname.includes('/Products/') || window.location.pathname.includes('/Case_studies/') || window.location.pathname.includes('/Article/') || window.location.pathname.includes('/Blogs/')) ? '../' : './';
+const pathPrefix = (window.location.pathname.includes('/solutions/') || window.location.pathname.includes('/products/') || window.location.pathname.includes('/case-studies/') || window.location.pathname.includes('/article/') || window.location.pathname.includes('/blogs/')) ? '../' : './';
 Promise.all([
     fetch(pathPrefix + "header.html").then(res => res.text()),
     fetch(pathPrefix + "footer.html").then(res => res.text()),
@@ -11,7 +11,6 @@ Promise.all([
         $("#footer").html(footerHTML);
         $("#sidebar").html(sidebarHTML);
         $("#edit-sidebar").html(sidebarHTML);
-        $("#search-form-container").html(searchHTML);
         fixNavLinks();
     })
     .then(() => {
@@ -20,6 +19,7 @@ Promise.all([
         initSidebar();
         initEditSidebar();
         initSidebarDropdown();
+        initSidebarSubDropdown();
         initCounter();
         initThemeSwitch();
         initScrollHeader();
@@ -35,7 +35,7 @@ Promise.all([
     });
 
 function fixNavLinks() {
-    const isInSubfolder = window.location.pathname.includes('/Solutions/') || window.location.pathname.includes('/Products/');
+    const isInSubfolder = window.location.pathname.includes('/solutions/') || window.location.pathname.includes('/products/');
 
     if (isInSubfolder) {
         $("#header a[href], #footer a[href], #sidebar a[href]").each(function () {
@@ -47,106 +47,60 @@ function fixNavLinks() {
     }
 }
 
-// function initBannerVideo() {
-//     var player;
-
-//     var $tag = $('<script>', { src: "https://www.youtube.com/iframe_api" });
-//     $('script').first().before($tag);
-
-//     // Homepage Hero section video
-//     window.onYouTubeIframeAPIReady = function () {
-//         player = new YT.Player('banner-video-background', {
-//             videoId: 'Hgg7M3kSqyE',
-//             playerVars: {
-//                 'autoplay': 1,
-//                 'controls': 0,
-//                 'mute': 1,
-//                 'loop': 1,
-//                 'playlist_3': '_YAscQDop3E',
-//                 'playlist_2': 'iF19lWWG6UM',
-//                 'playlist_4': 'Jn3-3Gnmg1k',
-//                 'playlist': 'Hgg7M3kSqyE',
-//                 'showinfo': 0,
-//                 'rel': 0,
-//                 'enablejsapi': 1,
-//                 'disablekb': 1,
-//                 'modestbranding': 1,
-//                 'iv_load_policy': 3,
-//                 'origin': window.location.origin
-//             },
-//             events: {
-//                 'onReady': onPlayerReady,
-//                 'onStateChange': onPlayerStateChange
-//             }
-//         });
-//     };
-
-//     function onPlayerReady(event) {
-//         event.target.playVideo();
-//         setYoutubeSize();
-//         $(window).on('resize', setYoutubeSize);
-//     }
-
-//     function onPlayerStateChange(event) {
-//         if (event.data === YT.PlayerState.ENDED) {
-//             player.playVideo();
-//         }
-//     }
-
-//     function setYoutubeSize() {
-//         var $container = $('.banner-video-container');
-//         var containerWidth = $container.outerWidth();
-//         var containerHeight = $container.outerHeight();
-//         var aspectRatio = 16 / 9;
-//         var newWidth, newHeight;
-
-//         if (containerWidth / containerHeight > aspectRatio) {
-//             newWidth = containerWidth;
-//             newHeight = containerWidth / aspectRatio;
-//         } else {
-//             newWidth = containerHeight * aspectRatio;
-//             newHeight = containerHeight;
-//         }
-
-//         if (player && player.getIframe) {
-//             var $iframe = $(player.getIframe());
-//             $iframe.width(newWidth).height(newHeight);
-//         }
-//     }
-
-//     function handleYouTubeErrors() {
-//         window.addEventListener('message', function (event) {
-//             if (event.origin !== 'https://www.youtube.com') return;
-
-//             try {
-//                 var data = JSON.parse(event.data);
-
-//             } catch (e) {
-
-//             }
-//         });
-//     }
-// }
-
 function initBannerVideo() {
-    const $videoContainer = $('.banner-video-container');
-    const $video = $('#banner-video-background video');
+    var player;
 
-    // Ensure the video plays automatically when loaded
-    $video.on('canplay', function() {
-        this.play();
-        setVideoSize();
-    });
+    var $tag = $('<script>', { src: "https://www.youtube.com/iframe_api" });
+    $('script').first().before($tag);
 
-    // Adjust video size when the window resizes
-    $(window).on('resize', setVideoSize);
+    // Homepage Hero section video
+    window.onYouTubeIframeAPIReady = function () {
+        var videoId = $('#banner-video-background').data('video-id');
+        player = new YT.Player('banner-video-background', {
+            videoId: videoId,
+            playerVars: {
+                'autoplay': 1,
+                'controls': 0,
+                'mute': 1,
+                'loop': 1,
+                'playlist_3': '_YAscQDop3E',
+                'playlist_2': 'iF19lWWG6UM',
+                'playlist_4': 'Jn3-3Gnmg1k',
+                'playlist_1': 'Hgg7M3kSqyE',
+                'playlist': 'U9PcESAe4-4',
+                'showinfo': 0,
+                'rel': 0,
+                'enablejsapi': 1,
+                'disablekb': 1,
+                'modestbranding': 1,
+                'iv_load_policy': 3,
+                'origin': window.location.origin
+            },
+            events: {
+                'onReady': onPlayerReady,
+                'onStateChange': onPlayerStateChange
+            }
+        });
+    };
 
-    function setVideoSize() {
-        const containerWidth = $videoContainer.outerWidth();
-        const containerHeight = $videoContainer.outerHeight();
-        const aspectRatio = 16 / 9;
+    function onPlayerReady(event) {
+        event.target.playVideo();
+        setYoutubeSize();
+        $(window).on('resize', setYoutubeSize);
+    }
 
-        let newWidth, newHeight;
+    function onPlayerStateChange(event) {
+        if (event.data === YT.PlayerState.ENDED) {
+            player.playVideo();
+        }
+    }
+
+    function setYoutubeSize() {
+        var $container = $('.banner-video-container');
+        var containerWidth = $container.outerWidth();
+        var containerHeight = $container.outerHeight();
+        var aspectRatio = 16 / 9;
+        var newWidth, newHeight;
 
         if (containerWidth / containerHeight > aspectRatio) {
             newWidth = containerWidth;
@@ -156,13 +110,22 @@ function initBannerVideo() {
             newHeight = containerHeight;
         }
 
-        $video.css({
-            width: newWidth,
-            height: newHeight,
-            position: 'absolute',
-            top: (containerHeight - newHeight) / 2,
-            left: (containerWidth - newWidth) / 2,
-            objectFit: 'cover'
+        if (player && player.getIframe) {
+            var $iframe = $(player.getIframe());
+            $iframe.width(newWidth).height(newHeight);
+        }
+    }
+
+    function handleYouTubeErrors() {
+        window.addEventListener('message', function (event) {
+            if (event.origin !== 'https://www.youtube.com') return;
+
+            try {
+                var data = JSON.parse(event.data);
+
+            } catch (e) {
+
+            }
         });
     }
 }
@@ -183,7 +146,7 @@ function initThemeSwitch() {
         const closeBtn = $('.close-btn');
 
         // Specific icons to apply greyscale in light mode
-        const chooseUsIcons = $('img[src*="iot_icon.png"], img[src*="Digital_Solutions_icon.png"], img[src*="Transparent_icon.png"]');
+        const chooseUsIcons = $('img[src*="IoT_icon.png"], img[src*="Digital_Solutions_icon.png"], img[src*="Transparent_icon.png"]');
 
         if (lightMode) {
             $('body').addClass('lightmode');
@@ -243,8 +206,8 @@ function initThemeSwitch() {
         lightMode = !lightMode;
         setTimeout(() => {
             updateLogos();
-        }, 100);
-        
+        }, 150);
+
 
         const iconClass = lightMode ? 'fa-sun' : 'fa-moon';
         $('#themeIcon')
@@ -299,14 +262,16 @@ function initCounter() {
 }
 
 function initNavLink() {
-    const currentUrl = window.location.href;
-    $(".navbar-nav .nav-link").each(function () {
-        if (this.href === currentUrl) {
+    const currentPath = window.location.pathname;
+    $(".navbar-nav .nav-link:not(.dropdown-toggle)").each(function () {
+        const linkPath = new URL(this.href).pathname;
+        if (linkPath === currentPath) {
             $(this).addClass("active");
         }
     });
-    $(".navbar-nav .dropdown-menu .dropdown-item").each(function () {
-        if (this.href === currentUrl) {
+    $(".navbar-nav .dropdown-menu .dropdown-item, .navbar-nav .dropdown-menu .product-link, .navbar-nav .dropdown-menu .column-title").each(function () {
+        const linkPath = new URL(this.href).pathname;
+        if (linkPath === currentPath) {
             $(this).closest(".dropdown").find(".nav-link.dropdown-toggle").addClass("active");
         }
     });
@@ -396,6 +361,55 @@ function initSidebarDropdown() {
     });
 }
 
+function initSidebarSubDropdown() {
+    const $categoryFilter = $(".product-category-filter");
+    const $categoryHeaders = $(".product-category-header");
+    const $categoryItems = $(".product-category-items");
+
+    // Handle "All Products" filter
+    $categoryFilter.on("click", function () {
+        const $currentFilter = $(this);
+        const category = $currentFilter.data("category");
+
+        // Update active state on filters
+        $categoryFilter.removeClass("active");
+        $currentFilter.addClass("active");
+
+        // Show/hide category items based on selection
+        if (category === "all") {
+            $categoryItems.addClass("hidden");
+            $categoryHeaders.find(".category-arrow").removeClass("expanded");
+        } else {
+            $categoryItems.each(function () {
+                const $items = $(this);
+                const itemCategory = $items.data("category-group");
+                if (itemCategory === category) {
+                    $items.removeClass("hidden");
+                    $items.closest(".product-category-item").find(".product-category-header").find(".category-arrow").addClass("expanded");
+                } else {
+                    $items.addClass("hidden");
+                    $items.closest(".product-category-item").find(".product-category-header").find(".category-arrow").removeClass("expanded");
+                }
+            });
+        }
+    });
+
+    // Handle category header clicks to expand/collapse
+    $categoryHeaders.on("click", function () {
+        const $currentHeader = $(this);
+        const $categoryGroup = $currentHeader.closest(".product-category-item").find(".product-category-items");
+        const $arrow = $currentHeader.find(".category-arrow");
+
+        // Close all other categories
+        $categoryItems.not($categoryGroup).addClass("hidden");
+        $categoryHeaders.not($currentHeader).find(".category-arrow").removeClass("expanded");
+
+        // Toggle current category
+        $categoryGroup.toggleClass("hidden");
+        $arrow.toggleClass("expanded");
+    });
+}
+
 
 function initSearchBar() {
     const $searchBtn = $(".search-btn");
@@ -452,7 +466,7 @@ $(document).ready(function () {
         {
             title: "Case Studies",
             description: "Explore SENTRA Case Studies — Discover how our IoT-driven SHM systems have improved safety and reliability across India’s bridges, railway lines, and industrial plants. See the measurable benefits in data accuracy, cost reduction, and preventive maintenance efficiency.",
-            url: "case_studies.html"
+            url: "case-studies.html"
         },
         {
             title: "Our Team",
@@ -482,11 +496,11 @@ $(document).ready(function () {
         {
             title: "Error 404",
             description: "404 — Oops! Page Not Found. The page you’re looking for might have been moved or temporarily unavailable. Return to SENTRA Home to explore our Smart Monitoring Solutions for infrastructure and industrial applications.",
-            url: "404_page.html"
+            url: "404-page.html"
         },
         {
             title: "Blog",
-            description: "Our Blog | Explore insights on Structural Health Monitoring, IoT innovations, data analytics, and smart infrastructure development. Learn how SENTRA is driving digital transformation in the monitoring of critical assets across India.",
+            description: "Our Blogs | Explore insights on Structural Health Monitoring, IoT innovations, data analytics, and smart infrastructure development. Learn how SENTRA is driving digital transformation in the monitoring of critical assets across India.",
             url: "blog.html"
         },
         {
@@ -508,7 +522,7 @@ $(document).ready(function () {
     const $resultTitle = $("#result-title");
 
     if (keyword) {
-        $resultTitle.text(`Search Result for "${keyword}" SENTRA - SMART IOT SOLUTIONS`);
+        $resultTitle.text(`Search Result for "${keyword}" SENTRA - SMART IoT SOLUTIONS`);
 
         const result = data.filter(item =>
             item.title.toLowerCase().includes(keyword.toLowerCase()) ||
@@ -627,4 +641,3 @@ function initLoadMoreStories() {
         }, 500);
     });
 }
-

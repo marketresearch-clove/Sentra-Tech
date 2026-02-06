@@ -1,17 +1,30 @@
 function initSubmitContact() {
-    $('#contactForm').on('submit', function (event) {
+    $('#contactForm').on('submit', async function (event) {
         event.preventDefault();
 
+        var $form = $('#contactForm');
+        var $submitButton = $form.find('button[type="submit"]');
+        var originalButtonHtml = $submitButton.html();
+        var isSubmitting = $submitButton.prop('disabled');
+
+        if (isSubmitting) {
+            return;
+        }
+
         var $email = $('#email');
+        var $message = $('#message');
         var $successMessage = $('#success-message');
         var $errorMessage = $('#error-message');
+        var $firstName = $('#first-name');
+        var $lastName = $('#last-name');
+        var $subject = $('#subject');
 
         function validateEmail(email) {
             var pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
             return pattern.test(email);
         }
 
-        if (!validateEmail($email.val())) {
+        if (!validateEmail($email.val()) || !$message.val().trim()) {
             $errorMessage.removeClass('hidden');
             $successMessage.addClass('hidden');
 
@@ -20,14 +33,45 @@ function initSubmitContact() {
             }, 3000);
 
             return;
-        } else {
+        }
+
+        $submitButton.prop('disabled', true).text('Sending...');
+
+        try {
+            var response = await fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    firstName: $firstName.val().trim(),
+                    lastName: $lastName.val().trim(),
+                    email: $email.val().trim(),
+                    subject: $subject.val().trim(),
+                    message: $message.val().trim()
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to submit contact form');
+            }
+
             $errorMessage.addClass('hidden');
             $successMessage.removeClass('hidden');
-            $('#contactForm')[0].reset();
+            $form[0].reset();
 
             setTimeout(function () {
                 $successMessage.addClass('hidden');
             }, 3000);
+        } catch (error) {
+            $errorMessage.removeClass('hidden');
+            $successMessage.addClass('hidden');
+
+            setTimeout(function () {
+                $errorMessage.addClass('hidden');
+            }, 3000);
+        } finally {
+            $submitButton.prop('disabled', false).html(originalButtonHtml);
         }
     });
 }

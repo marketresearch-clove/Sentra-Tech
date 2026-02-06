@@ -5,12 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Sentra — Request a Demo or Talk to Sales</title>
-    <meta name="description" content="Contact Sentra for demos, pilots or technical queries. Request a demo of our structural health monitoring solutions or speak to our engineering team." />
-    <link rel="canonical" href="https://sentratech.in/contact" />
+    <meta name="description"
+        content="Contact Sentra for demos, pilots or technical queries. Request a demo of our structural health monitoring solutions or speak to our engineering team." />
+
+    <link rel="canonical" href="https://sentratech.in/contact.html" />
     <meta name="robots" content="index, follow" />
     <meta property="og:title" content="Contact Sentra — Request a Demo or Talk to Sales" />
-    <meta property="og:description" content="Get in touch to request a demo, pilot deployment or technical discussion about sensor monitoring and analytics." />
-    <meta property="og:url" content="https://sentratech.in/contact" />
+    <meta property="og:description"
+        content="Get in touch to request a demo, pilot deployment or technical discussion about sensor monitoring and analytics." />
+    <meta property="og:url" content="https://sentratech.in/contact.html" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://sentratech.in/image/sentra.png" />
     <meta property="og:image:width" content="1200" />
@@ -18,7 +21,8 @@
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Contact Sentra — Request a Demo or Talk to Sales" />
-    <meta name="twitter:description" content="Contact Sentra for demos, pilots or technical queries. Request a demo of our structural health monitoring solutions or speak to our engineering team." />
+    <meta name="twitter:description"
+        content="Contact Sentra for demos, pilots or technical queries. Request a demo of our structural health monitoring solutions or speak to our engineering team." />
     <meta name="twitter:image" content="https://sentratech.in/image/sentra.png" />
     <meta name="twitter:site" content="@sentratech" />
     <meta name="twitter:image:width" content="1200" />
@@ -28,17 +32,185 @@
     {
     "@context":"https://schema.org",
     "@type":"ContactPoint",
-    "telephone":"+91-8885730066",
+    "telephone":"+91-7893023322",
     "contactType":"customer service",
     "areaServed":"IN",
     "availableLanguage":["English"]
     }
     </script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
     <link rel="stylesheet" href="./css/style.css">
-    <link rel="icon" href="https://clovetech.com/wp-content/uploads/2025/04/favicon.png" type="image/png" sizes="16x16">
+    <style>
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        /* Banner Minimal Styles */
+        .banner-minimal {
+            position: relative;
+            width: 100%;
+            height: 35vh;
+            background: radial-gradient(circle at 50% 120%, #2d2e2f 0%, #000 60%);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* The Glowing Arc */
+        .horizon-arc {
+            position: absolute;
+            bottom: -45vw;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90vw;
+            height: 55vw;
+            border-radius: 90%;
+            background: transparent;
+            /* ORANGE GLOW */
+            box-shadow:
+                0 -10px 80px 20px rgba(244, 129, 32, 0.45),
+                0 -2px 20px 0px rgba(255, 170, 90, 0.55) inset;
+            border-top: 2px solid rgba(255, 190, 120, 0.6);
+        }
+
+        .banner-minimal .content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            color: white;
+        }
+
+        .banner-minimal .title-heading {
+            background: #dfcaa0;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Stars */
+        .stars-container {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .star {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: twinkle var(--duration) infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+
+            0%,
+            100% {
+                opacity: 0.3;
+                transform: scale(0.8);
+            }
+
+            50% {
+                opacity: 0.8;
+                transform: scale(1.2);
+            }
+        }
+
+        /* Revolving Star */
+        .revolving-path {
+            position: absolute;
+            width: 60vw;
+            height: 60vw;
+            border-radius: 50%;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+            animation: rotate-star 15s linear infinite;
+        }
+
+        .revolving-star {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 5px;
+            height: 5px;
+            background: #fff;
+            border-radius: 50%;
+            box-shadow: 0 0 10px 2px #fff;
+        }
+
+        @keyframes rotate-star {
+            from {
+                transform: translateX(-50%) rotate(0deg);
+            }
+
+            to {
+                transform: translateX(-50%) rotate(360deg);
+            }
+        }
+
+        /* Hide stars in light mode */
+        body.lightmode .stars-container,
+        body.lightmode .revolving-path {
+            display: none;
+        }
+
+
+        .section-banner .banner-layout-wrapper {
+            background: radial-gradient(circle at 50% 120%, #2d2e2f 0%, #000 60%);
+            border: 1px solid var(--accent-color-3);
+            border-radius: var(--global-border-radius);
+            overflow: hidden;
+            margin: 30px;
+        }
+
+        .section-banner .banner-layout-wrapper::before {
+            display: none;
+        }
+
+        /* Light Mode Banner Minimal Styles */
+        body.lightmode .section-banner .banner-layout-wrapper {
+            background: radial-gradient(circle at 50% 120%,
+                    #ffffff 0%,
+                    #f4f5f6 45%,
+                    #e6e7e8 70%);
+        }
+
+        body.lightmode .horizon-arc {
+            /* SOFT SUN GLOW */
+            box-shadow:
+                0 -10px 90px 30px rgba(223, 202, 160, 0.65),
+                0 -2px 30px 0px rgba(223, 202, 160, 0.45) inset;
+            border-top: 2px solid rgba(223, 202, 160, 0.9);
+        }
+
+        body.lightmode .banner-minimal .content {
+            color: #333;
+        }
+
+        body.lightmode .banner-minimal .title-heading {
+            background: linear-gradient(to bottom, #ffffff, #b9b9b9);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+    </style>
+    <link rel="icon" href="/image/favicon.png" type="image/png" sizes="16x16">
     <!-- Apple Touch Icon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="https://clovetech.com/wp-content/uploads/2025/04/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/image/favicon.png">
     <link rel="stylesheet" href="../css/chatbot.css">
     <link
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
@@ -47,9 +219,15 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
         rel="stylesheet" />
 
+    <!-- Calendly link widget begin -->
+    <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
+    <script src="https://assets.calendly.com/assets/external/widget.js" type="text/javascript" async></script>
+    <!-- Calendly link widget end -->
+
 </head>
 
 <body>
+    <h1 class="visually-hidden">Contact Sentra — Request a Demo or Talk to Sales</h1>
 
     <!-- Section Header -->
     <header>
@@ -62,10 +240,7 @@
         <div id="edit-sidebar"></div>
     </aside>
 
-    <!-- Section Search -->
-    <aside>
-        <div id="search-form-container"></div>
-    </aside>
+
 
     <!-- Section Sidebar -->
     <aside>
@@ -74,20 +249,56 @@
 
     <!-- Section Main Content -->
     <main>
-        <!-- Section Banner -->
+        <!-- Section Banner 
         <div class="section-banner">
             <div class="banner-layout-wrapper">
                 <div class="banner-layout">
                     <div class="d-flex flex-column text-center align-items-center gspace-2">
                         <h2 class="title-heading animate-box animated animate__animated"
                             data-animate="animate__fadeInRight">Contact Us</h2>
-                        <nav class="breadcrumb">
-                            <a href="./index.html" class="gspace-2">Home</a>
-                            <span class="separator-link">/</span>
-                            <p class="current-page">Contact Us</p>
-                        </nav>
+
                     </div>
                     <div class="spacer"></div>
+                </div>
+            </div>
+        </div>-->
+
+        <!-- Section Banner 1
+        <div class="section-banner">
+            <div class="banner-layout-wrapper">
+                <div class="banner-minimal">
+                    <div class="horizon-arc"></div>
+                    <div class="stars-container">
+                        <div class="star" style="top: 10%; left: 15%; --duration: 3s; width: 2px; height: 2px;"></div>
+                        <div class="star" style="top: 25%; left: 35%; --duration: 4s; width: 1px; height: 1px;"></div>
+                        <div class="star" style="top: 15%; left: 65%; --duration: 5s; width: 3px; height: 3px;"></div>
+                        <div class="star" style="top: 30%; left: 85%; --duration: 3s; width: 2px; height: 2px;"></div>
+                        <div class="star" style="top: 40%; left: 20%; --duration: 4s; width: 1px; height: 1px;"></div>
+                        <div class="star" style="top: 20%; left: 50%; --duration: 6s; width: 2px; height: 2px;"></div>
+                    </div>
+                    <div class="revolving-path">
+                        <div class="revolving-star"></div>
+                    </div>
+                    <div class="content">
+                        <h2 class="title-heading animate-box animated animate__animated"
+                            data-animate="animate__fadeInRight">
+                            Contact Us</h2>
+                    </div>
+                </div>
+            </div>
+        </div>-->
+
+        <!-- Section Banner 2-->
+        <div class="section-banner">
+            <div class="banner-layout-wrapper">
+                <div class="banner-minimal" style="position: relative;">
+                    <div id="earth-canvas-container"
+                        style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"></div>
+                    <div class="content" style="z-index: 2; pointer-events: none;">
+                        <h2 class="title-heading animate-box animated animate__animated"
+                            data-animate="animate__fadeInRight">
+                            Contact Us</h2>
+                    </div>
                 </div>
             </div>
         </div>
@@ -118,8 +329,8 @@
                                     </div>
                                     <div class="d-grid contact-page-list">
                                         <span>Phone Number</span>
-                                        <a href="tel:+91 8885730066">
-                                            <h5>+91 8885730066</h5>
+                                        <a href="tel:+91 7893023322">
+                                            <h5>+91 7893023322</h5>
                                         </a>
                                     </div>
                                 </div>
@@ -136,8 +347,8 @@
                                     </div>
                                     <div class="d-grid contact-page-list">
                                         <span>Email Address</span>
-                                        <a href="mailto:connect@clovetech.com">
-                                            <h5>connect@clovetech.com</h5>
+                                        <a href="mailto:sentra@clovetech.com">
+                                            <h5>sentra@clovetech.com</h5>
                                         </a>
                                     </div>
                                 </div>
@@ -212,6 +423,26 @@
             </div>
         </div>
 
+        <!-- Section Schedule a Call -->
+        <div class="section">
+            <div class="hero-container">
+                <div class="text-center">
+                    <div class="sub-heading">
+                        <i class="fa-regular fa-circle-dot"></i>
+                        <span>Book a Consultation</span>
+                    </div>
+                    <h2 class="title-heading">Schedule a Call</h2>
+                    <p>Discuss your project requirements for real-time infrastructure intelligence with our experts.
+                        Choose a convenient time for a personalized consultation.</p>
+                    <div class="calendly-inline-widget"
+                        data-url="https://calendly.com/sentra-clovetech/30min?primary_color=f47b0a"
+                        style="min-width:320px;height:700px;"></div>
+                    <script type="text/javascript" src="https://assets.calendly.com/assets/external/widget.js"
+                        async></script>
+                </div>
+            </div>
+        </div>
+
         <!-- Section Maps -->
         <div class="section pt-0">
             <div class="hero-container">
@@ -240,6 +471,198 @@
 
     <!-- Chatbot Widget -->
     <script src="../js/chatbot-widget.js"></script>
+
+    <script>
+        /* ===================== EARTH ANIMATION ===================== */
+        (function () {
+            const container = document.getElementById("earth-canvas-container");
+            if (!container) return;
+
+            const config = {
+                rotationSpeed: 0.0006,
+                cloudSpeed: 0.0008,
+                orbitColor: 0x66ccff,
+                signalColor: 0x00ffcc
+            };
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.set(0, 0, 15);
+
+            const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            container.appendChild(renderer.domElement);
+
+            const controls = new THREE.OrbitControls(camera, renderer.domElement);
+            controls.enableDamping = true;
+            controls.autoRotate = true;
+            controls.autoRotateSpeed = 0.8;
+            controls.enableZoom = true;
+
+            scene.add(new THREE.AmbientLight(0x111111));
+            const sunLight = new THREE.DirectionalLight(0xffffff, 1.6);
+            sunLight.position.set(5, 3, 5);
+            scene.add(sunLight);
+
+            const loader = new THREE.TextureLoader();
+            const earthGroup = new THREE.Group();
+            scene.add(earthGroup);
+
+            const earth = new THREE.Mesh(
+                new THREE.SphereGeometry(3, 64, 64),
+                new THREE.MeshPhongMaterial({
+                    map: loader.load("https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_atmos_2048.jpg"),
+                    specularMap: loader.load("https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_specular_2048.jpg"),
+                    normalMap: loader.load("https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_normal_2048.jpg"),
+                    shininess: 15
+                })
+            );
+            earthGroup.add(earth);
+
+            const clouds = new THREE.Mesh(
+                new THREE.SphereGeometry(3.05, 64, 64),
+                new THREE.MeshPhongMaterial({
+                    map: loader.load("https://raw.githubusercontent.com/mrdoob/three.js/master/examples/textures/planets/earth_clouds_1024.png"),
+                    transparent: true,
+                    opacity: 0.8,
+                    blending: THREE.AdditiveBlending
+                })
+            );
+            earthGroup.add(clouds);
+
+            const starsGeo = new THREE.BufferGeometry();
+            const starCount = 2000;
+            const starPos = new Float32Array(starCount * 3);
+            for (let i = 0; i < starPos.length; i++) {
+                starPos[i] = (Math.random() - 0.5) * 80;
+            }
+            starsGeo.setAttribute("position", new THREE.BufferAttribute(starPos, 3));
+            scene.add(new THREE.Points(starsGeo, new THREE.PointsMaterial({ size: 0.05, color: 0xffffff })));
+
+            function createSignalTexture() {
+                const canvas = document.createElement("canvas");
+                canvas.width = canvas.height = 128;
+                const ctx = canvas.getContext("2d");
+                const grad = ctx.createRadialGradient(64, 64, 0, 64, 64, 64);
+                grad.addColorStop(0, "rgba(0,255,200,0.8)");
+                grad.addColorStop(0.4, "rgba(0,255,200,0.4)");
+                grad.addColorStop(1, "rgba(0,255,200,0)");
+                ctx.fillStyle = grad;
+                ctx.fillRect(0, 0, 128, 128);
+                return new THREE.CanvasTexture(canvas);
+            }
+            const signalTexture = createSignalTexture();
+
+            const satellites = [];
+            function createOrbit(radius, rotX, rotY) {
+                const group = new THREE.Group();
+                const ring = new THREE.Mesh(
+                    new THREE.TorusGeometry(radius, 0.01, 16, 100),
+                    new THREE.MeshBasicMaterial({ color: config.orbitColor, transparent: true, opacity: 0.4 })
+                );
+                ring.rotation.x = Math.PI / 2;
+                group.add(ring);
+                group.rotation.x = rotX;
+                group.rotation.y = rotY;
+                scene.add(group);
+
+                const sat = new THREE.Group();
+                // Satellite Body
+                const body = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.12, 0.08, 0.08),
+                    new THREE.MeshPhongMaterial({ color: 0xcccccc })
+                );
+                sat.add(body);
+
+                // Solar Panels
+                const panelGeo = new THREE.BoxGeometry(0.22, 0.01, 0.1);
+                const panelMat = new THREE.MeshPhongMaterial({ color: 0x3366ff, shininess: 50 });
+
+                const leftPanel = new THREE.Mesh(panelGeo, panelMat);
+                leftPanel.position.x = 0.18;
+                sat.add(leftPanel);
+
+                const rightPanel = new THREE.Mesh(panelGeo, panelMat);
+                rightPanel.position.x = -0.18;
+                sat.add(rightPanel);
+
+                sat.scale.set(0.8, 0.8, 0.8);
+
+                group.add(sat);
+
+                // Add a constant glow to the satellite
+                const glow = new THREE.Sprite(new THREE.SpriteMaterial({
+                    map: signalTexture,
+                    color: 0xffffff,
+                    transparent: true,
+                    opacity: 0.6,
+                    blending: THREE.AdditiveBlending
+                }));
+                glow.scale.set(0.4, 0.4, 1);
+                group.add(glow);
+
+                const pulse = new THREE.Sprite(new THREE.SpriteMaterial({
+                    map: signalTexture,
+                    color: config.signalColor,
+                    transparent: true,
+                    opacity: 0.8,
+                    blending: THREE.AdditiveBlending
+                }));
+                pulse.scale.set(0.3, 0.3, 1);
+                group.add(pulse);
+
+                satellites.push({
+                    mesh: sat,
+                    glow: glow,
+                    pulse: pulse,
+                    radius: radius,
+                    angle: Math.random() * Math.PI * 2,
+                    speed: Math.random() * 0.004 + 0.002,
+                    pulseScale: Math.random() * 0.5
+                });
+            }
+
+            createOrbit(4.5, 0, 0);
+            createOrbit(4.2, Math.PI / 2, 0);
+            createOrbit(5.0, Math.PI / 4, Math.PI / 4);
+            createOrbit(4.8, -Math.PI / 4, -Math.PI / 6);
+            createOrbit(3.8, Math.PI / 3, 0);
+            createOrbit(4.0, Math.PI / 6, -Math.PI / 3);
+            createOrbit(4.6, -Math.PI / 3, Math.PI / 2.5);
+
+            function animate() {
+                requestAnimationFrame(animate);
+                earth.rotation.y += config.rotationSpeed;
+                clouds.rotation.y += config.cloudSpeed;
+                satellites.forEach(s => {
+                    s.angle += s.speed;
+                    s.mesh.position.set(Math.cos(s.angle) * s.radius, 0, Math.sin(s.angle) * s.radius);
+                    s.mesh.rotation.y = -s.angle;
+                    s.glow.position.copy(s.mesh.position);
+                    s.pulse.position.copy(s.mesh.position);
+                    s.pulseScale += 0.02;
+                    if (s.pulseScale > 1.5) s.pulseScale = 0.2;
+                    s.pulse.scale.setScalar(s.pulseScale);
+                    s.pulse.material.opacity = (1 - s.pulseScale) * 0.8;
+
+                    // Signal Interaction: Scaling pulse towards Earth
+                    const signalProgress = (s.pulseScale - 0.2) / 1.3;
+                    const targetPos = s.mesh.position.clone().multiplyScalar(3 / s.radius);
+                    s.pulse.position.lerp(targetPos, signalProgress);
+                });
+                controls.update();
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            window.addEventListener("resize", () => {
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            });
+        })();
+    </script>
 
 
 </body>

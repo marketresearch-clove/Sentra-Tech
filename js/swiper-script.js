@@ -1,14 +1,15 @@
-$(function(){
+$(function () {
 
-var swiperPartner = new Swiper('.swiper.swiperPartner',{
+    var swiperPartner = new Swiper('.swiper.swiperPartner', {
         autoplay: {
-            delay: 1000,
+            delay: 0,
+            disableOnInteraction: false,
         },
-        speed: 2000,
+        speed: 5000,
         slidesPerView: 6,
         spaceBetween: 20,
         loop: true,
-        hasNavigation: true,
+        freeMode: true,
         grabCursor: true,
         breakpoints: {
             1025: {
@@ -21,21 +22,13 @@ var swiperPartner = new Swiper('.swiper.swiperPartner',{
                 slidesPerView: 3
             }
         },
-        pagination: {
-        enabled: true,
-        el: '.swiper-pagination',
-        type: 'bullets',
-        clickable: true,
-        simulateTouch: true,
-        },
-   });
+    });
 
 });
 
 
-
-$(function(){
-    var swiperTestimonial = new Swiper('.swiper.swiperTestimonial',{
+$(function () {
+    var swiperTestimonial = new Swiper('.swiper.swiperTestimonial', {
         autoplay: {
             delay: 5000,
         },
@@ -46,15 +39,60 @@ $(function(){
         hasNavigation: true,
         grabCursor: true,
         breakpoints: {
-            1025:{
+            1025: {
                 slidesPerView: 3,
             },
-            769:{
+            769: {
                 slidesPerView: 2
             },
             319: {
                 slidesPerView: 1,
             },
         },
+    });
+});
+
+
+$(function () {
+    $('.swiper.swiperProducts').each(function () {
+        var $this = $(this);
+        var slidesCount = $this.find('.swiper-slide').length;
+
+        var swiperProducts = new Swiper(this, {
+            autoplay: {
+                delay: 0,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: true,
+            },
+            speed: 5000,
+            loop: slidesCount >= 2,
+            loopAdditionalSlides: 4,
+            watchSlidesProgress: true,
+            slidesPerView: 1,
+            spaceBetween: 10,
+            grabCursor: true,
+            breakpoints: {
+                1200: {
+                    slidesPerView: 4,
+                    spaceBetween: 30,
+                },
+                992: {
+                    slidesPerView: 3,
+                    spaceBetween: 20,
+                },
+                768: {
+                    slidesPerView: 2,
+                    spaceBetween: 15,
+                },
+                0: {
+                    slidesPerView: 1.2,
+                    spaceBetween: 10,
+                    centeredSlides: true,
+                },
+            },
+            pagination: {
+                enabled: false,
+            },
+        });
     });
 });

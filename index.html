@@ -7,11 +7,12 @@
     <title>Sentra - Smart. Secure. Scalable.</title>
     <meta name="description"
         content="Sentra provides IoT edge devices, sensor networks and AI analytics for real-time infrastructure monitoring — keeping bridges, tunnels and assets safe." />
-    <link rel="canonical" href="https://sentratech.in/" />
+    <link rel="canonical" href="https://sentratech.in/index.html" />
     <meta name="robots" content="index, follow" />
     <meta property="og:title" content="Sentra — Smart, Secure, Scalable IoT Solutions | Sentra" />
-    <meta property="og:description" content="IoT edge devices + predictive analytics for structural health monitoring of bridges, tunnels and industrial assets." />
-    <meta property="og:url" content="https://sentratech.in/" />
+    <meta property="og:description"
+        content="IoT edge devices + predictive analytics for structural health monitoring of bridges, tunnels and industrial assets." />
+    <meta property="og:url" content="https://sentratech.in/index.html" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://sentratech.in/image/sentra.png" />
     <meta property="og:image:width" content="1200" />
@@ -19,7 +20,8 @@
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Sentra — Smart, Secure, Scalable IoT Solutions | Sentra" />
-    <meta name="twitter:description" content="Sentra provides IoT edge devices, sensor networks and AI analytics for real-time monitoring." />
+    <meta name="twitter:description"
+        content="Sentra provides IoT edge devices, sensor networks and AI analytics for real-time monitoring." />
     <meta name="twitter:image" content="https://sentratech.in/image/sentra.png" />
     <meta name="twitter:site" content="@sentratech" />
     <meta name="twitter:image:width" content="1200" />
@@ -36,17 +38,49 @@
     }
     </script>
 
+    <link rel="preload" href="./css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="stylesheet" href="./css/style.css">
+    <link rel="preload" href="./css/chatbot.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <link rel="stylesheet" href="./css/chatbot.css">
-    <link
+    <link rel="preload"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-        rel="stylesheet" />
-    <link
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    </noscript>
+    <link rel="preload"
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
-        rel="stylesheet" />
-    <link rel="icon" href="https://clovetech.com/wp-content/uploads/2025/04/favicon.png" type="image/png" sizes="16x16">
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200">
+    </noscript>
+    <link rel="icon" href="/image/favicon.png" type="image/png" sizes="16x16">
+
+
     <!-- Apple Touch Icon -->
-    <link rel="apple-touch-icon" sizes="180x180" href="https://clovetech.com/wp-content/uploads/2025/04/favicon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/image/favicon.png">
+    <link rel="preload" href="header.html" as="fetch" crossorigin="anonymous">
+    <link rel="preload" href="footer.html" as="fetch" crossorigin="anonymous">
+
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-JY641C8LKH"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-JY641C8LKH');
+    </script>
+
+    <script src="https://analytics.ahrefs.com/analytics.js" data-key="m3rvnegw96/r4Tndgfy7iQ" async></script>
+    <style>
+        .card-body p {
+            color: #ffffff;
+        }
+    </style>
 </head>
 
 <body>
@@ -55,14 +89,18 @@
         <!-- Section Navbar -->
         <div id="header"></div>
     </header>
+    <script>
+        fetch("header.html")
+            .then(r => r.text())
+            .then(h => document.getElementById("header").innerHTML = h);
+    </script>
 
     <!-- Section Content Edit -->
     <aside>
         <div id="edit-sidebar"></div>
     </aside>
 
-    <!-- Section Search -->
-    <div id="search-form-container"></div>
+
 
     <!-- Section Sidebar -->
     <aside>
@@ -72,25 +110,22 @@
     <!-- Section Main Content-->
     <main>
         <!-- Section Banner -->
+
+
+
         <div class="section-banner">
-            <div class="banner-video-container keep-dark animate-box animated animate__animated"
-                data-animate="animate__fadeInUp">
-                <div id="banner-video-background">
-                    <video autoplay muted loop playsinline>
-                        <source src="./videos/home_page_banner.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
+            <div class="banner-video-container keep-dark ">
+                <div id="banner-video-background" data-video-id="U9PcESAe4-4"></div>
                 <div class="hero-container position-relative">
                     <div class="d-flex flex-column gspace-2">
-                        <h1 class="title-heading-banner animate-box animated animate__animated"
-                            data-animate="animate__fadeInLeft">Smart. Secure. <br>Scalable.</h1>
+                        <h1 class="title-heading-banner " data-animate="animate__fadeInLeft">Smart. Secure.
+                            <br>Scalable.
+                        </h1>
                         <div class="banner-heading">
-                            <div class="banner-video-content order-xl-1 order-2 animate-box animated animate__animated"
-                                data-animate="animate__fadeInUp">
+                            <div class="banner-video-content order-xl-1 order-2 ">
                                 <div
                                     class="d-flex flex-column flex-xl-row text-xl-start text-center align-items-center gspace-5">
-                                    <button class="request-loader"
+                                    <button class="request-loader" aria-label="Play video"
                                         data-video="https://www.youtube.com/embed/2XORgewU0bc"><i
                                             class="fa-solid fa-play"></i></button>
                                     <p>
@@ -99,14 +134,13 @@
                                     </p>
                                 </div>
                             </div>
-                            <div class="banner-content order-xl-2 order-1  animate-box animated animate__animated"
-                                data-animate="animate__fadeInRight">
+                            <div class="banner-content order-xl-2 order-1  ">
                                 <p>Connecting the world, one smart solution at a time.</p>
                                 <div
                                     class="d-flex flex-md-row flex-column justify-content-center justify-content-xl-start align-self-center align-self-xl-start gspace-3">
                                     <a href="./about.html" class="btn btn-accent">
                                         <div class="btn-title">
-                                            <span>Be My Vision</span>
+                                            <span>Our Vision</span>
                                         </div>
                                         <div class="icon-circle">
                                             <i class="fa-solid fa-arrow-right"></i>
@@ -114,13 +148,13 @@
                                     </a>
                                     <div class="banner-reviewer">
                                         <div class="d-flex flex-row align-items-center">
-                                            <img src="../image/reviews1.jpg" alt="Reviewer" class="avatar">
-                                            <img src="../image/reviews2.jpg" alt="Reviewer" class="avatar">
-                                            <img src="../image/reviews3.jpg" alt="Reviewer" class="avatar">
+                                            <img src="./image/partner_1.webp" alt="Amaravathi" class="avatar">
+                                            <img src="./image/partner_3.webp" alt="Indian_Railways" class="avatar">
+                                            <img src="./image/partner_8.png" alt="HappyNest" class="avatar">
                                         </div>
                                         <div class="detail">
-                                            <span>6k Positive</span>
-                                            <span>Reviews</span>
+                                            <span>200+</span>
+                                            <span>Projects Completed</span>
                                         </div>
                                     </div>
                                 </div>
@@ -131,13 +165,15 @@
             </div>
         </div>
 
+
+
         <!-- Section Expertise -->
         <div class="section">
             <div class="hero-container">
                 <div class="d-flex flex-column flex-xl-row gspace-5">
                     <div class="expertise-img-layout">
                         <div class="image-container expertise-img">
-                            <img src="./image/image1_home1.png" alt="Expertise Image"
+                            <img src="./image/image1_home1.webp" alt="Expertise Image"
                                 class="img-fluid  animate-box animated animate__animated"
                                 data-animate="animate__fadeInUp">
                             <div class="expertise-layout">
@@ -173,28 +209,30 @@
                             <div class="expertise-list">
                                 <h5>What We Do Best</h5>
                                 <ul class="check-list">
-                                    <li><a href="./Solutions/Structural Health Monitoring.html">Structural Health
+                                    <li><a href="./solutions/structural-health-monitoring.html">Structural Health
                                             Monitoring</a></li>
-                                    <li><a href="./Solutions/Bridge Inspection & Condition Assessment.html">Bridge
+                                    <li><a href="./solutions/bridge-inspection-and-condition-assessment.html">Bridge
                                             Inspection & Condition Assessment</a></li>
-                                    <li><a href="./Solutions/Fatigue and Residual Life Assessment.html">Fatigue &
+                                    <li><a href="./solutions/fatigue-and-residual-life-assessment.html">Fatigue &
                                             Residual Life Assessment</a></li>
-                                    <li><a href="./Solutions/Asset Monitoring & Management Solutions.html">Asset
+                                    <li><a href="./solutions/asset-monitoring-and-management-solutions.html">Asset
                                             Monitoring & Management Solutions</a></li>
-                                    <li><a href="./Solutions/Geotechnical & Foundation Monitoring.html">Geotechnical &
+                                    <li><a href="./solutions/geotechnical-and-foundation-monitoring.html">Geotechnical &
                                             Foundation Monitoring</a></li>
-                                    <li><a href="./Solutions/Advanced Non-Destructive Testing (NDT).html">Advanced
+                                    <li><a href="./solutions/advanced-non-destructive-testing-ndt.html">Advanced
                                             Non-Destructive Testing (NDT)</a></li>
                                 </ul>
                             </div>
                             <div class="card card-expertise card-expertise-counter animate-box animated animate__animated"
                                 data-animate="animate__fadeInUp">
                                 <div class="d-flex flex-row gspace-2 align-items-center">
-                                    <div class="d-flex flex-row align-items-center">
+                                    <div class="counter-box d-flex flex-row align-items-center">
                                         <span class="counter" data-target="21"></span>
                                         <span class="counter-detail">+</span>
                                     </div>
-                                    <h6>Years of Experience on Digtal Twin and Sensor Monitoring</h6>
+                                    <div class="counter-text">
+                                        <h6 class="mb-0">Years of Experience on Digital Twin and Sensor Monitoring</h6>
+                                    </div>
                                 </div>
                                 <p>“Delivering reliable IoT-powered sensing and data-driven insights that ensure safety,
                                     precision, and efficiency across critical infrastructure projects.”</p>
@@ -236,6 +274,10 @@
                                     cutting-edge technology with deep expertise, we help our partners achieve measurable
                                     success and stay ahead in a connected world.
                                 </p>
+                                <div class="link-wrapper">
+                                    <a href="partnership.html" style="color: #f48120;">Join Us</a>
+                                    <i class="fa-solid fa-arrow-circle-right accent-color"></i>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -249,7 +291,7 @@
                                     <div class="swiper-slide">
                                         <a href="#">
                                             <div class="partner-slide">
-                                                <img src="./image/partner_1.jpg" alt="Client"
+                                                <img src="./image/partner_1.webp" alt="Client"
                                                     class="partner-logo img-fluid">
                                             </div>
                                         </a>
@@ -257,7 +299,7 @@
                                     <div class="swiper-slide">
                                         <a href="#">
                                             <div class="partner-slide">
-                                                <img src="./image/partner_2.png" alt="Client"
+                                                <img src="./image/partner_2.webp" alt="Client"
                                                     class="partner-logo img-fluid">
                                             </div>
                                         </a>
@@ -265,7 +307,7 @@
                                     <div class=" swiper-slide">
                                         <a href="#">
                                             <div class="partner-slide">
-                                                <img src="./image/partner_3.png" alt="Client"
+                                                <img src="./image/partner_3.webp" alt="Client"
                                                     class="partner-logo img-fluid">
                                             </div>
                                         </a>
@@ -273,7 +315,7 @@
                                     <div class="swiper-slide">
                                         <a href="#">
                                             <div class="partner-slide">
-                                                <img src="./image/partner_4.png" alt="Client"
+                                                <img src="./image/partner_4.webp" alt="Client"
                                                     class="partner-logo img-fluid">
                                             </div>
                                         </a>
@@ -281,7 +323,7 @@
                                     <div class="swiper-slide">
                                         <a href="#">
                                             <div class="partner-slide">
-                                                <img src="./image/partner_5.svg" alt="Client"
+                                                <img src="./image/partner_5.png" alt="Client"
                                                     class="partner-logo img-fluid">
                                             </div>
                                         </a>
@@ -289,7 +331,7 @@
                                     <div class="swiper-slide">
                                         <a href="#">
                                             <div class="partner-slide">
-                                                <img src="./image/partner_6.jpg" alt="Client"
+                                                <img src="./image/partner_6.webp" alt="Client"
                                                     class="partner-logo img-fluid">
                                             </div>
                                         </a>
@@ -305,55 +347,55 @@
 
                                     <div class="swiper-slide">
                                         <div class="partner-slide">
-                                            <img src="./image/partner_4.png" alt="Client"
+                                            <img src="./image/partner_4.webp" alt="Client"
                                                 class="partner-logo img-fluid">
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="partner-slide">
-                                            <img src="./image/partner_3.png" alt="Client"
+                                            <img src="./image/partner_3.webp" alt="Client"
                                                 class="partner-logo img-fluid">
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="partner-slide">
-                                            <img src="./image/partner_2.png" alt="Client"
+                                            <img src="./image/partner_2.webp" alt="Client"
                                                 class="partner-logo img-fluid">
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="partner-slide">
-                                            <img src="./image/partner_1.jpg" alt="Client"
+                                            <img src="./image/partner_1.webp" alt="Client"
                                                 class="partner-logo img-fluid">
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="partner-slide">
-                                            <img src="./image/partner_2.png" alt="Client"
+                                            <img src="./image/partner_2.webp" alt="Client"
                                                 class="partner-logo img-fluid">
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="partner-slide">
-                                            <img src="./image/partner_3.png" alt="Client"
+                                            <img src="./image/partner_3.webp" alt="Client"
                                                 class="partner-logo img-fluid">
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="partner-slide">
-                                            <img src="./image/partner_4.png" alt="Client"
+                                            <img src="./image/partner_4.webp" alt="Client"
                                                 class="partner-logo img-fluid">
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="partner-slide">
-                                            <img src="./image/partner_5.svg" alt="Client"
+                                            <img src="./image/partner_5.png" alt="Client"
                                                 class="partner-logo img-fluid">
                                         </div>
                                     </div>
                                     <div class="swiper-slide">
                                         <div class="partner-slide">
-                                            <img src="./image/partner_6.jpg" alt="Client"
+                                            <img src="./image/partner_6.webp" alt="Client"
                                                 class="partner-logo img-fluid">
                                         </div>
                                     </div>
@@ -383,7 +425,7 @@
                                     <div class="chooseus-spacer above"></div>
                                     <div class="chooseus-icon-layout">
                                         <div class="chooseus-icon">
-                                            <img src="./image/iot_icon.png" alt="Why Choose Us Icon" class="img-fluid">
+                                            <img src="./image/IoT_icon.png" alt="Why Choose Us Icon" class="img-fluid">
                                         </div>
                                     </div>
                                     <div class="chooseus-spacer below"></div>
@@ -396,7 +438,7 @@
                                         monitoring
                                         becomes critical.</p>
                                     <div class="link-wrapper">
-                                        <a href="./Blogs/structural_Health_monitoring.html">Learn More</a>
+                                        <a href="./blogs/structural-health-monitoring.html">Learn More</a>
                                         <i class="fa-solid fa-arrow-circle-right accent-color"></i>
                                     </div>
                                 </div>
@@ -447,7 +489,7 @@
                                         health and future stability.</p>
                                     <div class="link-wrapper">
                                         <a
-                                            href="./Case_studies/BridgePluse - AI and Drone technology for bridge health monitoring.html">Read
+                                            href="./case-studies/bridgepluse-ai-and-drone-technology-for-bridge-health-monitoring.html">Read
                                             More</a>
                                         <i class="fa-solid fa-arrow-circle-right accent-color"></i>
                                     </div>
@@ -461,7 +503,7 @@
                                 <div class="sub-heading  animate-box animated animate__animated"
                                     data-animate="animate__fadeInDown">
                                     <i class="fa-regular fa-circle-dot"></i>
-                                    <span>Why Choose Sentra</span>
+                                    <span>Why Choose Us</span>
                                 </div>
                                 <h2 class="title-heading  animate-box animated animate__animated"
                                     data-animate="animate__fadeInDown">Your Success is Our Mission</h2>
@@ -470,7 +512,7 @@
                                 </p>
                             </div>
                             <div class="image-container">
-                                <img src="./image/bridge_home.png" alt="Why Choose Us Image" class="chooseus-img">
+                                <img src="./image/bridge_home.webp" alt="Why Choose Us Image" class="chooseus-img">
                                 <div class="card-chooseus-cta-layout">
                                     <div class="chooseus-cta-spacer"></div>
                                     <div class="d-flex flex-column align-items-end">
@@ -478,7 +520,7 @@
                                         <div class="card-chooseus-cta-wrapper">
                                             <div class="card card-chooseus-cta animate-box animated animate__animated"
                                                 data-animate="animate__fadeInUp">
-                                                <h5>Partner with Sentra & take your projects to the next level.</h5>
+                                                <h5>Partner with us & take your projects to the next level.</h5>
                                                 <div class="link-wrapper">
                                                     <a href="./contact.html">Let's Talk Strategy</a>
                                                     <i class="fa-solid fa-circle-arrow-right"></i>
@@ -500,7 +542,8 @@
                 <div class="hero-container">
                     <div class="guide-content  animate-box animated animate__animated" data-animate="animate__fadeInUp">
                         <div class="guide-video-container">
-                            <button class="request-loader" data-video="https://www.youtube.com/embed/2XORgewU0bc">
+                            <button class="request-loader" aria-label="Play video"
+                                data-video="https://www.youtube.com/embed/2XORgewU0bc">
                                 <i class="fa-solid fa-play"></i>
                             </button>
                             <p>
@@ -511,7 +554,13 @@
                             <h3 class="title-heading">Reimagine What’s Possible</h3>
                             <p>Empowering businesses with IoT-driven insights and innovative solutions. Together,
                                 let’s
-                                shape a smarter future!</p>
+                                shape a smarter future!
+                            </p>
+                            <div class="link-wrapper">
+                                <p>
+                                    Got Questions? <a href="faq.html" style="color: #f48120;">Read FAQs</a>
+                                    <i class="fa-solid fa-arrow-circle-right accent-color"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -557,7 +606,7 @@
                                         to
                                         detect structural stress before it becomes a problem.
                                     </p>
-                                    <a href="./Solutions/Structural Health Monitoring.html" class="btn btn-accent">
+                                    <a href="./solutions/structural-health-monitoring.html" class="btn btn-accent">
                                         <div class="btn-title">
                                             <span>View Details</span>
                                         </div>
@@ -585,12 +634,12 @@
                                         </div>
                                     </div>
                                     <p>
-                                        From drone-based aerial surveys to underwater ROV inspections, we deliver
-                                        comprehensive bridge assessments that reveal the unseen. <br>Get faster,
-                                        safer,
-                                        and more accurate reports.
+                                        Ensure complete visibility into your bridge assets. Our drone-based
+                                        surveys and underwater ROV inspections deliver fast, safe, and accurate
+                                        assessments, uncovering hidden defects and enabling confident maintenance
+                                        decisions.
                                     </p>
-                                    <a href="./Solutions/Bridge Inspection & Condition Assessment.html"
+                                    <a href="./solutions/bridge-inspection-and-condition-assessment.html"
                                         class="btn btn-accent">
                                         <div class="btn-title">
                                             <span>View Details</span>
@@ -624,7 +673,7 @@
                                         service
                                         life and prevent unplanned failures.
                                     </p>
-                                    <a href="./Solutions/Fatigue and Residual Life Assessment.html"
+                                    <a href="./solutions/fatigue-and-residual-life-assessment.html"
                                         class="btn btn-accent">
                                         <div class="btn-title">
                                             <span>View Details</span>
@@ -657,7 +706,7 @@
                                         transformers, or industrial machinery. Our smart monitoring systems enable
                                         proactive maintenance and higher uptime.
                                     </p>
-                                    <a href="./Solutions/Asset Monitoring & Management Solutions.html"
+                                    <a href="./solutions/asset-monitoring-and-management-solutions.html"
                                         class="btn btn-accent">
                                         <div class="btn-title">
                                             <span>View Details</span>
@@ -676,7 +725,7 @@
                                         <div>
                                             <div class="service-icon-wrapper">
                                                 <div class="service-icon">
-                                                    <img src="./image/Geotechnical_icon.png" alt="Service Icon"
+                                                    <img src="./image/Geotechnical_icon.webp" alt="Service Icon"
                                                         class="img-fluid">
                                                 </div>
                                             </div>
@@ -690,7 +739,7 @@
                                         behavior, pore pressure, settlement, and seismic response to provide early
                                         warnings for engineers.
                                     </p>
-                                    <a href="./Solutions/Geotechnical & Foundation Monitoring.html"
+                                    <a href="./solutions/geotechnical-and-foundation-monitoring.html"
                                         class="btn btn-accent">
                                         <div class="btn-title">
                                             <span>View Details</span>
@@ -725,7 +774,7 @@
                                         integrity
                                         — without damaging the asset.
                                     </p>
-                                    <a href="./Solutions/Advanced Non-Destructive Testing (NDT).html"
+                                    <a href="./solutions/advanced-non-destructive-testing-ndt.html"
                                         class="btn btn-accent">
                                         <div class="btn-title">
                                             <span>View Details</span>
@@ -770,11 +819,11 @@
                                 <div class="d-flex flex-column h-100 justify-content-end gspace-2 animate-box animated animate__animated"
                                     data-animate="animate__fadeInRight">
                                     <p>Our firm provides a range of services to meet your business needs, including
-                                        custom software solutions, IOT solutions, IOT Devices and Deployment. We
+                                        custom software solutions, IoT solutions, IoT Devices and Deployment. We
                                         specialize in creating high-quality, user-friendly, and visually appealing
                                         products that enhance efficiency and drive growth.</p>
                                     <div class="link-wrapper">
-                                        <a href="./case_studies.html">More Case Studies</a>
+                                        <a href="./case-studies.html">More Case Studies</a>
                                         <i class="fa-solid fa-circle-arrow-right"></i>
                                     </div>
                                 </div>
@@ -790,13 +839,13 @@
                                             <a href="#">Digital Built</a>
                                         </div>
                                         <div class="cs-component">
-                                            <a href="#">Internet of Things</a>
+                                            <a href="#">Photogrammetry</a>
                                         </div>
                                         <div class="cs-component">
                                             <a href="#">Monitoring</a>
                                         </div>
                                         <div class="cs-component">
-                                            <a href="#">IOT</a>
+                                            <a href="#">FLA/FLE Analysis</a>
                                         </div>
                                         <div class="cs-component">
                                             <a href="#">Railways</a>
@@ -805,16 +854,16 @@
                                             <a href="#">Predictive Insights</a>
                                         </div>
                                         <div class="cs-component">
-                                            <a href="#">Communities</a>
+                                            <a href="#">AI & Predictive Insights</a>
                                         </div>
                                     </div>
                                     <div class="d-flex flex-column gspace-2">
-                                        <a href="./Case_studies/BridgePluse - AI and Drone technology for bridge health monitoring.html"
+                                        <a href="./case-studies/bridgepluse-ai-and-drone-technology-for-bridge-health-monitoring.html"
                                             class="case-studies-title">
                                             <h4>BridgePulse - AI and Drone technology for bridge health monitoring</h4>
                                         </a>
                                         <p class="case-studies-text">
-                                            Impact of Implementation of Iot Sensors and Regularized Monitoring
+                                            Impact of Implementation of IoT Sensors and Regularized Monitoring
                                             Devices.
                                         </p>
                                     </div>
@@ -822,7 +871,7 @@
                                 <div class="card case-studies-content saas-leads animate-box animated animate__animated"
                                     data-animate="animate__fadeInUp">
                                     <div class="d-flex flex-column gspace-2">
-                                        <a href="../Case_studies/IoT_Bridge_Monitoring_and_Sensor_Installation_on_Railway_Bridges.html"
+                                        <a href="../case-studies/IoT-bridge-monitoring-and-sensor-installation-on-railway-bridges.html"
                                             class="case-studies-title">
                                             <h4>IoT Bridge Monitoring and Sensor Installation on Railway Bridges</h4>
                                         </a>
@@ -885,8 +934,10 @@
                                         </div>
                                     </div>
                                     <div class="d-flex flex-column gspace-2">
-                                        <a href="#" class="case-studies-title">
-                                            <h4>Innovative Bridge Solutions</h4>
+                                        <a href="./blogs/real-time-monitoring-solutions-transforming-infrastructure-safety-performance.html"
+                                            class="case-studies-title">
+                                            <h4>Real-Time Monitoring Solutions: Transforming Infrastructure Safety &
+                                                Performance</h4>
                                         </a>
                                         <p class="case-studies-text">
                                             3x increase in Bridge Delivery Projects & 2x Sensor Implementation.
@@ -898,7 +949,7 @@
                                     data-animate="animate__fadeInUp">
                                     <div class="d-flex flex-column gspace-2">
                                         <a href="#" class="case-studies-title">
-                                            <h4>Feel the pace like no where else</h4>
+                                            <h4>Feel the pace like nowhere else</h4>
                                         </a>
                                         <p class="case-studies-text">
                                             200% increase in brand mentions & 60% higher engagement rates from
@@ -957,14 +1008,14 @@
                                                 <img src="../image/reviews3.jpg" alt="Reviewer" class="avatar">
                                             </div>
                                             <div class="detail">
-                                                <h6>69k Positive</h6>
-                                                <h6>Reviews</h6>
+                                                <h6>200+</h6>
+                                                <h6>Satisfied Clients</h6>
                                             </div>
                                         </div>
                                         <div class="testimonial-rating-container">
                                             <div
                                                 class="d-flex flex-column justify-content-center align-items-center gspace-1">
-                                                <div class="d-flex flex-row align-items-center">
+                                                <div class="counter-box d-flex flex-row align-items-center">
                                                     <span class="counter" data-target="100"></span>
                                                     <span class="counter-detail">%</span>
                                                 </div>
@@ -973,7 +1024,7 @@
                                             <div class="underline-vertical"></div>
                                             <div
                                                 class="d-flex flex-column justify-content-center align-items-center gspace-1">
-                                                <div class="d-flex flex-row align-items-center">
+                                                <div class="counter-box d-flex flex-row align-items-center">
                                                     <span class="counter" data-target="95"></span>
                                                     <span class="counter-detail">%</span>
                                                 </div>
@@ -989,7 +1040,7 @@
                                         </div>
                                         <div class="testimonial-header-link-wrapper">
                                             <i class="fa-regular fa-circle-check accent-color"></i>
-                                            <a href="https://clovetech.com/services/digital-reality/">3d Laser
+                                            <a href="https://clovetech.com/services/digital-reality/">3D Laser
                                                 Scanning</a>
                                         </div>
                                     </div>
@@ -1128,7 +1179,7 @@
                                                 <i class="fa-solid fa-3x fa-quote-right accent-color"></i>
                                             </div>
                                             <p class="testimonial-description">
-                                                “Highly professional and results-oriented. Sentra's expertise in IOT
+                                                “Highly professional and results-oriented. Sentra's expertise in IoT
                                                 made us take a huge step into Innovation that we will never deny.”
                                             </p>
                                         </div>
@@ -1426,7 +1477,7 @@
                                 data-animate="animate__fadeInRight">
                                 <div class="input-container">
                                     <input type="email" name="newsletter-email" id="newsletter-email"
-                                        placeholder="Give your best email" required>
+                                        placeholder="Enter your email address" required>
                                     <p class="error-text hidden"></p>
                                 </div>
                                 <button class="btn btn-accent" type="submit">
@@ -1476,7 +1527,7 @@
                             <div class="card card-blog animate-box animated animate__animated"
                                 data-animate="animate__fadeInUp" onclick="window.location.href='#'">
                                 <div class="blog-image">
-                                    <img src="./image/article_1.png" alt="Blog Image">
+                                    <img src="./image/article_1.png" height="415px" width="623px" alt="Blog Image">
                                 </div>
                                 <div class="card-body">
                                     <div class="d-flex flex-row gspace-2">
@@ -1489,15 +1540,17 @@
                                             <span class="meta-data">IoT in Infrastructure</span>
                                         </div>
                                     </div>
-                                    <a href="./Article/revolutionizing_infrastructure_monitoring_with _IoT.html"
+                                    <a href="./article/revolutionizing-infrastructure-monitoring-with-IoT.html"
                                         class="blog-link">Revolutionizing Infrastructure
                                         Monitoring with IoT</a>
                                     <p>Discover how IoT sensors are enabling real-time structural health monitoring
                                         for
                                         safer, smarter cities.</p>
-                                    <a href="./Article/revolutionizing_infrastructure_monitoring_with _IoT.html"
-                                        class="read-more">Read More <i
-                                            class="fa-solid fa-arrow-circle-right accent-color"></i></a>
+                                    <div class="link-wrapper">
+                                        <a href="./article/revolutionizing-infrastructure-monitoring-with-IoT.html"
+                                            class="read-more">Read More <i
+                                                class="fa-solid fa-arrow-circle-right accent-color"></i></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1505,7 +1558,7 @@
                             <div class="card card-blog animate-box animated animate__animated"
                                 data-animate="animate__fadeInUp" onclick="window.location.href='#'">
                                 <div class="blog-image">
-                                    <img src="./image/article_2.png" alt="Blog Image">
+                                    <img src="./image/article_2.webp" height="415px" width="623px" alt="Blog Image">
                                 </div>
                                 <div class="card-body">
                                     <div class="d-flex flex-row gspace-2">
@@ -1518,12 +1571,16 @@
                                             <span class="meta-data">Smart Cities</span>
                                         </div>
                                     </div>
-                                    <a href="#" class="blog-link">Building Resilient Smart Cities with
+                                    <a href="./article/building-resilient-smart-cities-with-data-driven-insights.html"
+                                        class="blog-link">Building Resilient Smart Cities with
                                         Data-Driven Insights</a>
                                     <p>Learn how connected IoT systems are shaping the future of urban planning and
                                         sustainable infrastructure.</p>
-                                    <a href="#" class="read-more">Read More <i
-                                            class="fa-solid fa-arrow-circle-right accent-color"></i></a>
+                                    <div class="link-wrapper">
+                                        <a href="./article/building-resilient-smart-cities-with-data-driven-insights.html"
+                                            class="read-more">Read More <i
+                                                class="fa-solid fa-arrow-circle-right accent-color"></i></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -1537,22 +1594,27 @@
     <footer>
         <div id="footer"></div>
     </footer>
+    <script>
+        fetch("footer.html")
+            .then(r => r.text())
+            .then(h => document.getElementById("footer").innerHTML = h);
+    </script>
 
-    <script src="js/vendor/jquery.min.js"></script>
-    <script src="js/vendor/bootstrap.bundle.min.js"></script>
-    <script src="js/vendor/swiper-bundle.min.js"></script>
-    <script src="js/dropdown-handler.js"></script>
-    <script src="js/script.js"></script>
-    <script src="js/swiper-script.js"></script>
-    <script src="js/submit-form.js"></script>
-    <script src="js/vendor/isotope.pkgd.min.js"></script>
-    <script src="js/video_embedded.js"></script>
+    <script src="js/vendor/jquery.min.js" defer></script>
+    <script src="js/vendor/bootstrap.bundle.min.js" defer></script>
+    <script src="js/vendor/swiper-bundle.min.js" defer></script>
+    <script src="js/dropdown-handler.js" defer></script>
+    <script src="js/script.js" defer></script>
+    <script src="js/swiper-script.js" defer></script>
+    <script src="js/submit-form.js" defer></script>
+    <script src="js/vendor/isotope.pkgd.min.js" defer></script>
+    <script src="js/video_embedded.js" defer></script>
 
     <!-- Linking Emoji Mart script for emoji picker -->
-    <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js" defer></script>
 
     <!-- Chatbot Widget -->
-    <script src="js/chatbot-widget.js"></script>
+    <script src="js/chatbot-widget.js" defer></script>
 
 
 
