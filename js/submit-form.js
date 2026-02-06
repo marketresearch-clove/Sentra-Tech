@@ -41,7 +41,7 @@ function initSubmitContact() {
             // Use configurable API URL (supports separate backend domain)
             const apiUrl = window.__API_URL__ || (
                 window.location.hostname.includes('netlify.app')
-                    ? 'https://api.yourdomain.com'  // Replace with actual backend domain
+                    ? 'https://api.sentratech.netlify.app'  // Replace with actual backend domain
                     : ''
             );
 

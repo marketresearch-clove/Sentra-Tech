@@ -68,17 +68,17 @@
    - Set Build command: `npm install` (or leave empty for static)
    - Set Publish directory: `.`
    - Add Environment Variables:
-     - `REACT_APP_API_URL`: https://api.yourdomain.com
+     - `REACT_APP_API_URL`: https://api.sentratech.netlify.app
      - `GEMINI_API_KEY`: your_gemini_key (optional, if chatbot enabled)
 
 3. **Important:** Update `netlify.toml`:
-   - Replace `https://api.yourdomain.com` with your actual backend domain
+   - Replace `https://api.sentratech.netlify.app` with your actual backend domain
 
 #### 1.2 Deploy Backend (Node.js Server)
 
 **Option A: Deploy to Plesk (Using cPanel/Plesk panel)**
 
-1. Create a subdomain (e.g., `api.yourdomain.com`)
+1. Create a subdomain (e.g., `api.sentratech.netlify.app`)
 2. Upload project files to the directory
 3. Enable Node.js in Plesk control panel:
    - Node.js version: 18+
@@ -119,7 +119,7 @@ After deploying backend, update the API URL in two places:
 **File 1: `index.html` (line ~1609)**
 ```html
 <script>
-    window.__API_URL__ = 'https://api.yourdomain.com';  // Update this
+    window.__API_URL__ = 'https://api.sentratech.netlify.app';  // Update this
 </script>
 ```
 
@@ -127,7 +127,7 @@ After deploying backend, update the API URL in two places:
 ```toml
 [[redirects]]
   from = "/api/*"
-  to = "https://api.yourdomain.com/api/:splat"
+  to = "https://api.sentratech.netlify.app/api/:splat"
   status = 200
 ```
 
@@ -137,7 +137,7 @@ After deploying backend, update the API URL in two places:
 
 If you want a simpler setup with everything on one domain:
 
-1. Deploy Node.js server to your domain: `sentratech.yourdomain.com`
+1. Deploy Node.js server to your domain: `sentratech.sentratech.netlify.app`
 2. The relative path `/api/contact` will work automatically
 3. No need to change the frontend configuration
 
@@ -173,7 +173,7 @@ For production, add your own domain:
 2. Add DNS records provided by Mailgun
 3. Use the domain in `.env`:
    ```
-   MAILGUN_DOMAIN=mail.yourdomain.com
+   MAILGUN_DOMAIN=mail.sentratech.netlify.app
    ```
 
 ### 4. Update Contact Email Recipient
@@ -202,7 +202,7 @@ PORT=3000
 NODE_ENV=development
 
 # API URL (Netlify environment variable)
-REACT_APP_API_URL=https://api.yourdomain.com
+REACT_APP_API_URL=https://api.sentratech.netlify.app
 ```
 
 ### Environment Variables Scope:
@@ -250,7 +250,7 @@ Check your email inbox (the one configured in `server.js`).
 2. Wait for Netlify deploy (automatic)
 3. Visit `https://sentratech.netlify.app`
 4. Test form submission
-5. Check network tab (DevTools) to verify API calls go to `https://api.yourdomain.com/api/contact`
+5. Check network tab (DevTools) to verify API calls go to `https://api.sentratech.netlify.app/api/contact`
 
 ---
 
@@ -283,7 +283,7 @@ Check your email inbox (the one configured in `server.js`).
 const corsOptions = {
   origin: [
     'https://sentratech.netlify.app',
-    'https://yourdomain.com',
+    'https://sentratech.netlify.app',
     // Add more domains here
   ],
   credentials: true

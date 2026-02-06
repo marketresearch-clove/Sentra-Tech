@@ -41,9 +41,9 @@ Your form was throwing a **404 Not Found** error on `https://sentratech.netlify.
 
 Your backend needs to run on a separate domain. Choose ONE:
 
-**Option A: Plesk (Recommended if you own sentratech.in/yourdomain.com)**
+**Option A: Plesk (Recommended if you own sentratech.in/sentratech.netlify.app)**
 ```
-1. Create subdomain: api.yourdomain.com
+1. Create subdomain: api.sentratech.netlify.app
 2. Upload server.js and project files
 3. Enable Node.js in Plesk control panel
 4. Set environment variables (see SETUP_GUIDE.md)
@@ -81,14 +81,14 @@ Your backend needs to run on a separate domain. Choose ONE:
 
 **Update `index.html` (line ~1609):**
 ```javascript
-window.__API_URL__ = 'https://api.yourdomain.com';  // Replace with your backend URL
+window.__API_URL__ = 'https://api.sentratech.netlify.app';  // Replace with your backend URL
 ```
 
 **Update `netlify.toml` (line ~10):**
 ```toml
 [[redirects]]
   from = "/api/*"
-  to = "https://api.yourdomain.com/api/:splat"  // Replace with your backend URL
+  to = "https://api.sentratech.netlify.app/api/:splat"  // Replace with your backend URL
 ```
 
 **Update `server.js` (line ~234):**
@@ -108,7 +108,7 @@ formData.append('to', 'your-email@example.com');  // Set your email address
 2. In Netlify Dashboard:
    - Ensure auto-deploy is enabled
    - Site will deploy automatically
-   - Set environment variable: `REACT_APP_API_URL=https://api.yourdomain.com`
+   - Set environment variable: `REACT_APP_API_URL=https://api.sentratech.netlify.app`
 
 ### Step 5: Test the Setup
 
@@ -155,7 +155,7 @@ PORT=3000
 
 ## Testing Checklist
 
-- [ ] Deploy backend to separate domain (api.yourdomain.com)
+- [ ] Deploy backend to separate domain (api.sentratech.netlify.app)
 - [ ] Configure Mailgun API credentials
 - [ ] Update API URL in index.html
 - [ ] Update backend domain in netlify.toml
@@ -169,10 +169,10 @@ PORT=3000
 
 ```
 User's Browser (Netlify)          Backend Server
-https://sentratech.netlify.app    https://api.yourdomain.com
+https://sentratech.netlify.app    https://api.sentratech.netlify.app
          |                               |
          | Form Submit                   |
-         |---> https://api.yourdomain.com/api/contact
+         |---> https://api.sentratech.netlify.app/api/contact
          |                               |
          |                        Process & Email
          |                        (via Mailgun)

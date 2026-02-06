@@ -19,7 +19,7 @@ const getApiUrl = () => {
         // If on Netlify, use backend domain from environment or default
         if (window.location.hostname.includes('netlify.app')) {
             // Development: use environment variable or localhost
-            return process.env.REACT_APP_API_URL || 'https://api.yourdomain.com';
+            return process.env.REACT_APP_API_URL || 'https://api.sentratech.netlify.app';
         }
 
         // Local development

@@ -7,7 +7,7 @@
 # Uncomment and update the domain below to your actual backend API domain
 [[redirects]]
   from = "/api/*"
-  to = "https://api.yourdomain.com/api/:splat"
+  to = "https://api.sentratech.netlify.app/api/:splat"
   status = 200
   force = false
   headers = { "X-From" = "Netlify" }

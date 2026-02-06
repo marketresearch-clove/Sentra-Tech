@@ -69,13 +69,13 @@ Since Netlify won’t run `server.js` directly in this setup, point frontend API
 
 Example:
 - Frontend domain: `https://sentra-site.netlify.app`
-- Backend domain (Plesk): `https://api.yourdomain.com`
+- Backend domain (Plesk): `https://api.sentratech.netlify.app`
 
 Update API usage in frontend where needed:
 
 - Contact form currently uses relative path `/api/contact` in `js/submit-form.js`
 - Keep relative path only if API is reverse-proxied on same domain
-- Otherwise use full URL like `https://api.yourdomain.com/api/contact`
+- Otherwise use full URL like `https://api.sentratech.netlify.app/api/contact`
 
 Also configure CORS in backend (already enabled with `cors()` in `server.js`).
 
@@ -88,7 +88,7 @@ Use Plesk to host the Express backend (`server.js`).
 ## 3.1 Upload Code
 
 1. Create domain/subdomain in Plesk (recommended API subdomain):
-   - Example: `api.yourdomain.com`
+   - Example: `api.sentratech.netlify.app`
 2. Upload project files to app directory (Git pull, Upload, or SFTP).
 
 ## 3.2 Enable Node.js in Plesk
@@ -122,15 +122,15 @@ Then restart application.
 
 1. Enable Let’s Encrypt SSL in Plesk.
 2. Ensure API is reachable at:
-   - `https://api.yourdomain.com/api/contact`
-   - `https://api.yourdomain.com/api/chat`
+   - `https://api.sentratech.netlify.app/api/contact`
+   - `https://api.sentratech.netlify.app/api/chat`
 
 ---
 
 ## 4) Recommended Production Architecture
 
 - **Frontend:** Netlify (`*.netlify.app` or custom domain)
-- **API:** Plesk Node.js app (`api.yourdomain.com`)
+- **API:** Plesk Node.js app (`api.sentratech.netlify.app`)
 
 This gives easy CDN/static hosting + stable Node backend for Express APIs.
 
