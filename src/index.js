@@ -20,7 +20,7 @@ const OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions";
 const MODEL_NAME = "nvidia/nemotron-3-nano-30b-a3b:free";
 
 // Rate limit configuration
-const RATE_LIMIT_REQUESTS = 30; // requests per minute
+const RATE_LIMIT_REQUESTS = 60; // requests per minute (doubled from 30)
 const RATE_LIMIT_WINDOW = 60000; // 1 minute in ms
 
 // Define System Instruction (Veronica / Sentra Context)
