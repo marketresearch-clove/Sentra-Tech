@@ -670,3 +670,122 @@ body.lightmode .error-message {
 .cta-wrapper .message-text .cta-btn:focus {
   outline: 2px solid rgba(244, 129, 32, 0.25);
 }
+
+/* ========== LINK BUTTON STYLING ========== */
+/* Styled link buttons for markdown links and URLs */
+.link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  margin: 6px 4px 6px 0;
+  background: linear-gradient(135deg, #f48120, #e67e0a);
+  color: #ffffff;
+  border: none;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 6px rgba(244, 129, 32, 0.3);
+}
+
+.link-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(244, 129, 32, 0.5);
+}
+
+.link-btn:active {
+  transform: translateY(0);
+}
+
+/* LinkedIn-specific button styling */
+.link-btn.linkedin-btn {
+  background: linear-gradient(135deg, #0a66c2, #004182);
+  box-shadow: 0 2px 6px rgba(10, 102, 194, 0.3);
+}
+
+.link-btn.linkedin-btn:hover {
+  box-shadow: 0 4px 10px rgba(10, 102, 194, 0.5);
+}
+
+.link-btn .linkedin-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.link-btn .linkedin-icon svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+.link-btn .link-text {
+  white-space: nowrap;
+}
+
+/* ========== INTRO MESSAGE & DEVELOPER SECTION STYLING ========== */
+/* Style for the intro/welcome message and developer section */
+.chat-body .message-text h1:first-child,
+.chat-body .message-text h2:first-child {
+  margin-top: 0;
+  font-size: 1.2em;
+  color: #f48120;
+  text-align: left;
+  font-weight: bold;
+}
+
+/* Developers section heading */
+.chat-body .message-text>div:has(strong:contains("Developers")) {
+  margin-top: 16px;
+  margin-bottom: 12px;
+}
+
+/* Developer info text styling */
+.chat-body .message-text {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #e9e9e9;
+}
+
+/* Increase message text font size for better readability */
+.chat-body .bot-message .message-text {
+  font-size: 0.95rem;
+}
+
+/* Paragraph spacing and formatting */
+.chat-body .message-text div {
+  color: #e9e9e9;
+  margin-bottom: 8px;
+}
+
+/* Style links and buttons within message text */
+.chat-body .message-text .link-btn {
+  font-size: 0.85rem;
+  padding: 8px 14px;
+}
+
+/* ========== FORM & CTA STYLING ========== */
+/* Ensure CTA buttons use consistent styling */
+.cta-wrapper .cta-message {
+  padding: 12px;
+  background: transparent;
+}
+
+.cta-wrapper .cta-text {
+  font-size: 0.95rem;
+  color: #e9e9e9;
+}
+
+/* Button link in dialog boxes */
+.calendly-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 8px;
+  font-size: 0.9rem;
+}

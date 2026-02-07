@@ -1498,7 +1498,8 @@ const parseMarkdown = (text) => {
 
   let parsed = preservedText
     .replace(/\s+-\s+\*\*(.*?)\*\*/g, '\n- **$1**') // Force newline before mid-sentence list items
-    .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" style="color: #f48120; text-decoration: underline; font-weight: 500;">$1</a>') // Links
+    // Markdown links -> styled button-like anchors
+    .replace(/\[(.*?)\]\((.*?)\)/g, '<a class="link-btn" href="$2" target="_blank" rel="noopener noreferrer">$1</a>') // Links
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold
     .replace(/^(?:- )?<strong>(.*?)<\/strong>/gim, '<div style="margin-top: 18px; margin-bottom: 8px; color: #f48120; font-weight: bold; font-size: 1.05em;">$1</div>') // Bold (with optional dash) at start of line as heading
     .replace(/`(.*?)`/g, '<code>$1</code>') // Inline code
@@ -1512,6 +1513,21 @@ const parseMarkdown = (text) => {
 
   // Parse sections with descriptive headers (e.g., "**Section Name** - Description")
   parsed = parsed.replace(/\*\*([^*]+)\*\*\s*-\s*/g, '<div style="margin-top: 12px; margin-bottom: 6px; text-align: center;"><strong style="color: #f48120;">$1</strong> -</div>');
+
+  // Convert plain LinkedIn profile URLs into visible button links with an icon
+  parsed = parsed.replace(/https?:\/\/(?:www\.)?(?:in\.)?linkedin\.com[^\s)"']*/gi, (url) => {
+    const safeUrl = url.replace(/"/g, '%22');
+    return `<a class="link-btn linkedin-btn" href="${safeUrl}" target="_blank" rel="noopener noreferrer"><span class="linkedin-icon" aria-hidden="true">` +
+      `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v14H0V8zm7.5 0h4.7v1.9h.1c.7-1.3 2.4-2.6 4.9-2.6 5.2 0 6.2 3.4 6.2 7.8V22H18.6v-6.6c0-1.6 0-3.7-2.3-3.7-2.3 0-2.6 1.8-2.6 3.6V22H7.5V8z"/></svg></span><span class="link-text">View LinkedIn profile</span></a>`;
+  });
+
+  // Convert other plain URLs into styled link buttons
+  parsed = parsed.replace(/https?:\/\/[\w\-\.\/~:\?\#\[\]@!$&'()*+,;=%]+/gi, (url) => {
+    // If we've already converted LinkedIn links above, skip
+    if (/linkedin\.com/i.test(url)) return url;
+    const safeUrl = url.replace(/"/g, '%22');
+    return `<a class="link-btn" href="${safeUrl}" target="_blank" rel="noopener noreferrer"><span class="link-text">Open link</span></a>`;
+  });
 
   // Basic table parsing
   const lines = parsed.split('\n');
