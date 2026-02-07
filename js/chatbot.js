@@ -1473,6 +1473,8 @@ Internal 12.8 V 9.9 AH (126.72 Wh) LiFePO4
 
 Creator of Sentra's website and Developers of Veronica: Vasamsetti Yuva Subharam and Vishal Das
 
+And Vishal Das is the Sales and Business Development Expert of Sentra
+
 You have the ability to access and fetch content from websites. When a user asks for information that requires current data, external research, or information not in your training data, you can request web access by including "Can i Access Website:" followed by the URL in your response. The system will fetch the content and provide it to you for analysis. Use this capability when:
 - Users ask for current news, updates, or recent developments
 - Questions require data from external sources
@@ -1494,7 +1496,10 @@ const initialInputHeight = messageInput.scrollHeight;
 // Simple markdown parser for basic formatting
 const parseMarkdown = (text) => {
   // First, collapse multiple spaces but PRESERVE newlines
-  let preservedText = text.replace(/ {2,}/g, ' '); // Only collapse multiple spaces, not newlines
+  let preservedText = (text || '').replace(/ {2,}/g, ' '); // Only collapse multiple spaces, not newlines
+
+  // Escape any raw HTML tags coming from model responses to avoid accidental HTML injection
+  preservedText = preservedText.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
   let parsed = preservedText
     .replace(/\s+-\s+\*\*(.*?)\*\*/g, '\n- **$1**') // Force newline before mid-sentence list items
@@ -1518,7 +1523,7 @@ const parseMarkdown = (text) => {
   parsed = parsed.replace(/https?:\/\/(?:www\.)?(?:in\.)?linkedin\.com[^\s)"']*/gi, (url) => {
     const safeUrl = url.replace(/"/g, '%22');
     return `<a class="link-btn linkedin-btn" href="${safeUrl}" target="_blank" rel="noopener noreferrer"><span class="linkedin-icon" aria-hidden="true">` +
-      `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v14H0V8zm7.5 0h4.7v1.9h.1c.7-1.3 2.4-2.6 4.9-2.6 5.2 0 6.2 3.4 6.2 7.8V22H18.6v-6.6c0-1.6 0-3.7-2.3-3.7-2.3 0-2.6 1.8-2.6 3.6V22H7.5V8z"/></svg></span><span class="link-text">View LinkedIn profile</span></a>`;
+      `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v14H0V8zm7.5 0h4.7v1.9h.1c.7-1.3 2.4-2.6 4.9-2.6 5.2 0 6.2 3.4 6.2 7.8V22H18.6v-6.6c0-1.6 0-3.7-2.3-3.7-2.3 0-2.6 1.8-2.6 3.6V22H7.5V8z"/></svg></span><span class="link-text">Linkedin</span></a>`;
   });
 
   // Convert other plain URLs into styled link buttons
@@ -1526,7 +1531,7 @@ const parseMarkdown = (text) => {
     // If we've already converted LinkedIn links above, skip
     if (/linkedin\.com/i.test(url)) return url;
     const safeUrl = url.replace(/"/g, '%22');
-    return `<a class="link-btn" href="${safeUrl}" target="_blank" rel="noopener noreferrer"><span class="link-text">Open link</span></a>`;
+    return `<a class="link-btn" href="${safeUrl}" target="_blank" rel="noopener noreferrer"><span class="link-text">Open Profile</span></a>`;
   });
 
   // Basic table parsing
@@ -1674,10 +1679,12 @@ const generateBotResponse = async (incomingMessageDiv) => {
 
     // If the user asked for contact information (or the response mentions contact), override with authoritative main contact
     try {
-      const userText = (userData.message || '').toLowerCase();
-      const contactIntent = /\b(contact|contact us|phone|email|address|reach out|contact details|call|contact information|pricing|quote|demo|inquiry)\b/i;
+      const userText = (userData.message || '');
+      // Stronger contact intent detection: explicit contact phrases or clear phone/email patterns
+      const contactIntent = /\b(contact(?:\s+us)?|call(?:\s+(?:me|us))?|how to reach|get in touch|phone|mobile|email|office address|visit us|contact details)\b/i;
       const isProductInquiry = /\b(product|products|solution|solutions|explore|sensor|edge|device|gateway|repeater|logger|monitor|test|consulting|tiltmeter|vibration|strain|accelerometer|gnss)\b/i.test(userText);
-      const responseContainsContact = /phone|email|address|contact|sales@|contact.html|contact us|reach out|office/i;
+      // Only treat the response as containing contact info when it includes an email, phone-like number, or explicit 'contact us' phrase
+      const responseContainsContact = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}|(?:\+?\d[\d\-\s\(\)]{6,}\d)|\bcontact\s+us\b/i;
 
       if ((contactIntent.test(userText) || responseContainsContact.test(apiResponseText)) && !isProductInquiry) {
         // Determine header based on user intent
