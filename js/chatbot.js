@@ -36,6 +36,19 @@ const getAPIEndpoint = () => {
 
 const API_ENDPOINT = getAPIEndpoint();
 
+// Request throttling to prevent rate limiting
+let lastRequestTime = 0;
+const MIN_REQUEST_INTERVAL = 1000; // 1 second minimum between requests
+
+const shouldThrottleRequest = () => {
+  const now = Date.now();
+  if (now - lastRequestTime < MIN_REQUEST_INTERVAL) {
+    return true;
+  }
+  lastRequestTime = now;
+  return false;
+};
+
 // Initialize user message and file data
 const userData = {
   message: null,
@@ -70,6 +83,97 @@ function loadUserProfile() {
 // Store chat history - Now starts empty.
 const chatHistory = [];
 
+// ----- Site content fetching (sentratech.in) -----
+let cachedSiteContent = null;
+const SITE_PAGES = [
+  'https://sentratech.in/',
+  'https://sentratech.in/products.html',
+  'https://sentratech.in/solutions.html',
+  'https://sentratech.in/about.html'
+];
+
+async function fetchSiteContent() {
+  if (cachedSiteContent) return cachedSiteContent;
+  const parts = [];
+  for (const url of SITE_PAGES) {
+    try {
+      const resp = await fetch(url, { method: 'GET' });
+      if (!resp.ok) continue;
+      const html = await resp.text();
+      // extract visible text using DOMParser to avoid raw HTML
+      try {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        // remove script and style
+        doc.querySelectorAll('script,style,noscript').forEach(n => n.remove());
+        const text = doc.body.innerText.replace(/\s+/g, ' ').trim();
+        if (text) parts.push(`--- ${url} ---\n${text}`);
+      } catch (e) {
+        // fallback: strip tags
+        const stripped = html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
+        if (stripped) parts.push(`--- ${url} ---\n${stripped}`);
+      }
+    } catch (err) {
+      // skip page on error
+    }
+    // stop if we collected a lot
+    if (parts.join('\n').length > 15000) break;
+  }
+  cachedSiteContent = parts.join('\n\n').slice(0, 15000);
+  return cachedSiteContent;
+}
+
+// ----- Interaction & CTA management -----
+const INTERACTION_KEY = 'sentratech_chat_interactions_v1';
+const CTA_SUPPRESS_KEY = 'sentratech_cta_suppressed_v1';
+const CTA_SHOWN_KEY = 'sentratech_cta_shown_v1';
+
+function getInteractionCount() {
+  return parseInt(localStorage.getItem(INTERACTION_KEY) || '0', 10);
+}
+
+function incrementInteractionCount() {
+  const next = getInteractionCount() + 1;
+  localStorage.setItem(INTERACTION_KEY, String(next));
+  return next;
+}
+
+function isCtaSuppressed() {
+  return localStorage.getItem(CTA_SUPPRESS_KEY) === '1';
+}
+
+function markCtaSuppressed() {
+  localStorage.setItem(CTA_SUPPRESS_KEY, '1');
+}
+
+function isCtaShown() {
+  return localStorage.getItem(CTA_SHOWN_KEY) === '1';
+}
+
+function markCtaShown() {
+  localStorage.setItem(CTA_SHOWN_KEY, '1');
+}
+
+// strip emojis and other pictographs
+function stripEmojis(text) {
+  if (!text) return text;
+  // wide regex to remove most emoji ranges
+  return text.replace(/([\u2700-\u27BF]|[\uE000-\uF8FF]|[\uD83C-\uDBFF\uDC00-\uDFFF]|[\u2011-\u26FF])/g, '')
+    .replace(/\uFE0F/g, '')
+    .replace(/\s+\u200D\s+/g, ' ')
+    .replace(/\s{2,}/g, ' ')
+    .trim();
+}
+
+// ----- Main contact information (authoritative) -----
+const MAIN_PHONE = '+91 7893023322';
+const MAIN_EMAIL = 'sentra@clovetech.com';
+const MAIN_ADDRESS = 'IT SEZ, Plot No. 9, Pedda Rushikonda, Rushikonda, Visakhapatnam, Andhra Pradesh 530045';
+
+function formatContactBlock() {
+  return `Phone: ${MAIN_PHONE}\nEmail: ${MAIN_EMAIL}\nOffice Address: ${MAIN_ADDRESS}\n\nNote: This is the main office address and phone number.`;
+}
+
 // System instruction with company context
 const systemInstruction = {
   parts: [
@@ -77,11 +181,37 @@ const systemInstruction = {
       text: `Company Name: Sentra
 Sentra is a structural health monitoring and digital engineering company specializing in real-time infrastructure intelligence.
 We integrate smart sensor networks, digital twins, and edge AI for predictive maintenance, fatigue analysis, and geotechnical monitoring.
-Our solutions help detect early signs of stress, displacement, vibration, and material degradation across bridges, tunnels, buildings, and other critical assets.
-Sentra also provides consulting and advisory services, foundation and geotechnical monitoring, fatigue and residual life assessment, and digital documentation of infrastructure assets.
 
+When users ask about products, categorize them exactly like this with links:
 
-Sentra is a flagship product line developed and managed by Clove Technologies Private Limited, a leading geospatial and engineering technology company headquartered in India. Clove specializes in delivering end-to-end digital transformation solutions across infrastructure, construction, utilities, and government sectors.
+- **EDGE DEVICES** ([Explore Edge Devices](./products/edge-devices.html))
+-- **WIRELESS DATA ACQUISITION**
+--- [Vibrating Wire](./products/vibrating-wire.html)
+--- [Vibrating Wire RCR](./products/vibrating-wire-rcr.html)
+--- [Digital Data Logger](./products/digital-data-logger.html)
+--- [Analog Data Logger](./products/analog-data-logger.html)
+--- [Piconode Data Logger](./products/piconode-data-logger.html)
+
+-- **WIRELESS SENSORS**
+--- [Tiltmeter](./products/tiltmeter.html)
+--- [Tiltmeter Event Detection](./products/tiltmeter-event-detection.html)
+--- [Vibration Meter](./products/vibration-meter.html)
+--- [Laser Tiltmeter](./products/laser-tiltmeter.html)
+--- [GNSS Meter](./products/gnss-meter.html)
+
+- **CORE COMMUNICATIONS** ([Explore Core Communications](./products/core-communications.html))
+-- **NARROWBAND COMMUNICATIONS**
+--- [Gateway](./products/gateway.html)
+--- [Repeater](./products/repeater.html)
+
+-- **BROADBAND COMMUNICATIONS**
+--- [Thread](./products/thread.html)
+
+- **WIRED SENSORS** ([Explore Wired Sensors](./products/wired-sensors.html))
+--- [Accelerometer](./products/accelerometers.html)
+--- [Strain Gauge](./products/strain-gauges.html)
+
+Sentra is a flagship product line developed and managed by Clove Technologies Private Limited.
 
 With over two decades of industry expertise, Clove Technologies integrates advanced geospatial intelligence, engineering analytics, and AI-driven automation to help clients build smarter, more resilient assets.
 
@@ -151,6 +281,32 @@ You are currently on the About Us page of Sentra's website. Key information from
 - Our team brings expertise in structural engineering, IoT technology, and real-time analytics.
 - We provide Structural Health Monitoring, Bridge Inspection & Condition Assessment, Advanced Non-Destructive Testing (NDT), Asset Monitoring & Management Solutions, Geotechnical & Foundation Monitoring, and Fatigue and Residual Life Assessment.
 - Sentra has over 21 years of experience in digital engineering.
+
+Sentra's Core Solutions:
+
+1. Structural Health Monitoring
+Real-time monitoring for bridges, buildings, tunnels
+
+2. Advanced NDT
+Non-invasive testing methods
+
+3. Bridge Inspection
+Comprehensive condition assessment & lifecycle management
+
+4. Asset Monitoring
+End-to-end management with dashboards & predictive analytics
+
+5. Consulting Services
+Expert engineering advice & deployment strategies
+
+6. Geotechnical Monitoring
+Soil stability, foundation settlement, slope monitoring
+
+7. Fatigue Assessment
+Structural lifespan evaluation & RUL estimation
+
+8. Digital Engineering
+BIM, 3D modeling, digital twins, documentation
 
 Phone Number: +91 7893023322
 Email Address: sentra@clovetech.com
@@ -1316,7 +1472,7 @@ You have the ability to access and fetch content from websites. When a user asks
 - Technical specifications or documentation from other websites
 - Real-time information like weather, stock prices, or current events
 
-Format: Can i Access Website:: https://example.com/path
+Format: Can i Access Website:: https://sentratech.in/
 
 `,
 
@@ -1329,16 +1485,25 @@ const initialInputHeight = messageInput.scrollHeight;
 
 // Simple markdown parser for basic formatting
 const parseMarkdown = (text) => {
-  let parsed = text
+  // First, collapse multiple spaces but PRESERVE newlines
+  let preservedText = text.replace(/ {2,}/g, ' '); // Only collapse multiple spaces, not newlines
+
+  let parsed = preservedText
+    .replace(/\s+-\s+\*\*(.*?)\*\*/g, '\n- **$1**') // Force newline before mid-sentence list items
+    .replace(/\[(.*?)\]\((.*?)\)/g, '<a href="$2" target="_blank" style="color: #f48120; text-decoration: underline; font-weight: 500;">$1</a>') // Links
     .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold
+    .replace(/^(?:- )?<strong>(.*?)<\/strong>/gim, '<div style="margin-top: 18px; margin-bottom: 8px; color: #f48120; font-weight: bold; font-size: 1.05em;">$1</div>') // Bold (with optional dash) at start of line as heading
     .replace(/`(.*?)`/g, '<code>$1</code>') // Inline code
-    .replace(/^### (.*$)/gim, '<h3>$1</h3>') // H3
-    .replace(/^## (.*$)/gim, '<h2>$1</h2>') // H2
-    .replace(/^# (.*$)/gim, '<h1>$1</h1>') // H1
-    .replace(/^- (.*$)/gim, '• $1') // Bullet points with -
-    .replace(/^\* (.*$)/gim, '• $1') // Bullet points with *
+    .replace(/^### (.*$)/gim, '<h3 style="margin-top: 10px; margin-bottom: 8px; font-size: 1.1em; text-align: center;">$1</h3>') // H3
+    .replace(/^## (.*$)/gim, '<h2 style="margin-top: 14px; margin-bottom: 10px; font-size: 1.25em; font-weight: bold; text-align: center;">$1</h2>') // H2
+    .replace(/^# (.*$)/gim, '<h1 style="margin-top: 18px; margin-bottom: 12px; font-size: 1.4em; font-weight: bold; text-align: center;">$1</h1>') // H1
+    .replace(/^- (.*$)/gim, '<div style="margin-left: 16px; margin-bottom: 6px;">• $1</div>') // Bullet points with -
+    .replace(/^\* (.*$)/gim, '<div style="margin-left: 16px; margin-bottom: 6px;">• $1</div>') // Bullet points with *
     .replace(/\*(.*?)\*/g, '<em>$1</em>') // Italic (after bullets)
-    .replace(/^---$/gm, '<hr>'); // Horizontal rules
+    .replace(/^---$/gm, '<hr style="margin: 16px 0; border: none; border-top: 1px solid #555;">'); // Horizontal rules
+
+  // Parse sections with descriptive headers (e.g., "**Section Name** - Description")
+  parsed = parsed.replace(/\*\*([^*]+)\*\*\s*-\s*/g, '<div style="margin-top: 12px; margin-bottom: 6px; text-align: center;"><strong style="color: #f48120;">$1</strong> -</div>');
 
   // Basic table parsing
   const lines = parsed.split('\n');
@@ -1395,7 +1560,17 @@ const parseMarkdown = (text) => {
     newLines.push(tableHtml);
   }
 
-  return newLines.join('<br>');
+  // Join lines with proper paragraph spacing
+  let result = newLines.map(line => {
+    // Skip empty lines
+    if (!line || !line.trim()) return '';
+    // Skip wrapping if it's already a block element like h1, h2, h3, or a table/div
+    if (/^<(h1|h2|h3|div|table|hr)/i.test(line.trim())) return line;
+    // Wrap non-empty lines in divs with padding for better spacing
+    return `<div style="margin-bottom: 8px; line-height: 1.6;">${line}</div>`;
+  }).join('');
+
+  return result;
 };
 
 // Create message element with dynamic classes and return it
@@ -1410,6 +1585,13 @@ const createMessageElement = (content, ...classes) => {
 const generateBotResponse = async (incomingMessageDiv) => {
   const messageElement = incomingMessageDiv.querySelector(".message-text");
 
+  // Check if request should be throttled
+  if (shouldThrottleRequest()) {
+    messageElement.textContent = "Please wait a moment before sending another message...";
+    messageElement.classList.add("error");
+    return;
+  }
+
   // Add user message to chat history
   chatHistory.push({
     role: "user",
@@ -1417,12 +1599,25 @@ const generateBotResponse = async (incomingMessageDiv) => {
   });
 
   try {
-    // Send message to backend API endpoint (which calls Gemini)
+    // Fetch site content once and include it in the prompt to improve product/site-aware answers
+    let siteContent = '';
+    try {
+      siteContent = await fetchSiteContent();
+    } catch (e) {
+      siteContent = '';
+    }
+
+    // Add assistant instruction to ensure professional sales tone and no emojis
+    const assistantInstructions = `Respond in a professional sales representative tone. Do not use emojis or informal punctuation. Be concise and helpful. After three or more meaningful exchanges, politely suggest scheduling a call to discuss solutions and provide a clear way to schedule. If the user chooses 'Don't show again' when offered a call, do not prompt again.`;
+
+    const augmentedMessage = `${userData.message}\n\n[SiteContext]: ${siteContent}\n\n[AssistantInstructions]: ${assistantInstructions}`;
+
+    // Send message to backend API endpoint
     const response = await fetch(API_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        message: userData.message,
+        message: augmentedMessage,
         history: chatHistory,
         needsWebAccess: false,
         file: userData.file.data ? {
@@ -1433,11 +1628,50 @@ const generateBotResponse = async (incomingMessageDiv) => {
     });
 
     if (!response.ok) {
+      if (response.status === 429) {
+        throw new Error('API rate limit reached. Please wait a moment and try again.');
+      }
       throw new Error(`HTTP error! status: ${response.status}`);
     }
 
     const data = await response.json();
-    let apiResponseText = data.response;
+    let apiResponseText = data.response || data.message || '';
+
+    // Post-process response: strip emojis and normalize whitespace (preserve newlines)
+    apiResponseText = stripEmojis(apiResponseText).replace(/ {2,}/g, ' ').trim();
+
+    // Normalize company name: prefer 'Sentra' or 'Sentra - By Clove Technologies'
+    try {
+      apiResponseText = apiResponseText.replace(/Sentra Technologies/gi, 'Sentra - By Clove Technologies');
+      apiResponseText = apiResponseText.replace(/\bSentra Technologies\b/gi, 'Sentra - By Clove Technologies');
+    } catch (e) {
+      // ignore
+    }
+
+    // If the user asked for contact information (or the response mentions contact), override with authoritative main contact
+    try {
+      const userText = (userData.message || '').toLowerCase();
+      const contactIntent = /\b(contact|contact us|phone|email|address|reach out|contact details|call|contact information|pricing|quote|demo|inquiry)\b/i;
+      const isProductInquiry = /\b(product|products|solution|solutions|explore|sensor|edge|device|gateway|repeater|logger|monitor|test|consulting|tiltmeter|vibration|strain|accelerometer|gnss)\b/i.test(userText);
+      const responseContainsContact = /phone|email|address|contact|sales@|contact.html|contact us|reach out|office/i;
+
+      if ((contactIntent.test(userText) || responseContainsContact.test(apiResponseText)) && !isProductInquiry) {
+        // Determine header based on user intent
+        const userTextLower = userText.toLowerCase();
+        let header = 'Explore our solutions';
+        if (/product/.test(userTextLower)) {
+          header = 'Explore our products';
+        } else if (/solution/.test(userTextLower)) {
+          header = 'Explore our solutions';
+        }
+
+        // Compose a professional contact block with context-aware header
+        const contactBlock = `${header}\nThank you for reaching out. Please use the following primary contact details for Sentra:\n\n${formatContactBlock()}\n\nWe can schedule a call or follow up by email as needed.`;
+        apiResponseText = contactBlock;
+      }
+    } catch (e) {
+      // ignore
+    }
 
     // Display the final response
     messageElement.innerHTML = parseMarkdown(apiResponseText);
@@ -1447,6 +1681,43 @@ const generateBotResponse = async (incomingMessageDiv) => {
       role: "model",
       parts: [{ text: apiResponseText }],
     });
+
+    // Interaction count and CTA: after a few interactions, prompt to schedule a call
+    try {
+      const interactions = incrementInteractionCount();
+      const CTA_THRESHOLD = 3;
+      if (interactions >= CTA_THRESHOLD && !isCtaSuppressed() && !isCtaShown()) {
+        // append a professional CTA message with action buttons
+        const ctaHtml = `
+          <div class="cta-message">
+            <div class="cta-text">If you'd like, we can arrange a short call to discuss Sentra's solutions and how they fit your needs. Would you like to schedule a call?</div>
+            <div class="cta-actions">
+              <button id="cta-schedule" class="cta-btn">Schedule a Call</button>
+              <button id="cta-remind" class="cta-btn">Remind Me Later</button>
+              <button id="cta-never" class="cta-btn">Don't Show Again</button>
+            </div>
+          </div>`;
+
+        const ctaDiv = document.createElement('div');
+        ctaDiv.className = 'bot-message cta-wrapper';
+        ctaDiv.innerHTML = `<div class="message-text">${ctaHtml}</div>`;
+        chatBody.appendChild(ctaDiv);
+        chatBody.scrollTo({ top: chatBody.scrollHeight, behavior: 'smooth' });
+        markCtaShown();
+
+        // attach handlers
+        setTimeout(() => {
+          const scheduleBtn = document.getElementById('cta-schedule');
+          const remindBtn = document.getElementById('cta-remind');
+          const neverBtn = document.getElementById('cta-never');
+          if (scheduleBtn) scheduleBtn.addEventListener('click', () => { window.open('https://sentratech.in/contact.html', '_blank'); });
+          if (remindBtn) remindBtn.addEventListener('click', () => { /* simply close CTA */ ctaDiv.remove(); });
+          if (neverBtn) neverBtn.addEventListener('click', () => { markCtaSuppressed(); ctaDiv.remove(); });
+        }, 200);
+      }
+    } catch (e) {
+      // ignore CTA errors
+    }
   } catch (error) {
     // Handle error in API response
     console.error(error);
