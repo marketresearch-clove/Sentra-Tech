@@ -1,0 +1,21 @@
+name = "veronica-sentra"
+type = "javascript"
+account_id = ""
+workers_dev = true
+main = "src/index.js"
+compatibility_date = "2026-02-07"
+
+[build]
+command = ""
+cwd = "./src"
+watch_paths = []
+
+[build.upload]
+format = "service-worker"
+
+[env.development]
+vars = { ENVIRONMENT = "development" }
+
+[env.production]
+name = "veronica-sentra-prod"
+vars = { ENVIRONMENT = "production" }

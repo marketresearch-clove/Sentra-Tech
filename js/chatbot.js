@@ -30,8 +30,16 @@ const getAPIEndpoint = () => {
     // Live Server - redirect to Node.js backend on port 3000
     return 'http://127.0.0.1:3000/api/chat';
   }
-  // For production or Node.js server, use relative path
-  return '/api/chat';
+
+  // Check if running on localhost:3000 (Node server)
+  if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+    return '/api/chat';
+  }
+
+  // Production deployment - use Cloudflare Worker
+  const PRODUCTION_BACKEND_URL = 'https://veronica-sentra.subharam-v.workers.dev/api/chat';
+
+  return PRODUCTION_BACKEND_URL;
 };
 
 const API_ENDPOINT = getAPIEndpoint();
