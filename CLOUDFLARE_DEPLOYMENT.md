@@ -96,7 +96,7 @@ Test your worker with a curl command:
 ```bash
 curl -X POST https://sentra-chatbot-worker.your-subdomain.workers.dev/api/chat \
   -H "Content-Type: application/json" \
-  -d '{"message": "Hello, what are Sentras products?"}'
+  -d '{"message": "Hello, what are Sentra's products?"}'
 ```
 
 ### 7. Update Your Frontend

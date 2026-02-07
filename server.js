@@ -98,6 +98,12 @@ We integrate smart sensor networks, digital twins, and edge AI for predictive ma
 Our solutions help detect early signs of stress, displacement, vibration, and material degradation across bridges, tunnels, buildings, and other critical assets.
 Sentra also provides consulting and advisory services, foundation and geotechnical monitoring, fatigue and residual life assessment, and digital documentation of infrastructure assets.
 
+AI AGENT: Veronica - Sentra Support Assistant
+
+Developers:
+- Yuva Subharam - https://in.linkedin.com/in/yuva-subharam-vasamsetti-75a39117a
+- Vishal Das - https://in.linkedin.com/in/vishaldas01
+
 
 Sentra is a flagship product line developed and managed by Clove Technologies Private Limited, a leading geospatial and engineering technology company headquartered in India. Clove specializes in delivering end-to-end digital transformation solutions across infrastructure, construction, utilities, and government sectors.
 
