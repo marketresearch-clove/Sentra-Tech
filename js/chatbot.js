@@ -94,7 +94,7 @@ const chatHistory = [];
 // ----- Site content fetching (sentratech.in) -----
 let cachedSiteContent = null;
 const SITE_PAGES = [
-  '/index.html',
+  '/',
   '/products.html',
   '/solutions.html',
   '/about.html'
@@ -104,12 +104,13 @@ async function fetchSiteContent() {
   if (cachedSiteContent) return cachedSiteContent;
   const parts = [];
   
-  // Only attempt to fetch if we are not on localhost or if we can use relative paths
-  // On localhost (127.0.0.1:5539), absolute https://sentratech.in will fail due to CORS.
-  // Using relative paths '/' works if the dev server serves them.
+  // Use current origin to avoid CORS issues
+  const origin = window.location.origin;
+  
   for (const path of SITE_PAGES) {
     try {
-      const resp = await fetch(path, { method: 'GET' });
+      const url = path.startsWith('http') ? path : `${origin}${path}`;
+      const resp = await fetch(url, { method: 'GET' });
       if (!resp.ok) continue;
       const html = await resp.text();
       // extract visible text using DOMParser to avoid raw HTML
@@ -1711,11 +1712,15 @@ const generateBotResponse = async (incomingMessageDiv) => {
       const userText = (userData.message || '');
       // Stronger contact intent detection: explicit contact phrases or clear phone/email patterns
       const contactIntent = /\b(contact(?:\s+us)?|call(?:\s+(?:me|us))?|how to reach|get in touch|phone|mobile|email|office address|visit us|contact details)\b/i;
-      const isProductInquiry = /\b(product|products|solution|solutions|explore|sensor|edge|device|gateway|repeater|logger|monitor|test|consulting|tiltmeter|vibration|strain|accelerometer|gnss|ndt|shm|geotechnical|fatigue|inspection|digital\s*twin)\b/i.test(userText);
+      const isProductInquiry = /\b(product|products|solution|solutions|explore|sensor|edge|device|gateway|repeater|logger|monitor|test|consulting|tiltmeter|vibration|strain|accelerometer|gnss|ndt|shm|geotechnical|fatigue|inspection|digital\s*twin|ai|artificial\s*intelligence|bridge|monitoring|infrastructure|tunnel|dam|railway)\b/i.test(userText);
       // Only treat the response as containing contact info when it includes an email, phone-like number, or explicit 'contact us' phrase
       const responseContainsContact = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}|(?:\+?\d[\d\-\s\(\)]{6,}\d)|\bcontact\s+us\b/i;
 
-      if ((contactIntent.test(userText) || responseContainsContact.test(apiResponseText)) && !isProductInquiry) {
+      // Refined override: Only trigger if the user explicitly asked for contact info OR if the AI response is short and primarily contact-focused
+      const isShortResponse = apiResponseText.length < 300;
+      const explicitContactRequest = contactIntent.test(userText) && !isProductInquiry;
+
+      if ((explicitContactRequest || (responseContainsContact.test(apiResponseText) && isShortResponse)) && !isProductInquiry) {
         // Determine header based on user intent
         const userTextLower = userText.toLowerCase();
         let header = 'Explore our solutions';
