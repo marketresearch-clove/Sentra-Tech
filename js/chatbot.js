@@ -104,13 +104,10 @@ async function fetchSiteContent() {
   if (cachedSiteContent) return cachedSiteContent;
   const parts = [];
   
-  // Use current origin to avoid CORS issues
-  const origin = window.location.origin;
-  
   for (const path of SITE_PAGES) {
     try {
-      const url = path.startsWith('http') ? path : `${origin}${path}`;
-      const resp = await fetch(url, { method: 'GET' });
+      // Use relative path directly to ensure it uses the current origin automatically
+      const resp = await fetch(path, { method: 'GET' });
       if (!resp.ok) continue;
       const html = await resp.text();
       // extract visible text using DOMParser to avoid raw HTML
@@ -1514,122 +1511,61 @@ const initialInputHeight = messageInput.scrollHeight;
 
 // Simple markdown parser for basic formatting
 const parseMarkdown = (text) => {
-  // First, collapse multiple spaces but PRESERVE newlines
-  let preservedText = (text || '').replace(/ {2,}/g, ' '); // Only collapse multiple spaces, not newlines
+  if (!text) return "";
+  
+  // Normalize and clean text
+  let content = text.replace(/\r\n/g, '\n').trim();
+  content = stripEmojis(content);
 
-  // Escape any raw HTML tags coming from model responses to avoid accidental HTML injection
-  preservedText = preservedText.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  // 1. Pre-process: Ensure numbered points and bullet points are on new lines
+  // Even if they appear mid-sentence (e.g., "text. 1. point" -> "text.\n\n1. point")
+  content = content.replace(/([.!?])\s+(\d+\.\s+)/g, "$1\n\n$2");
+  content = content.replace(/([.!?])\s+([-*•]\s+)/g, "$1\n\n$2");
+  
+  // Split into paragraphs by double newlines or forced list items
+  const paragraphs = content.split(/\n\n+/);
+  
+  const htmlParagraphs = paragraphs.map(p => {
+    let trimmed = p.trim();
+    if (!trimmed) return "";
 
-  let parsed = preservedText
-    // 1. Pre-process: Ensure mid-sentence bolded headers (like **Title**) are moved to new lines
-    .replace(/(\.|\?|!|\:)?\s+(\*\*[^*]+\*\*)/g, '$1\n$2')
-    // 2. Pre-process: Ensure mid-sentence numbered items are moved to new lines
-    .replace(/(\s+)(\d+\.\s+\*\*.*?\*\*)/g, '\n$2')
-    // 3. Pre-process: Ensure bold headers with numbers or dashes at start of lines are separated if they have content after them on same line
-    .replace(/^(\s*(\d+\.|-)?\s*)\*\*(.*?)\*\*\s*(.+)$/gim, '$1**$3**\n$4')
-    // 4. Force newline before mid-sentence list items
-    .replace(/\s+-\s+\*\*(.*?)\*\*/g, '\n- **$1**') 
-    // 5. Markdown links -> styled button-like anchors
-    .replace(/\[(.*?)\]\((.*?)\)/g, '<a class="link-btn" href="$2" target="_blank" rel="noopener noreferrer">$1</a>') 
-    // 6. Bold and highlight headers (with numbers or dashes)
-    .replace(/^(\s*(\d+\.|-)?\s*)\*\*(.*?)\*\*/gim, (match, prefix, num, title) => {
-        const p = prefix ? prefix : '';
-        return `<div style="margin-top: 18px; margin-bottom: 8px; color: #f48120; font-weight: bold; font-size: 1.05em;">${p}${title}</div>`;
-    })
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Generic bold
-    .replace(/`(.*?)`/g, '<code>$1</code>') // Inline code
-    .replace(/^### (.*$)/gim, '<h3 style="margin-top: 10px; margin-bottom: 8px; font-size: 1.1em; text-align: center;">$1</h3>') 
-    .replace(/^## (.*$)/gim, '<h2 style="margin-top: 14px; margin-bottom: 10px; font-size: 1.25em; font-weight: bold; text-align: center;">$1</h2>') 
-    .replace(/^# (.*$)/gim, '<h1 style="margin-top: 18px; margin-bottom: 12px; font-size: 1.4em; font-weight: bold; text-align: center;">$1</h1>') 
-    .replace(/^- (.*$)/gim, '<div style="margin-left: 16px; margin-bottom: 6px;">• $1</div>') 
-    .replace(/^\* (.*$)/gim, '<div style="margin-left: 16px; margin-bottom: 6px;">• $1</div>') 
-    .replace(/\*(.*?)\*/g, '<em>$1</em>') 
-    .replace(/^---$/gm, '<hr style="margin: 16px 0; border: none; border-top: 1px solid #555;">'); 
-
-  // Parse sections with descriptive headers (e.g., "**Section Name** - Description")
-  parsed = parsed.replace(/\*\*([^*]+)\*\*\s*-\s*/g, '<div style="margin-top: 12px; margin-bottom: 6px; text-align: center;"><strong style="color: #f48120;">$1</strong> -</div>');
-
-  // Convert plain LinkedIn profile URLs into visible button links with an icon
-  parsed = parsed.replace(/https?:\/\/(?:www\.)?(?:in\.)?linkedin\.com[^\s)"']*/gi, (url) => {
-    const safeUrl = url.replace(/"/g, '%22');
-    return `<a class="link-btn linkedin-btn" href="${safeUrl}" target="_blank" rel="noopener noreferrer"><span class="linkedin-icon" aria-hidden="true">` +
-      `<svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M4.98 3.5C4.98 4.88 3.86 6 2.48 6S0 4.88 0 3.5 1.12 1 2.5 1 4.98 2.12 4.98 3.5zM0 8h5v14H0V8zm7.5 0h4.7v1.9h.1c.7-1.3 2.4-2.6 4.9-2.6 5.2 0 6.2 3.4 6.2 7.8V22H18.6v-6.6c0-1.6 0-3.7-2.3-3.7-2.3 0-2.6 1.8-2.6 3.6V22H7.5V8z"/></svg></span><span class="link-text">Linkedin</span></a>`;
-  });
-
-  // Convert other plain URLs into styled link buttons
-  parsed = parsed.replace(/https?:\/\/[\w\-\.\/~:\?\#\[\]@!$&'()*+,;=%]+/gi, (url) => {
-    // If we've already converted LinkedIn links above, skip
-    if (/linkedin\.com/i.test(url)) return url;
-    const safeUrl = url.replace(/"/g, '%22');
-    return `<a class="link-btn" href="${safeUrl}" target="_blank" rel="noopener noreferrer"><span class="link-text">Open Profile</span></a>`;
-  });
-
-  // Basic table parsing
-  const lines = parsed.split('\n');
-  let inTable = false;
-  let tableRows = [];
-  let newLines = [];
-
-  for (let line of lines) {
-    if (line.trim().startsWith('|') && line.trim().endsWith('|')) {
-      if (!inTable) {
-        inTable = true;
-        tableRows = [];
+    // Handle lists (numbered or bullets)
+    const listMatch = trimmed.match(/^(\d+\.|[-*•])\s+(.*)/s);
+    if (listMatch) {
+      const marker = listMatch[1];
+      let listContent = listMatch[2];
+      
+      // Highlight bold titles in list items: "1. **Title** Description" or "1. Title: Description"
+      const boldTitleMatch = listContent.match(/^(\*\*.*?\*\*|[^:.]+[:.])(.*)/s);
+      if (boldTitleMatch) {
+        let title = boldTitleMatch[1].replace(/\*\*/g, '');
+        let desc = boldTitleMatch[2];
+        return `<div class="chat-paragraph" style="margin-bottom: 12px; line-height: 1.6;">
+          <span style="color: #f48120; font-weight: bold;">${marker} ${title}</span><br>
+          <span style="display: block; margin-top: 4px;">${desc.trim()}</span>
+        </div>`;
       }
-      const cells = line.split('|').slice(1, -1).map(cell => cell.trim());
-      tableRows.push(cells);
-    } else {
-      if (inTable) {
-        // End table
-        let tableHtml = '<div style="overflow-x: auto;"><table border="1" style="border-collapse: collapse; width: 100%; min-width: 600px;">';
-        tableRows.forEach((row, index) => {
-          // Skip separator rows (rows with only dashes, colons, or empty/whitespace cells)
-          if (row.every(cell => /^[-:\s]*$/.test(cell.trim()))) return;
-
-          const tag = index === 0 ? 'th' : 'td';
-          const style = tag === 'th' ? 'padding: 8px; text-align: left; background-color: #000; color: #fff; font-weight: bold;' : 'padding: 8px; text-align: left;';
-          tableHtml += '<tr>';
-          row.forEach(cell => {
-            tableHtml += `<${tag} style="${style}">${cell}</${tag}>`;
-          });
-          tableHtml += '</tr>';
-        });
-        tableHtml += '</table></div>';
-        newLines.push(tableHtml);
-        inTable = false;
-      }
-      newLines.push(line);
+      
+      return `<div class="chat-paragraph" style="margin-bottom: 8px; line-height: 1.6;">
+        <span style="color: #f48120; font-weight: bold;">${marker}</span> ${listContent}
+      </div>`;
     }
-  }
-  if (inTable) {
-    let tableHtml = '<div style="overflow-x: auto;"><table border="1" style="border-collapse: collapse; width: 100%; min-width: 600px;">';
-    tableRows.forEach((row, index) => {
-      // Skip separator rows (rows with only dashes, colons, or empty/whitespace cells)
-      if (row.every(cell => /^[-:\s]*$/.test(cell.trim()))) return;
 
-      const tag = index === 0 ? 'th' : 'td';
-      const style = tag === 'th' ? 'padding: 8px; text-align: left; background-color: #000; color: #fff; font-weight: bold;' : 'padding: 8px; text-align: left;';
-      tableHtml += '<tr>';
-      row.forEach(cell => {
-        tableHtml += `<${tag} style="${style}">${cell}</${tag}>`;
-      });
-      tableHtml += '</tr>';
-    });
-    tableHtml += '</table></div>';
-    newLines.push(tableHtml);
-  }
+    // Handle standalone bold headers: "**Title**"
+    if (trimmed.startsWith('**') && trimmed.endsWith('**')) {
+      return `<div style="margin-top: 16px; margin-bottom: 8px; color: #f48120; font-weight: bold; font-size: 1.1em; text-align: center;">${trimmed.replace(/\*\*/g, '')}</div>`;
+    }
 
-  // Join lines with proper paragraph spacing
-  let result = newLines.map(line => {
-    // Skip empty lines
-    if (!line || !line.trim()) return '';
-    // Skip wrapping if it's already a block element like h1, h2, h3, or a table/div
-    if (/^<(h1|h2|h3|div|table|hr)/i.test(line.trim())) return line;
-    // Wrap non-empty lines in divs with padding for better spacing
-    return `<div style="margin-bottom: 8px; line-height: 1.6;">${line}</div>`;
-  }).join('');
+    // Generic replacements for the rest
+    let formatted = trimmed
+      .replace(/\*\*(.*?)\*\*/g, '<strong style="color: #f48120;">$1</strong>')
+      .replace(/`(.*?)`/g, '<code>$1</code>')
+      .replace(/\[(.*?)\]\((.*?)\)/g, '<a class="link-btn" href="$2" target="_blank" rel="noopener noreferrer">$1</a>');
 
-  return result;
+    return `<div class="chat-paragraph" style="margin-bottom: 8px; line-height: 1.6;">${formatted}</div>`;
+  });
+
+  return htmlParagraphs.join("");
 };
 
 // Create message element with dynamic classes and return it
@@ -1712,7 +1648,7 @@ const generateBotResponse = async (incomingMessageDiv) => {
       const userText = (userData.message || '');
       // Stronger contact intent detection: explicit contact phrases or clear phone/email patterns
       const contactIntent = /\b(contact(?:\s+us)?|call(?:\s+(?:me|us))?|how to reach|get in touch|phone|mobile|email|office address|visit us|contact details)\b/i;
-      const isProductInquiry = /\b(product|products|solution|solutions|explore|sensor|edge|device|gateway|repeater|logger|monitor|test|consulting|tiltmeter|vibration|strain|accelerometer|gnss|ndt|shm|geotechnical|fatigue|inspection|digital\s*twin|ai|artificial\s*intelligence|bridge|monitoring|infrastructure|tunnel|dam|railway)\b/i.test(userText);
+      const isProductInquiry = /\b(product|products|solution|solutions|explore|sensor|edge|device|gateway|repeater|logger|monitor|test|consulting|tiltmeter|vibration|strain|accelerometer|gnss|ndt|shm|geotechnical|fatigue|inspection|digital\s*twin|ai|artificial\s*intelligence|bridge|monitoring|infrastructure|tunnel|dam|railway|structural|monitoring|health|civil|engineering|asset|management|predictive|maintenance|analysis|data|intelligence|smart|iot|deployment|sensing|assessment|fatigue|residual|life|geotechnical|foundation|ndt|non-destructive|testing|digital|engineering|bim|gis|simulation|optimization|real-time|insights|analytics|edge|computing|hard|difficult|question|complex|issue|how|why|what|explain|describe|details|more|information)\b/i.test(userText);
       // Only treat the response as containing contact info when it includes an email, phone-like number, or explicit 'contact us' phrase
       const responseContainsContact = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}|(?:\+?\d[\d\-\s\(\)]{6,}\d)|\bcontact\s+us\b/i;
 
