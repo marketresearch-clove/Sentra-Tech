@@ -45,6 +45,13 @@
             <priority>0.7</priority>
       </url>
 
+      <url>
+            <loc>https://sentratech.in/blogs/real-time-monitoring-solutions-transforming-infrastructure-safety-performance.html</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>monthly</changefreq>
+            <priority>0.7</priority>
+      </url>
+
       <!-- Article Pages -->
       <url>
             <loc>https://sentratech.in/article/building-resilient-smart-cities-with-data-driven-insights.html</loc>
@@ -329,7 +336,13 @@
             <priority>0.6</priority>
       </url>
 
-      
+       <url>
+            <loc>https://sentratech.in/products/digital-data-logger.html</loc>
+            <lastmod>2025-11-13</lastmod>
+            <changefreq>monthly</changefreq>
+            <priority>0.6</priority>
+      </url>
+
 
       <url>
             <loc>https://sentratech.in/case-studies/IoT-bridge-monitoring-and-sensor-installation-on-railway-bridges.html</loc>

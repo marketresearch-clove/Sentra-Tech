@@ -27,8 +27,8 @@ const welcomeMessage = document.querySelector("#welcome-message");
 const getAPIEndpoint = () => {
   // Check if running on localhost with Live Server (port 5539)
   if (window.location.port === '5539') {
-    // Live Server - redirect to Node.js backend on port 3000
-    return 'http://127.0.0.1:3000/api/chat';
+    // Return production worker for testing on localhost
+    return 'https://veronica-sentra.subharam-v.workers.dev/api/chat';
   }
 
   // Check if running on localhost:3000 (Node server)
@@ -94,18 +94,22 @@ const chatHistory = [];
 // ----- Site content fetching (sentratech.in) -----
 let cachedSiteContent = null;
 const SITE_PAGES = [
-  'https://sentratech.in/',
-  'https://sentratech.in/products.html',
-  'https://sentratech.in/solutions.html',
-  'https://sentratech.in/about.html'
+  '/index.html',
+  '/products.html',
+  '/solutions.html',
+  '/about.html'
 ];
 
 async function fetchSiteContent() {
   if (cachedSiteContent) return cachedSiteContent;
   const parts = [];
-  for (const url of SITE_PAGES) {
+  
+  // Only attempt to fetch if we are not on localhost or if we can use relative paths
+  // On localhost (127.0.0.1:5539), absolute https://sentratech.in will fail due to CORS.
+  // Using relative paths '/' works if the dev server serves them.
+  for (const path of SITE_PAGES) {
     try {
-      const resp = await fetch(url, { method: 'GET' });
+      const resp = await fetch(path, { method: 'GET' });
       if (!resp.ok) continue;
       const html = await resp.text();
       // extract visible text using DOMParser to avoid raw HTML
@@ -115,11 +119,11 @@ async function fetchSiteContent() {
         // remove script and style
         doc.querySelectorAll('script,style,noscript').forEach(n => n.remove());
         const text = doc.body.innerText.replace(/\s+/g, ' ').trim();
-        if (text) parts.push(`--- ${url} ---\n${text}`);
+        if (text) parts.push(`--- ${path} ---\n${text}`);
       } catch (e) {
         // fallback: strip tags
         const stripped = html.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
-        if (stripped) parts.push(`--- ${url} ---\n${stripped}`);
+        if (stripped) parts.push(`--- ${path} ---\n${stripped}`);
       }
     } catch (err) {
       // skip page on error
@@ -189,6 +193,20 @@ const systemInstruction = {
       text: `Company Name: Sentra
 Sentra is a structural health monitoring and digital engineering company specializing in real-time infrastructure intelligence.
 We integrate smart sensor networks, digital twins, and edge AI for predictive maintenance, fatigue analysis, and geotechnical monitoring.
+
+CRITICAL FORMATTING INSTRUCTIONS:
+1. Use double newlines (\n\n) to create clear space between different sections or paragraphs.
+2. Every list item or numbered point MUST start on a new line.
+3. For lists of solutions or features, use a format with bold headers followed by a NEWLINE before the description.
+4. Bold and highlight key titles using **Title Name**.
+5. Do not cluster information; provide breathing room between points.
+
+Example Formatting:
+**1. Structural Health Monitoring**
+Continuous, real-time data collection using wireless sensors and edge devices to detect stress...
+
+**2. Advanced Non-Destructive Testing (NDT)**
+Precision inspection techniques such as ultrasonic, ground-penetrating radar...
 
 When users ask about products, categorize them exactly like this with links:
 
@@ -1502,19 +1520,30 @@ const parseMarkdown = (text) => {
   preservedText = preservedText.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
   let parsed = preservedText
-    .replace(/\s+-\s+\*\*(.*?)\*\*/g, '\n- **$1**') // Force newline before mid-sentence list items
-    // Markdown links -> styled button-like anchors
-    .replace(/\[(.*?)\]\((.*?)\)/g, '<a class="link-btn" href="$2" target="_blank" rel="noopener noreferrer">$1</a>') // Links
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold
-    .replace(/^(?:- )?<strong>(.*?)<\/strong>/gim, '<div style="margin-top: 18px; margin-bottom: 8px; color: #f48120; font-weight: bold; font-size: 1.05em;">$1</div>') // Bold (with optional dash) at start of line as heading
+    // 1. Pre-process: Ensure mid-sentence bolded headers (like **Title**) are moved to new lines
+    .replace(/(\.|\?|!|\:)?\s+(\*\*[^*]+\*\*)/g, '$1\n$2')
+    // 2. Pre-process: Ensure mid-sentence numbered items are moved to new lines
+    .replace(/(\s+)(\d+\.\s+\*\*.*?\*\*)/g, '\n$2')
+    // 3. Pre-process: Ensure bold headers with numbers or dashes at start of lines are separated if they have content after them on same line
+    .replace(/^(\s*(\d+\.|-)?\s*)\*\*(.*?)\*\*\s*(.+)$/gim, '$1**$3**\n$4')
+    // 4. Force newline before mid-sentence list items
+    .replace(/\s+-\s+\*\*(.*?)\*\*/g, '\n- **$1**') 
+    // 5. Markdown links -> styled button-like anchors
+    .replace(/\[(.*?)\]\((.*?)\)/g, '<a class="link-btn" href="$2" target="_blank" rel="noopener noreferrer">$1</a>') 
+    // 6. Bold and highlight headers (with numbers or dashes)
+    .replace(/^(\s*(\d+\.|-)?\s*)\*\*(.*?)\*\*/gim, (match, prefix, num, title) => {
+        const p = prefix ? prefix : '';
+        return `<div style="margin-top: 18px; margin-bottom: 8px; color: #f48120; font-weight: bold; font-size: 1.05em;">${p}${title}</div>`;
+    })
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Generic bold
     .replace(/`(.*?)`/g, '<code>$1</code>') // Inline code
-    .replace(/^### (.*$)/gim, '<h3 style="margin-top: 10px; margin-bottom: 8px; font-size: 1.1em; text-align: center;">$1</h3>') // H3
-    .replace(/^## (.*$)/gim, '<h2 style="margin-top: 14px; margin-bottom: 10px; font-size: 1.25em; font-weight: bold; text-align: center;">$1</h2>') // H2
-    .replace(/^# (.*$)/gim, '<h1 style="margin-top: 18px; margin-bottom: 12px; font-size: 1.4em; font-weight: bold; text-align: center;">$1</h1>') // H1
-    .replace(/^- (.*$)/gim, '<div style="margin-left: 16px; margin-bottom: 6px;">• $1</div>') // Bullet points with -
-    .replace(/^\* (.*$)/gim, '<div style="margin-left: 16px; margin-bottom: 6px;">• $1</div>') // Bullet points with *
-    .replace(/\*(.*?)\*/g, '<em>$1</em>') // Italic (after bullets)
-    .replace(/^---$/gm, '<hr style="margin: 16px 0; border: none; border-top: 1px solid #555;">'); // Horizontal rules
+    .replace(/^### (.*$)/gim, '<h3 style="margin-top: 10px; margin-bottom: 8px; font-size: 1.1em; text-align: center;">$1</h3>') 
+    .replace(/^## (.*$)/gim, '<h2 style="margin-top: 14px; margin-bottom: 10px; font-size: 1.25em; font-weight: bold; text-align: center;">$1</h2>') 
+    .replace(/^# (.*$)/gim, '<h1 style="margin-top: 18px; margin-bottom: 12px; font-size: 1.4em; font-weight: bold; text-align: center;">$1</h1>') 
+    .replace(/^- (.*$)/gim, '<div style="margin-left: 16px; margin-bottom: 6px;">• $1</div>') 
+    .replace(/^\* (.*$)/gim, '<div style="margin-left: 16px; margin-bottom: 6px;">• $1</div>') 
+    .replace(/\*(.*?)\*/g, '<em>$1</em>') 
+    .replace(/^---$/gm, '<hr style="margin: 16px 0; border: none; border-top: 1px solid #555;">'); 
 
   // Parse sections with descriptive headers (e.g., "**Section Name** - Description")
   parsed = parsed.replace(/\*\*([^*]+)\*\*\s*-\s*/g, '<div style="margin-top: 12px; margin-bottom: 6px; text-align: center;"><strong style="color: #f48120;">$1</strong> -</div>');
@@ -1648,7 +1677,7 @@ const generateBotResponse = async (incomingMessageDiv) => {
       body: JSON.stringify({
         message: augmentedMessage,
         history: chatHistory,
-        needsWebAccess: false,
+        needsWebAccess: true,
         file: userData.file.data ? {
           data: userData.file.data,
           mimeType: userData.file.mimeType
@@ -1682,7 +1711,7 @@ const generateBotResponse = async (incomingMessageDiv) => {
       const userText = (userData.message || '');
       // Stronger contact intent detection: explicit contact phrases or clear phone/email patterns
       const contactIntent = /\b(contact(?:\s+us)?|call(?:\s+(?:me|us))?|how to reach|get in touch|phone|mobile|email|office address|visit us|contact details)\b/i;
-      const isProductInquiry = /\b(product|products|solution|solutions|explore|sensor|edge|device|gateway|repeater|logger|monitor|test|consulting|tiltmeter|vibration|strain|accelerometer|gnss)\b/i.test(userText);
+      const isProductInquiry = /\b(product|products|solution|solutions|explore|sensor|edge|device|gateway|repeater|logger|monitor|test|consulting|tiltmeter|vibration|strain|accelerometer|gnss|ndt|shm|geotechnical|fatigue|inspection|digital\s*twin)\b/i.test(userText);
       // Only treat the response as containing contact info when it includes an email, phone-like number, or explicit 'contact us' phrase
       const responseContainsContact = /[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}|(?:\+?\d[\d\-\s\(\)]{6,}\d)|\bcontact\s+us\b/i;
 

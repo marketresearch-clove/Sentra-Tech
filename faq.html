@@ -7,7 +7,8 @@
     <meta name="description" content="FAQs - Got Questions? We've Got Answers. SENTRA - Smart Structural Monitoring">
     <meta name="robots" content="index, follow" />
     <meta property="og:title" content="FAQs - SENTRA - Smart Structural Monitoring" />
-    <meta property="og:description" content="FAQs - SENTRA - Smart Structural Monitoring" />
+    <meta property="og:description"
+        content="Have questions about SENTRA? Discover how our Smart Structural Monitoring system delivers real-time insights, predictive analytics, and enhanced safety for infrastructure and critical assets." />
     <meta property="og:url" content="https://sentratech.in/faq.html" />
     <meta property="og:type" content="website" />
     <meta property="og:image" content="https://sentratech.in/image/sentra.png" />
@@ -101,6 +102,14 @@
             background-image: none;
             -webkit-text-fill-color: #2d2e2f;
 
+        }
+
+        .cta-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 600;
+            color: var(--accent-color);
         }
     </style>
 </head>
@@ -297,6 +306,35 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="accordion-item">
+                                    <h2 class="accordion-header">
+                                        <button class="accordion-button collapsed" type="button"
+                                            data-bs-toggle="collapse" data-bs-target="#faq404" aria-expanded="false"
+                                            aria-controls="faq404">
+                                            Can't find the page you're looking for?
+                                        </button>
+                                    </h2>
+                                    <div id="faq404" class="accordion-collapse collapse"
+                                        data-bs-parent="#faqAccordion1">
+                                        <div class="accordion-body">
+                                            <div class="accordion-spacer"></div>
+                                            <p>
+                                                The page you’re trying to access may have been moved or no longer
+                                                exists. i.e <a href="./404-page.html" class="cta-link">
+                                                    404-page issue
+                                                </a>
+                                                <br>
+                                                <br>
+                                                Don’t worry — you can explore our latest insights, services, or return
+                                                to the <a href="./index.html" class="cta-link">
+                                                    Homepage.
+                                                </a>
+
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
@@ -330,9 +368,9 @@
         <!-- Section Modal Video -->
         <div class="section p-0">
             <div id="modal-overlay" class="modal-overlay">
-                <span class="modal-close"><i class="fa-solid fa-xmark"></i></span>
-                <div class="video-modal">
-                    <iframe id="modal-video-frame" class="ifr-video" allowfullscreen></iframe>
+                <div class="my-modal">
+                    <span class="my-close"><i class="fa-solid fa-xmark"></i></span>
+                    <iframe id="my-video-frame" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
