@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentra Blogs — Infrastructure Monitoring, IoT & Analytics</title>
+    <meta name="description"
+        content="Latest articles on IoT, structural health monitoring, predictive maintenance and case studies from Sentra." />
+
+    <link rel="canonical" href="https://sentratech.in/blog.html">
+    <meta name="robots" content="index, follow" />
+    <meta property="og:title" content="Sentra Blogs — Infrastructure Monitoring, IoT & Analytics" />
+    <meta property="og:description"
+        content="Insights, case studies and technical articles about IoT and structural monitoring." />
+    <meta property="og:url" content="https://sentratech.in/blog.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="https://sentratech.in/image/sentra.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Sentra Blogs — Infrastructure Monitoring, IoT & Analytics" />
+    <meta name="twitter:description"
+        content="Insights, case studies and technical articles about IoT and structural monitoring." />
+    <meta name="twitter:image" content="https://sentratech.in/image/sentra.png" />
+    <meta name="twitter:site" content="@sentratech" />
+    <meta name="twitter:image:width" content="1200" />
+    <meta name="twitter:image:height" content="630" />
+
+    <script type="application/ld+json">
+    {
+    "@context":"https://schema.org",
+    "@type":"Blogs",
+    "name":"Sentra Blogs",
+    "description":"Insights and technical content on IoT and infrastructure monitoring.",
+    "url":"https://sentratech.in/blog"
+    }
+    </script>
+
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="icon" href="/image/favicon.png" type="image/png" sizes="16x16">
+    <!-- Apple Touch Icon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/image/favicon.png">
+    <link rel="stylesheet" href="../css/chatbot.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
+        rel="stylesheet" />
+    <style>
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
+        .seismic-canvas-fixed {
+            position: relative;
+            overflow: hidden;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 28px;
+            background-color: #ffffff;
+        }
+
+
+
+        .seismic-canvas-fixed canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+            z-index: 0;
+            cursor: ns-resize;
+        }
+
+        .seismic-canvas-fixed .banner-layout {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            pointer-events: none;
+        }
+
+        .seismic-canvas-fixed {
+            border-radius: 28px;
+        }
+
+        body.lightmode .seismic-canvas-fixed,
+        [data-theme="light"] .seismic-canvas-fixed {
+            background-color: #ffffff;
+        }
+
+        body.dark-mode .seismic-canvas-fixed,
+        [data-theme="dark"] .seismic-canvas-fixed {
+            background-color: #000000;
+        }
+
+        body.lightmode .banner-layout .title-heading,
+        [data-theme="light"] .banner-layout .title-heading {
+            background-image: none;
+            -webkit-text-fill-color: #2d2e2f;
+            color: #2d2e2f;
+        }
+
+        body.dark-mode .banner-layout .title-heading,
+        [data-theme="dark"] .banner-layout .title-heading {
+            background-image: none;
+            -webkit-text-fill-color: var(--primary);
+        }
+
+        body .sk-ww-linkedin-page-post a {
+            text-decoration: none;
+            color: var(--widget-link-color);
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1 class="visually-hidden">Sentra Blogs — Infrastructure Monitoring, IoT & Analytics</h1>
+
+    <!-- Section Header -->
+    <header>
+        <!-- Section Navbar -->
+        <div id="header"></div>
+    </header>
+
+    <!-- Section Content Edit -->
+    <aside>
+        <div id="edit-sidebar"></div>
+    </aside>
+
+
+
+    <!-- Section Sidebar -->
+    <aside>
+        <div id="sidebar"></div>
+    </aside>
+
+    <!-- Section Main Content -->
+    <main>
+        <!-- Section Banner 
+        <div class="section-banner">
+            <div class="banner-layout-wrapper">
+                <div class="banner-layout">
+                    <div class="d-flex flex-column text-center align-items-center gspace-2">
+                        <h2 class="title-heading animate-box animated animate__animated"
+                            data-animate="animate__fadeInRight">Our Blogs</h2>
+
+                    </div>
+                    <div class="spacer"></div>
+                </div>
+            </div>
+        </div>-->
+
+        <!-- Section Banner 2 -->
+
+        <div class="seismic-canvas-fixed" id="seismic-banner-fixed">
+            <canvas id="social-float"></canvas>
+            <div class="banner-layout">
+                <div class="d-flex flex-column text-center align-items-center gspace-2">
+                    <h2 class="title-heading animate-box animated animate__animated"
+                        data-animate="animate__fadeInRight">
+                        Our Social Feed</h2>
+                </div>
+                <div class="spacer"></div>
+            </div>
+        </div>
+
+        <div style="padding-left: 20px; padding-right: 20px; padding-bottom: 20px; height: auto;">
+            <iframe src="https://widgets.sociablekit.com/linkedin-page-posts/iframe/25655935" frameborder="0"
+                width="100%" height="1000px"></iframe>
+        </div>
+
+    </main>
+
+    <!-- Section Footer -->
+    <footer>
+        <div id="footer"></div>
+    </footer>
+
+    <script src="js/vendor/jquery.min.js"></script>
+    <script src="js/vendor/bootstrap.bundle.min.js"></script>
+    <script src="js/vendor/swiper-bundle.min.js"></script>
+    <script src="js/script.js"></script>
+    <script src="js/swiper-script.js"></script>
+    <script src="js/submit-form.js"></script>
+    <script src="js/video_embedded.js"></script>
+    <!-- Linking Emoji Mart script for emoji picker -->
+    <script src="https://cdn.jsdelivr.net/npm/emoji-mart@latest/dist/browser.js"></script>
+
+    <!-- Chatbot Widget -->
+    <script src="../js/chatbot-widget.js"></script>
+
+
+    <!-- Banner Animation-->
+    <script>
+        const canvas = document.getElementById('social-float');
+        const ctx = canvas.getContext('2d');
+        const icons = ['♡', '👍', '💬', '⌲', 'in'];
+        const particles = [];
+        const particleCount = 60;
+        let mouse = { x: null, y: null };
+        let scrollForce = 0;
+
+        function resize() {
+            canvas.width = canvas.offsetWidth;
+            canvas.height = canvas.offsetHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        // Track mouse
+        window.addEventListener('mousemove', function (e) {
+            const rect = canvas.getBoundingClientRect();
+            mouse.x = (e.clientX - rect.left) * (canvas.width / rect.width);
+            mouse.y = (e.clientY - rect.top) * (canvas.height / rect.height);
+        });
+
+        // Track scroll
+        window.addEventListener('scroll', function () {
+            scrollForce = 2; // small push on scroll
+        });
+
+        class Particle {
+            constructor() {
+                this.init();
+            }
+            init() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.vx = (Math.random() - 0.5) * 1.5;
+                this.vy = (Math.random() - 0.5) * 1.5;
+                this.size = 16 + Math.random() * 12;
+                this.opacity = 0.2 + Math.random() * 0.5;
+                this.text = icons[Math.floor(Math.random() * icons.length)];
+            }
+            update() {
+                // Normal drift
+                this.x += this.vx;
+                this.y += this.vy;
+
+                // ---- Mouse Repulsion ----
+                if (mouse.x && mouse.y) {
+                    let dx = this.x - mouse.x;
+                    let dy = this.y - mouse.y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 100) { // interaction radius
+                        let force = (100 - distance) / 100;
+                        this.x += dx * force * 0.1;
+                        this.y += dy * force * 0.1;
+                    }
+                }
+
+                // ---- Scroll Push Effect ----
+                if (scrollForce > 0) {
+                    this.y -= scrollForce;
+                }
+
+                // Screen wrap
+                if (this.x < -30) this.x = canvas.width + 30;
+                if (this.x > canvas.width + 30) this.x = -30;
+                if (this.y < -30) this.y = canvas.height + 30;
+                if (this.y > canvas.height + 30) this.y = -30;
+            }
+            draw() {
+                ctx.globalAlpha = this.opacity;
+                ctx.fillStyle = '#f48120';
+                ctx.font = `${this.size}px Arial`;
+                ctx.fillText(this.text, this.x, this.y);
+                ctx.globalAlpha = 1.0;
+            }
+        }
+
+        // Initialize
+        for (let i = 0; i < particleCount; i++) {
+            particles.push(new Particle());
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+            // Gradually reduce scroll effect
+            scrollForce *= 0.9;
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+
+    </script>
+
+</body>
+
+</html>

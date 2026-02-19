@@ -238,7 +238,33 @@
                             </a>
                         </div>
                     </li>
+
                     <li class="nav-item dropdown">
+                        <a id="whitepapers-link" class="nav-link dropdown-toggle" href="#" role="button"
+                            aria-haspopup="true" aria-expanded="false">
+                            WHITEPAPERS <i class="fa-solid fa-angle-down accent-color"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-grid-about">
+                            <a class="dropdown-item" href="./blog.html">
+                                <i class="fas fa-blog"></i>
+                                Blogs
+                            </a>
+                            <a class="dropdown-item" href="./case-studies.html">
+                                <i class="fas fa-file-alt"></i>
+                                Case Studies
+                            </a>
+                            <a class="dropdown-item" href="./article.html">
+                                <i class="fas fa-file-alt"></i>
+                                Articles
+                            </a>
+                            <a class="dropdown-item" href="./feed.html">
+                                <i class="fas fa-rss"></i>
+                                Social Feed
+                            </a>
+                        </div>
+                    </li>
+
+                    <!--li class="nav-item dropdown">
                         <a id="whitepapers-link" class="nav-link dropdown-toggle" href="#" role="button"
                             aria-haspopup="true" aria-expanded="false">
                             WHITEPAPERS <i class="fa-solid fa-angle-down accent-color"></i>
@@ -266,7 +292,8 @@
                                 </div>
                             </a>
                         </div>
-                    </li>
+                    </li-->
+
                     <li class="nav-item">
                         <a class="nav-link" href="./contact.html">CONTACT US</a>
                     </li>
@@ -305,7 +332,7 @@
                 if (solutionsLink) solutionsLink.classList.add('active');
             } else if (pathname.endsWith('/about.html') || pathname.endsWith('/testimonial.html') || pathname.endsWith('/faq.html') || pathname.endsWith('/partnership.html')) {
                 if (aboutLink) aboutLink.classList.add('active');
-            } else if (pathname.endsWith('/blog.html') || pathname.endsWith('/case-studies.html') || pathname.endsWith('/article.html')) {
+            } else if (pathname.endsWith('/blog.html') || pathname.endsWith('/case-studies.html') || pathname.endsWith('/article.html') || pathname.endsWith('/feed.html')) {
                 if (whitepapersLink) whitepapersLink.classList.add('active');
             }
         });
