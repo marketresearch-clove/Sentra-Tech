@@ -15,12 +15,16 @@
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
 
-        // Sync with script.js class logic if body exists
-        if (document.body) {
-            if (theme === 'dark') {
+        // Sync with script.js class logic and localStorage key
+        if (theme === 'dark') {
+            localStorage.removeItem('lightmode');
+            if (document.body) {
                 document.body.classList.add('dark-mode');
                 document.body.classList.remove('lightmode');
-            } else {
+            }
+        } else {
+            localStorage.setItem('lightmode', 'active');
+            if (document.body) {
                 document.body.classList.add('lightmode');
                 document.body.classList.remove('dark-mode');
             }

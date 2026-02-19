@@ -135,7 +135,10 @@ function initThemeSwitch() {
 
     if (localStorage.getItem('lightmode') === 'active') {
         lightMode = true;
-        $('body').addClass('lightmode');
+        $('body').addClass('lightmode').removeClass('dark-mode');
+    } else {
+        lightMode = false;
+        $('body').addClass('dark-mode').removeClass('lightmode');
     }
 
     const updateLogos = () => {
@@ -149,7 +152,7 @@ function initThemeSwitch() {
         const chooseUsIcons = $('img[src*="IoT_icon.png"], img[src*="Digital_Solutions_icon.png"], img[src*="Transparent_icon.png"]');
 
         if (lightMode) {
-            $('body').addClass('lightmode');
+            $('body').addClass('lightmode').removeClass('dark-mode');
             localStorage.setItem('lightmode', 'active');
 
             sidebarLogos.attr('src', pathPrefix + 'image/sentra_black_1.svg');
@@ -170,7 +173,7 @@ function initThemeSwitch() {
                 }
             });
         } else {
-            $('body').removeClass('lightmode');
+            $('body').addClass('dark-mode').removeClass('lightmode');
             localStorage.removeItem('lightmode');
 
             sidebarLogos.attr('src', pathPrefix + 'image/sentra_white_1.svg');

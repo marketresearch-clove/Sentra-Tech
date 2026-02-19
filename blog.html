@@ -69,7 +69,8 @@
             align-items: center;
             justify-content: center;
             margin: 28px;
-            background: radial-gradient(circle at 50% 120%, #2d2e2f 0%, #000 60%);
+            background: radial-gradient(circle at 50% 120%, #2d2e2f 0%, #000 60%) !important;
+            border-radius: 28px;
         }
 
 
@@ -91,29 +92,30 @@
             pointer-events: none;
         }
 
-        .seismic-canvas-fixed {
-            border-radius: 28px;
-        }
-
         body.lightmode .seismic-canvas-fixed,
         [data-theme="light"] .seismic-canvas-fixed {
-            background: #ffffff;
+            background: #ffffff !important;
         }
 
         body.dark-mode .seismic-canvas-fixed,
         [data-theme="dark"] .seismic-canvas-fixed {
-            background: radial-gradient(circle at 50% 120%, #2d2e2f 0%, #000 60%);
+            background: radial-gradient(circle at 50% 120%, #2d2e2f 0%, #000 60%) !important;
         }
 
-        body.lightmode .banner-layout .title-heading {
-            background-image: none;
-            -webkit-text-fill-color: #2d2e2f;
-            color: #2d2e2f;
+        body.lightmode .banner-layout .title-heading,
+        [data-theme="light"] .banner-layout .title-heading {
+            background-image: none !important;
+            -webkit-text-fill-color: #2d2e2f !important;
+            color: #2d2e2f !important;
+            font-weight: 700;
         }
 
-        body.dark-mode .banner-layout .title-heading {
-            background-image: none;
-            -webkit-text-fill-color: var(--primary);
+        body.dark-mode .banner-layout .title-heading,
+        [data-theme="dark"] .banner-layout .title-heading {
+            background-image: none !important;
+            -webkit-text-fill-color: var(--primary) !important;
+            color: var(--primary) !important;
+            font-weight: 700;
         }
     </style>
 
