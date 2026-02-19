@@ -5,8 +5,8 @@
 (function () {
     'use strict';
 
-    // Check for saved theme preference or default to 'light'
-    const currentTheme = localStorage.getItem('theme') || 'light';
+    // Check for saved theme preference or default to 'dark'
+    const currentTheme = localStorage.getItem('theme') || 'dark';
     const themeSwitch = document.getElementById('themeSwitch');
     const themeIcon = document.getElementById('themeIcon');
 
@@ -14,6 +14,17 @@
     function applyTheme(theme) {
         document.documentElement.setAttribute('data-theme', theme);
         localStorage.setItem('theme', theme);
+
+        // Sync with script.js class logic if body exists
+        if (document.body) {
+            if (theme === 'dark') {
+                document.body.classList.add('dark-mode');
+                document.body.classList.remove('lightmode');
+            } else {
+                document.body.classList.add('lightmode');
+                document.body.classList.remove('dark-mode');
+            }
+        }
 
         // Update icon based on theme
         if (themeIcon) {

@@ -69,7 +69,7 @@
             align-items: center;
             justify-content: center;
             margin: 28px;
-            background-color: #ffffff;
+            background-color: var(--secondary);
         }
 
 
@@ -179,7 +179,7 @@
 
         <div style="padding-left: 20px; padding-right: 20px; padding-bottom: 20px; height: auto;">
             <iframe src="https://widgets.sociablekit.com/linkedin-page-posts/iframe/25655935" frameborder="0"
-                width="100%" height="1000px"></iframe>
+                width="100%" height="1000px" background-color="#000000"></iframe>
         </div>
 
     </main>
@@ -207,7 +207,7 @@
     <script>
         const canvas = document.getElementById('social-float');
         const ctx = canvas.getContext('2d');
-        const icons = ['♡', '👍', '💬', '⌲', 'in'];
+        const icons = ['📢', '♡', '👍', '💬', '⌲', 'in'];
         const particles = [];
         const particleCount = 60;
         let mouse = { x: null, y: null };
