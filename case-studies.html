@@ -59,7 +59,7 @@
             align-items: center;
             justify-content: center;
             margin: 28px;
-            background-color: var(--secondary);
+            background: radial-gradient(circle at 50% 120%, #2d2e2f 0%, #000 60%);
         }
 
 
@@ -85,8 +85,14 @@
             border-radius: 28px;
         }
 
-        body.lightmode .seismic-canvas-fixed {
-            background-color: #ffffff;
+        body.lightmode .seismic-canvas-fixed,
+        [data-theme="light"] .seismic-canvas-fixed {
+            background: #ffffff;
+        }
+
+        body.dark-mode .seismic-canvas-fixed,
+        [data-theme="dark"] .seismic-canvas-fixed {
+            background: radial-gradient(circle at 50% 120%, #2d2e2f 0%, #000 60%);
         }
 
         body.lightmode .banner-layout .title-heading {
