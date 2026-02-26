@@ -55,29 +55,26 @@ $(function () {
 
 $(function () {
     $('.swiper.swiperProducts').each(function () {
-        var $this = $(this);
-        var slidesCount = $this.find('.swiper-slide').length;
-
         var swiperProducts = new Swiper(this, {
             autoplay: {
-                delay: 0,
+                delay: 2500,
                 disableOnInteraction: false,
                 pauseOnMouseEnter: true,
             },
-            speed: 5000,
-            loop: slidesCount >= 2,
-            loopAdditionalSlides: 4,
-            watchSlidesProgress: true,
+            speed: 1000,
+            loop: true,
             slidesPerView: 1,
             spaceBetween: 10,
             grabCursor: true,
+            observer: true,
+            observeParents: true,
             breakpoints: {
                 1200: {
-                    slidesPerView: 4,
+                    slidesPerView: 2,
                     spaceBetween: 30,
                 },
                 992: {
-                    slidesPerView: 3,
+                    slidesPerView: 2,
                     spaceBetween: 20,
                 },
                 768: {
@@ -85,9 +82,8 @@ $(function () {
                     spaceBetween: 15,
                 },
                 0: {
-                    slidesPerView: 1.2,
+                    slidesPerView: 1,
                     spaceBetween: 10,
-                    centeredSlides: true,
                 },
             },
             pagination: {

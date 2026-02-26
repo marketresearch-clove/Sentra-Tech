@@ -134,7 +134,7 @@
 [data-theme="dark"] .card,
 [data-theme="dark"] .product-card {
     background-color: var(--card-bg);
-    border: 1px solid var(--border-color);
+    border: 0px solid var(--border-color);
     color: var(--text-color);
 }
 

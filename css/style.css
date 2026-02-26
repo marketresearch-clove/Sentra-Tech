@@ -4615,12 +4615,25 @@ body.lightmode .blog-content::before {
     transition: all 0.4s ease;
 }
 
+@media (min-width: 992px) {
+    .card-blog {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
 .card-blog .card-body {
     display: flex;
     flex-direction: column;
     gap: 20px 20px;
     padding: 30px 30px 30px 30px;
     text-align: start;
+    flex-grow: 1;
+}
+
+.swiperProducts .blog-image {
+    height: 250px !important;
 }
 
 .card-blog .card_footer {
@@ -4637,6 +4650,72 @@ body.lightmode .blog-content::before {
     -webkit-transform: scale(1.05) rotate(2deg);
     transform: scale(1.05) rotate(2deg);
     opacity: .8;
+}
+
+.blog-tag {
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
+    background: #dfcaa0;
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #000;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-transform: uppercase;
+    z-index: 100;
+}
+
+.share-title {
+    font-weight: 700;
+    margin-bottom: 0;
+    color: #f48120;
+}
+
+body.lightmode .share-title {
+    color: #2d2e2f;
+}
+
+@media (max-width: 768px) {
+    .blog-link {
+        font-size: 1.5rem !important;
+    }
+}
+
+body.lightmode .blog-tag {
+    background: #f48120;
+    color: #fff;
+}
+
+.learn-more-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: auto;
+    text-decoration: none;
+    color: #fff;
+    font-weight: 600;
+}
+
+body.lightmode .learn-more-container {
+    color: #000;
+}
+
+.learn-more-container:hover {
+    color: #f48120;
+}
+
+.arrow-icon {
+    width: 32px;
+    height: 32px;
+    background: #222;
+    color: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
 }
 
 .blog-image {
@@ -5096,7 +5175,7 @@ body.lightmode .avatar {
     flex-direction: column;
     width: 100%;
     height: 100%;
-    border-radius: 25px 25px 0px 0px;
+    border-radius: 25px 25px 25px 25px;
     padding: 2px 2px 0px 2px;
     position: relative;
     overflow: hidden;
@@ -8623,4 +8702,20 @@ body.lightmode .contact-page-list a h5:hover {
 
 .fa-moon {
     color: rgb(255, 255, 255);
+}
+
+/* Swiper Products Horizontal fix */
+.swiper.swiperProducts {
+    overflow: hidden !important;
+    width: 100% !important;
+}
+
+.swiper.swiperProducts .swiper-wrapper {
+    display: flex !important;
+    flex-direction: row !important;
+}
+
+.swiper.swiperProducts .swiper-slide {
+    height: auto !important;
+    flex-shrink: 0 !important;
 }

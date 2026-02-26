@@ -42,7 +42,19 @@
         href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200"
         rel="stylesheet" />
 
+    <link rel="stylesheet" href="../css/vendor/swiper-bundle.min.css">
     <style>
+        .visually-hidden {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            margin: -1px;
+            padding: 0;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            border: 0;
+        }
+
         #ttsPlayBtn {
             background-color: #f48120;
             color: white;
@@ -58,24 +70,19 @@
             background-color: #000000;
         }
 
-
         .word {
             transition: background-color 0.12s ease;
             padding: 0 1px;
             border-radius: 2px;
         }
 
-        /* Default highlight (for dark mode or general) */
         .highlight {
             background-color: #f48120;
-            /* orange */
             transition: background-color 0.15s ease;
         }
 
-        /* When the page is in light mode */
         body.lightmode .highlight {
             background-color: #ffe082;
-            /* soft yellow */
         }
 
         .tts-controls {
@@ -119,22 +126,35 @@
             width: 0%;
             transition: width 0.3s ease;
         }
+
+        .conclusion-btn-wrapper {
+            margin-bottom: 30px;
+        }
+
+        .swiperProducts .card-blog {
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 992px) {
+            .swiperProducts .card-blog {
+                width: 600px !important;
+                height: 400px !important;
+            }
+        }
+
+        .swiperProducts .blog-image {
+            height: 250px !important;
+        }
+
+        .card-body {
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
     </style>
     <link rel="canonical"
         href="https://sentratech.in/blogs/real-time-monitoring-solutions-transforming-infrastructure-safety-performance.html">
-
-    <style>
-        .visually-hidden {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            margin: -1px;
-            padding: 0;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            border: 0;
-        }
-    </style>
 </head>
 
 <body>
@@ -223,34 +243,6 @@
                                     <h6 id="scrollToConclusion" class="blog-contents">The Future of Infrastructure</h6>
                                 </a>
                             </div>
-                            <div class="card recent-post">
-                                <h4>Recent Blog</h4>
-                                <div class="d-flex flex-row w-100 gspace-1">
-                                    <div class="image-container">
-                                        <img src="../image/shm.jpg" alt="Recent Post" class="img-fluid">
-                                    </div>
-                                    <div class="d-grid">
-                                        <div class="d-flex flex-row gspace-1 align-items-center">
-                                            <i class="fa-solid fa-calendar accent-color"></i>
-                                            <span class="meta-data-post">Sept 25, 2025</span>
-                                        </div>
-                                        <a href="#" class="blog-link-post">IoT / Structural Health
-                                            Monitoring</a>
-                                    </div>
-                                </div>
-                                <div class="d-flex flex-row w-100 gspace-1">
-                                    <div class="image-container">
-                                        <img src="../image/fatigue.jpg" alt="Recent Post" class="img-fluid">
-                                    </div>
-                                    <div class="d-grid">
-                                        <div class="d-flex flex-row gspace-1 align-items-center">
-                                            <i class="fa-solid fa-calendar accent-color"></i>
-                                            <span class="meta-data-post">April 14, 2025</span>
-                                        </div>
-                                        <a href="#" class="blog-link-post">Fatigue Life Assessment</a>
-                                    </div>
-                                </div>
-                            </div>
 
 
                             <div class="cta-service-banner">
@@ -282,7 +274,7 @@
                                 <div class="d-flex flex-row align-items-center gspace-2">
                                     <div class="d-flex flex-row gspace-1 align-items-center">
                                         <i class="fa-solid fa-calendar accent-color"></i>
-                                        <span class="meta-data-post">Dec 2025</span>
+                                        <span class="meta-data-post">Dec 10, 2025</span>
                                     </div>
                                     <div class="d-flex flex-row gspace-1 align-items-center">
                                         <i class="fa-solid fa-folder accent-color"></i>
@@ -518,14 +510,135 @@
                                     <a class="conclusion-btn" href="/contact.html" role="button">Contact us</a>
                                 </div>
                             </div>
+                            <div class="underline-muted-full"></div>
+
+                            <div
+                                class="d-flex flex-column flex-md-row justify-content-between gspace-3 align-items-center">
+                                <div class="d-flex flex-row gspace-1 align-items-center">
+                                    <h5 class="share-title">Share This Post:
+                                    </h5>
+                                    <div class="d-flex flex-row gspace-1">
+                                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://sentratech.in/blogs/real-time-monitoring-solutions-transforming-infrastructure-safety-performance.html"
+                                            target="_blank" class="social-icon-blog"><i
+                                                class="fa-brands fa-facebook-f"></i></a>
+                                        <a href="https://x.com/intent/tweet?url=https://sentratech.in/blogs/real-time-monitoring-solutions-transforming-infrastructure-safety-performance.html&text=Real-Time%20Monitoring%20Solutions%20-%20Infrastructure%20Safety%20%26%20Performance%20%7C%20Sentra"
+                                            target="_blank" class="social-icon-blog"><i
+                                                class="fa-brands fa-x-twitter"></i></a>
+                                        <a href="https://www.linkedin.com/sharing/share-offsite/?url=https://sentratech.in/blogs/real-time-monitoring-solutions-transforming-infrastructure-safety-performance.html"
+                                            target="_blank" class="social-icon-blog"><i
+                                                class="fa-brands fa-linkedin-in"></i></a>
+                                        <a href="https://api.whatsapp.com/send?text=Real-Time%20Monitoring%20Solutions%20-%20Infrastructure%20Safety%20%26%20Performance%20%7C%20Sentra%20https://sentratech.in/blogs/real-time-monitoring-solutions-transforming-infrastructure-safety-performance.html"
+                                            target="_blank" class="social-icon-blog"><i
+                                                class="fa-brands fa-whatsapp"></i></a>
+                                    </div>
+                                </div>
+                                <div class="link-wrapper">
+                                    <a href="blog.html" class="read-more" style="color: #f48120; font-weight: 700;">Back
+                                        to Blog</a>
+                                    <i class="fa-solid fa-circle-arrow-left accent-color"
+                                        style="font-size: 1.2rem;"></i>
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                </div>
 
-
-
+                <div class="spacer" style="height: 80px;"></div>
+                <div class="hero-container">
+                    <div class="d-flex flex-column gspace-2">
+                        <h3 class="title-heading">Recent Blogs</h3>
+                        <div class="swiper swiperProducts">
+                            <div class="swiper-wrapper">
+                                <!-- Blog 1 -->
+                                <div class="swiper-slide">
+                                    <div class="card card-blog"
+                                        onclick="window.location.href='./blogs/advanced-iot-solutions.html'"
+                                        style="cursor: pointer;">
+                                        <div class="blog-image"
+                                            style="background: url('../image/article_1.png') center/cover no-repeat;">
+                                            <div class="blog-tag">Smart Pumping</div>
+                                        </div>
+                                        <div class="card-body">
+                                            <a href="./blogs/advanced-iot-solutions.html" class="blog-link">Advanced IoT
+                                                Solutions</a>
+                                            <div class="learn-more-container">
+                                                <span>Read more</span>
+                                                <div class="arrow-icon">
+                                                    <i class="fa-solid fa-arrow-right"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Blog 2 -->
+                                <div class="swiper-slide">
+                                    <div class="card card-blog"
+                                        onclick="window.location.href='./blogs/fatigue-life-assessment.html'"
+                                        style="cursor: pointer;">
+                                        <div class="blog-image"
+                                            style="background: url('../image/fatigue.jpg') center/cover no-repeat;">
+                                            <div class="blog-tag">Guides</div>
+                                        </div>
+                                        <div class="card-body">
+                                            <a href="./blogs/fatigue-life-assessment.html" class="blog-link">Fatigue
+                                                Life
+                                                Assessment</a>
+                                            <div class="learn-more-container">
+                                                <span>Read more</span>
+                                                <div class="arrow-icon">
+                                                    <i class="fa-solid fa-arrow-right"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Blog 3 -->
+                                <div class="swiper-slide">
+                                    <div class="card card-blog"
+                                        onclick="window.location.href='./blogs/asset-monitoring-facility-management.html'"
+                                        style="cursor: pointer;">
+                                        <div class="blog-image"
+                                            style="background: url('../image/asset_monitoring_banner.png') center/cover no-repeat;">
+                                            <div class="blog-tag">Services</div>
+                                        </div>
+                                        <div class="card-body">
+                                            <a href="./blogs/asset-monitoring-facility-management.html"
+                                                class="blog-link">Asset Monitoring & Facility Management</a>
+                                            <div class="learn-more-container">
+                                                <span>Read more</span>
+                                                <div class="arrow-icon">
+                                                    <i class="fa-solid fa-arrow-right"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Blog 4 -->
+                                <div class="swiper-slide">
+                                    <div class="card card-blog"
+                                        onclick="window.location.href='./blogs/intelligent-pump-house-monitoring-and-control.html'"
+                                        style="cursor: pointer;">
+                                        <div class="blog-image"
+                                            style="background: url('../image/revolutionary_IOT.png') center/cover no-repeat;">
+                                            <div class="blog-tag">Smart Pumping</div>
+                                        </div>
+                                        <div class="card-body">
+                                            <a href="./blogs/intelligent-pump-house-monitoring-and-control.html"
+                                                class="blog-link">Intelligent Pump House Monitoring</a>
+                                            <div class="learn-more-container">
+                                                <span>Read more</span>
+                                                <div class="arrow-icon">
+                                                    <i class="fa-solid fa-arrow-right"></i>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         </div>
     </main>
 
