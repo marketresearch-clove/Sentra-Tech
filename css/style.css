@@ -4332,6 +4332,16 @@ body.lightmode .case-studies-content::before {
     width: 56.2%;
 }
 
+.case-studies-content.IoT-solutions {
+    background-image: url('../image/blog-iot-monitoring.webp');
+    width: 56.2%;
+}
+
+.case-studies-content.pump-monitoring {
+    background-image: url('../image/blog-pump-house-monitoring.webp');
+    width: 42%;
+}
+
 .case-studies-component {
     display: flex;
     flex-direction: row;

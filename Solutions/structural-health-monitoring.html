@@ -95,6 +95,40 @@
             background-image: none;
             -webkit-text-fill-color: #2d2e2f;
         }
+
+        .iframe-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        iframe {
+            border: none;
+        }
+
+        /* Desktop */
+        @media (min-width: 1025px) {
+            iframe {
+                width: 864px;
+                height: 410px;
+            }
+        }
+
+        /* Tablet */
+        @media (min-width: 601px) and (max-width: 1024px) {
+            iframe {
+                width: 800px;
+                height: 400px;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            iframe {
+                width: 340px;
+                height: 550px;
+            }
+        }
     </style>
 </head>
 
@@ -203,6 +237,11 @@
                                         </div>
                                     </div>
                                 </div>
+                                <h4 class="product-headings">Solution Demo</h4>
+                                <div class="iframe-container">
+                                    <iframe src="https://sentra-shm.netlify.app/"></iframe>
+                                </div>
+
                                 <div class="card service-included">
                                     <h4 class="product-headings">What's Included</h4>
                                     <div class="underline-accent-short"></div>
