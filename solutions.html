@@ -50,6 +50,40 @@
             clip: rect(0, 0, 0, 0);
             border: 0;
         }
+
+        .iframe-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        iframe {
+            border: none;
+        }
+
+        /* Desktop */
+        @media (min-width: 1025px) {
+            iframe {
+                width: 864px;
+                height: 410px;
+            }
+        }
+
+        /* Tablet */
+        @media (min-width: 601px) and (max-width: 1024px) {
+            iframe {
+                width: 800px;
+                height: 400px;
+            }
+        }
+
+        /* Mobile */
+        @media (max-width: 600px) {
+            iframe {
+                width: 340px;
+                height: 550px;
+            }
+        }
     </style>
     <link rel="stylesheet" href="./css/chatbot.css">
     <link
@@ -380,6 +414,24 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <!-- Section Flagship Solution Demo -->
+    <div class="d-flex flex-column justify-content-center text-center gspace-2">
+        <div class="sub-heading align-self-center animate-box animated animate__animated"
+            data-animate="animate__fadeInDown">
+            <i class="fa-regular fa-circle-dot"></i>
+            <span>Our Flagship Solution Demo</span>
+        </div>
+        <h2 class="title-heading heading-container heading-container-medium animate-box animated animate__animated"
+            data-animate="animate__fadeInDown">Below is an interactive, real-time demo replica of our flagship SHM
+            solution.</h2>
+        <div class="iframe-container">
+            <iframe src="https://sentra-shm.netlify.app/"></iframe>
+        </div>
+        <p class="text-center text-gray-500" style="font-size: 12px;">
+            * This demo provides a live preview of the solution — it simulates real-time behavior.
+        </p>
     </div>
 
     <!-- Section Digital Process -->

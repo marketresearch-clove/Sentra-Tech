@@ -4322,6 +4322,11 @@ body.lightmode .case-studies-content::before {
     width: 42%;
 }
 
+.case-studies-content.hidden-structural-damages {
+    background-image: url('../image/blogs-top-5-hiddeen-structural-damages.webp');
+    width: 56.2%;
+}
+
 .ecommerce {
     background-image: url('../image/innovative_bridge_solutions.jpg');
     width: 42%;

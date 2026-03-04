@@ -152,6 +152,63 @@
             flex-direction: column;
             flex-grow: 1;
         }
+
+        .seismic-canvas-fixed {
+            position: relative;
+            overflow: hidden;
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 28px;
+            background: radial-gradient(circle at 50% 120%, #2d2e2f 0%, #000 60%) !important;
+            border-radius: 28px;
+        }
+
+
+
+        .seismic-canvas-fixed canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100% !important;
+            height: 100% !important;
+            z-index: 0;
+            cursor: ns-resize;
+        }
+
+        .seismic-canvas-fixed .banner-layout {
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            pointer-events: none;
+        }
+
+        body.lightmode .seismic-canvas-fixed,
+        [data-theme="light"] .seismic-canvas-fixed {
+            background: #ffffff !important;
+        }
+
+        body.dark-mode .seismic-canvas-fixed,
+        [data-theme="dark"] .seismic-canvas-fixed {
+            background: radial-gradient(circle at 50% 120%, #2d2e2f 0%, #000 60%) !important;
+        }
+
+        body.lightmode .banner-layout .title-heading,
+        [data-theme="light"] .banner-layout .title-heading {
+            background-image: none !important;
+            -webkit-text-fill-color: #2d2e2f !important;
+            color: #2d2e2f !important;
+            font-weight: 700;
+        }
+
+        body.dark-mode .banner-layout .title-heading,
+        [data-theme="dark"] .banner-layout .title-heading {
+            background-image: none !important;
+            -webkit-text-fill-color: var(--primary) !important;
+            color: var(--primary) !important;
+            font-weight: 700;
+        }
     </style>
     <link rel="canonical"
         href="https://sentratech.in/blogs/real-time-monitoring-solutions-transforming-infrastructure-safety-performance.html">
@@ -180,7 +237,7 @@
 
     <!-- Section Main Content -->
     <main>
-        <!-- Section Banner -->
+        <!-- Section Banner 
         <div class="section-banner">
             <div class="banner-layout-wrapper">
                 <div class="banner-layout">
@@ -191,6 +248,21 @@
                     </div>
                     <div class="spacer"></div>
                 </div>
+            </div>
+        </div>-->
+
+
+        <!-- Section Banner 2 -->
+
+        <div class="seismic-canvas-fixed" id="seismic-banner-fixed">
+            <canvas id="cyber-stream"></canvas>
+            <div class="banner-layout">
+                <div class="d-flex flex-column text-center align-items-center gspace-2">
+                    <h2 class="title-heading animate-box animated animate__animated"
+                        data-animate="animate__fadeInRight">
+                        Real-Time Monitoring Solutions</h2>
+                </div>
+                <div class="spacer"></div>
             </div>
         </div>
 
@@ -555,7 +627,7 @@
                                         onclick="window.location.href='./blogs/advanced-iot-solutions.html'"
                                         style="cursor: pointer;">
                                         <div class="blog-image"
-                                            style="background: url('../image/article_1.png') center/cover no-repeat;">
+                                            style="background: url('../image/blog-advanced-iot-solutions.webp') center/cover no-repeat;">
                                             <div class="blog-tag">Smart Pumping</div>
                                         </div>
                                         <div class="card-body">
@@ -580,7 +652,8 @@
                                             <div class="blog-tag">Guides</div>
                                         </div>
                                         <div class="card-body">
-                                            <a href="./blogs/fatigue-life-assessment.html" class="blog-link">Fatigue
+                                            <a href="./blogs/fatigue-life-assessment.html" class="blog-link">Asset
+                                                Monitoring & Fatigue
                                                 Life
                                                 Assessment</a>
                                             <div class="learn-more-container">
@@ -598,7 +671,7 @@
                                         onclick="window.location.href='./blogs/asset-monitoring-facility-management.html'"
                                         style="cursor: pointer;">
                                         <div class="blog-image"
-                                            style="background: url('../image/asset_monitoring_banner.png') center/cover no-repeat;">
+                                            style="background: url('../image/blog-asset-monitoring-and-facility-management.webp') center/cover no-repeat;">
                                             <div class="blog-tag">Services</div>
                                         </div>
                                         <div class="card-body">
@@ -619,7 +692,7 @@
                                         onclick="window.location.href='./blogs/intelligent-pump-house-monitoring-and-control.html'"
                                         style="cursor: pointer;">
                                         <div class="blog-image"
-                                            style="background: url('../image/revolutionary_IOT.png') center/cover no-repeat;">
+                                            style="background: url('../image/blog-pump-house-monitoring.webp') center/cover no-repeat;">
                                             <div class="blog-tag">Smart Pumping</div>
                                         </div>
                                         <div class="card-body">
@@ -1017,7 +1090,37 @@
     <!-- Chatbot Widget -->
     <script src="../js/chatbot-widget.js"></script>
 
-
+    <!-- Banner Animation-->
+    <script>
+        const canvas = document.getElementById('cyber-stream');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = 600;
+        const characters = "010101SENTRA";
+        const fontSize = 16;
+        const columns = canvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+        function draw() {
+            // Use different background colors based on body class
+            if (document.body.classList.contains('lightmode')) {
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.05)'; // White background for light mode
+            } else {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)'; // Black background for dark mode
+            }
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = '#ff8800'; // Sentra Orange
+            ctx.font = fontSize + 'px monospace';
+            for (let i = 0; i < drops.length; i++) {
+                const text = characters.charAt(Math.floor(Math.random() * characters.length));
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+                drops[i]++;
+            }
+        }
+        setInterval(draw, 33);
+    </script>
 </body>
 
 </html>

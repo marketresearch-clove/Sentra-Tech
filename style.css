@@ -4326,6 +4326,11 @@ body.lightmode .case-studies-content::before {
     width: 56.2%;
 }
 
+.case-studies-content.hidden-structural-damages {
+    background-image: url('../image/blogs-top-5-hiddeen-structural-damages.webp');
+    width: 56.2%;
+}
+
 .case-studies-component {
     display: flex;
     flex-direction: row;
